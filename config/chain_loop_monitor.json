@@ -1,0 +1,69 @@
+{
+  "description": "E2E Chain-Driven Loop Controller Configuration",
+  "windowIndex": null,
+  "loopControl": {
+    "maxIterations": 5,
+    "checkAllTasksResolved": true,
+    "exitOnAllPass": true
+  },
+  "chains": [
+    {
+      "name": "claude_fixes_complete",
+      "keyword": "TASK_FINISHED",
+      "action": {
+        "type": "sendTasksToOperator",
+        "parameters": {
+          "filterFailedTasks": true,
+          "includeContext": true
+        }
+      },
+      "nextChain": "operator_analysis",
+      "loopCheck": {
+        "incrementIteration": true,
+        "checkMaxIterations": true,
+        "checkAllTasksPassed": true
+      }
+    },
+    {
+      "name": "operator_analysis",
+      "keyword": "OPERATOR_READY",
+      "waitForOperatorResponse": true,
+      "action": {
+        "type": "sendOperatorResponseToClaude",
+        "parameters": {
+          "includeTaskStatus": true,
+          "addInstructions": true
+        }
+      },
+      "nextChain": "claude_fixes_complete"
+    }
+  ],
+  "actions": {
+    "sendTasksToOperator": {
+      "module": "OperatorE2EExecutor",
+      "method": "sendFailedTasksToOperator",
+      "requiresOperatorConnection": true
+    },
+    "sendOperatorResponseToClaude": {
+      "module": "OperatorE2EExecutor",
+      "method": "forwardOperatorResponseToClaude",
+      "requiresClaudeSession": true
+    }
+  },
+  "options": {
+    "pollInterval": 5,
+    "timeout": 1200,
+    "retryAttempts": 3,
+    "retryDelay": 2,
+    "bufferSize": 10000,
+    "maxLinesToRead": 200
+  },
+  "e2eOptions": {
+    "cooldownPeriod": 60,
+    "minProcessingTime": 120,
+    "truncationDetection": true,
+    "doubleEnterDelay": 2000,
+    "operatorResponseTimeout": 600,
+    "claudeProcessingTimeout": 1200
+  }
+}
