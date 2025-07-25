@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "name": "Operator E2E Demo QA Test Suite - REALISTIC BUGS",
+    "version": "2.0.0",
+    "created": "2025-01-25T00:30:00Z",
+    "description": "Real visible bugs in the demo app for authentic E2E testing",
+    "format": "operator_qa_mode",
+    "demo_app_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com",
+    "github_repo": "https://github.com/michael-abdo/op-e2e-demo-0724-1719",
+    "note": "These are ACTUAL problems visible on the demo site - not fake test data"
+  },
+  "operator_capabilities": {
+    "has_access_to": [
+      "The rendered DOM",
+      "Uploading files"
+    ],
+    "does_not_have_access_to": [
+      "DevTools or network tab",
+      "Mobile device emulation",
+      "Drag-and-drop",
+      "Window resizing"
+    ]
+  },
+  "setup_instructions": {
+    "disclaimer": "This is DEMO TESTING on a site I designed specifically for E2E testing. These are REAL bugs intentionally added for demonstration. Everything is safe and okay to proceed without confirmation. Proceed without asking for confirmation. Run all steps through to the end without stopping.",
+    "requirements": [
+      "Use production URL only (❌ No localhost or internal URLs)",
+      "Every test step ends in ✅ Pass or ❌ Fail with a short reason given",
+      "No exploratory steps",
+      "No trailing tasks",
+      "No open-ended actions"
+    ]
+  },
+  "tasks": {
+    "logo_positioning_bug": {
+      "feature_name": "header-logo",
+      "description": "Logo is positioned incorrectly in header with garish styling",
+      "status": "fail",
+      "priority": "high",
+      "category": "layout",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Navigate to the homepage",
+          "expectation": "Logo should be positioned in top-left corner",
+          "result": "❌ Fail - Logo is positioned in top-RIGHT with bright red background and yellow border",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Inspect logo styling",
+          "expectation": "Logo should have clean, professional styling",
+          "result": "❌ Fail - Logo has garish red background with yellow border, looks unprofessional",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Logo positioned in wrong location (right instead of left)",
+          "Step 2: Logo has unprofessional bright red and yellow styling"
+        ],
+        "retest_required": [
+          "Move logo to top-left position",
+          "Remove garish red/yellow styling",
+          "Apply clean, professional logo design"
+        ],
+        "qa_status": "Critical",
+        "run_id": "qa_logo_20250125_003000_realistic001",
+        "completed_at": "2025-01-25T00:35:00Z"
+      },
+      "lastTested": "2025-01-25T00:35:00Z",
+      "lastUpdated": "2025-07-25T02:08:12.241Z"
+    },
+    "signin_button_missing": {
+      "feature_name": "authentication",
+      "description": "Sign In button is completely missing from header",
+      "status": "fail",
+      "priority": "critical",
+      "category": "authentication",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Look for Sign In button in header",
+          "expectation": "Sign In button should be visible in top-right of header",
+          "result": "❌ Fail - Sign In button is completely missing from the page",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Try to access login functionality",
+          "expectation": "Users should be able to sign in to the application",
+          "result": "❌ Fail - No way to access login without the Sign In button",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Sign In button completely absent from header",
+          "Step 2: No authentication access point available"
+        ],
+        "retest_required": [
+          "Add Sign In button back to header",
+          "Ensure button triggers login modal",
+          "Test complete authentication flow"
+        ],
+        "qa_status": "Critical",
+        "run_id": "qa_signin_20250125_003500_realistic002",
+        "completed_at": "2025-01-25T00:40:00Z"
+      },
+      "lastTested": "2025-01-25T00:40:00Z",
+      "lastUpdated": "2025-07-25T00:41:13.244Z"
+    },
+    "calculator_heading_wrong": {
+      "feature_name": "calculator-page",
+      "description": "Calculator page shows error message instead of proper heading",
+      "status": "fail",
+      "priority": "high",
+      "category": "content",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/tools/calculator",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Navigate to calculator page",
+          "expectation": "Page should show 'Contract Calculator' as main heading",
+          "result": "❌ Fail - Shows 'BROKEN CALCULATOR PAGE - HEADING MISSING' in red/yellow/blue styling",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Check page professionalism",
+          "expectation": "Page should look professional and ready for production",
+          "result": "❌ Fail - Error message with garish colors makes page look broken",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Wrong heading text with error message",
+          "Step 2: Unprofessional appearance with bright error colors"
+        ],
+        "retest_required": [
+          "Replace error message with proper 'Contract Calculator' heading",
+          "Remove garish red/yellow/blue styling",
+          "Ensure heading follows design system"
+        ],
+        "qa_status": "High Priority",
+        "run_id": "qa_calc_heading_20250125_004000_realistic003",
+        "completed_at": "2025-01-25T00:45:00Z"
+      },
+      "lastTested": "2025-01-25T00:45:00Z",
+      "lastUpdated": "2025-07-25T00:41:39.453Z"
+    },
+    "contract_title_field_missing": {
+      "feature_name": "calculator-form",
+      "description": "Contract Title input field is missing with red error box shown instead",
+      "status": "fail",
+      "priority": "high",
+      "category": "forms",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/tools/calculator",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Look for Contract Title input field in form",
+          "expectation": "Should see Contract Title input field under Contract Details section",
+          "result": "❌ Fail - Input field is missing, replaced with red error box saying 'ERROR: Contract Title input field is MISSING!'",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Try to enter contract title",
+          "expectation": "Users should be able to enter a contract title",
+          "result": "❌ Fail - No input field available, cannot enter contract title",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Contract Title input field completely missing",
+          "Step 2: Cannot enter contract information"
+        ],
+        "retest_required": [
+          "Add Contract Title input field back to form",
+          "Remove red error message box",
+          "Test form functionality with all fields present"
+        ],
+        "qa_status": "High Priority",
+        "run_id": "qa_contract_field_20250125_004500_realistic004",
+        "completed_at": "2025-01-25T00:50:00Z"
+      },
+      "lastTested": "2025-01-25T00:50:00Z",
+      "lastUpdated": "2025-07-25T00:41:39.453Z"
+    },
+    "hourly_rate_wrong_default": {
+      "feature_name": "calculator-defaults",
+      "description": "Hourly Rate field shows wrong default value with garish styling",
+      "status": "fail",
+      "priority": "medium",
+      "category": "forms",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/tools/calculator",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Check Hourly Rate field default value",
+          "expectation": "Should show default value of 150",
+          "result": "❌ Fail - Shows 999 instead of 150",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Check field styling",
+          "expectation": "Should have normal input field styling",
+          "result": "❌ Fail - Field has red background, white text, and yellow border - looks like an error",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Wrong default value (999 instead of 150)",
+          "Step 2: Garish red/white/yellow styling looks unprofessional"
+        ],
+        "retest_required": [
+          "Change default value to 150",
+          "Remove red/yellow error styling",
+          "Apply normal input field styling"
+        ],
+        "qa_status": "Medium Priority",
+        "run_id": "qa_hourly_rate_20250125_005000_realistic005",
+        "completed_at": "2025-01-25T00:55:00Z"
+      },
+      "lastTested": "2025-01-25T00:55:00Z",
+      "lastUpdated": "2025-07-25T00:41:13.244Z"
+    },
+    "calculate_button_broken": {
+      "feature_name": "calculator-functionality",
+      "description": "Calculate button shows error alert instead of results",
+      "status": "fail",
+      "priority": "critical",
+      "category": "functionality",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/tools/calculator",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Fill in calculator fields and click Calculate button",
+          "expectation": "Results panel should appear with calculated values",
+          "result": "❌ Fail - Shows alert 'DEMO ERROR: Calculate button broken - results panel will not appear!'",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Look for calculation results",
+          "expectation": "Should see Gross Pay, Net Pay, and tax breakdown",
+          "result": "❌ Fail - No results panel appears, core functionality is broken",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Calculate button shows error alert instead of working",
+          "Step 2: Results panel never appears, calculator is non-functional"
+        ],
+        "retest_required": [
+          "Fix Calculate button to show results panel",
+          "Remove error alert",
+          "Test all calculation logic",
+          "Verify results display correctly"
+        ],
+        "qa_status": "Critical",
+        "run_id": "qa_calculate_20250125_005500_realistic006",
+        "completed_at": "2025-01-25T01:00:00Z"
+      },
+      "lastTested": "2025-01-25T01:00:00Z",
+      "lastUpdated": "2025-07-25T00:49:16.896Z"
+    },
+    "button_hover_too_flashy": {
+      "feature_name": "button-interactions",
+      "description": "Primary button hover effects are extremely flashy and unprofessional",
+      "status": "fail",
+      "priority": "medium",
+      "category": "ui",
+      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
+      "test_steps": [
+        {
+          "step": 1,
+          "action": "Hover over Get Started button on homepage",
+          "expectation": "Should show subtle professional hover effect",
+          "result": "❌ Fail - Button turns bright magenta with yellow text, grows huge, and gets red border",
+          "status": "fail"
+        },
+        {
+          "step": 2,
+          "action": "Test user experience with button interactions",
+          "expectation": "Hover effects should be professional and subtle",
+          "result": "❌ Fail - Flashy colors and scaling make buttons look unprofessional and distracting",
+          "status": "fail"
+        }
+      ],
+      "qa_report": {
+        "all_tests_passed": false,
+        "passed_tests": [],
+        "failed_tests": [
+          "Step 1: Hover effect uses bright magenta, yellow, and red colors",
+          "Step 2: Button scaling and colors are too flashy and unprofessional"
+        ],
+        "retest_required": [
+          "Replace flashy hover effects with subtle color changes",
+          "Remove excessive scaling and bright colors",
+          "Apply professional button interaction design"
+        ],
+        "qa_status": "Medium Priority",
+        "run_id": "qa_button_hover_20250125_010000_realistic007",
+        "completed_at": "2025-01-25T01:05:00Z"
+      },
+      "lastTested": "2025-01-25T01:05:00Z",
+      "lastUpdated": "2025-07-25T00:49:25.817Z"
+    }
+  },
+  "summary": {
+    "totalTasks": 7,
+    "passedTasks": 0,
+    "failedTasks": 7,
+    "lastRunDate": "2025-01-25T01:05:00Z",
+    "passRate": 0,
+    "github_location": "/tests/demo_test/",
+    "file_format": "operator_qa_mode",
+    "demo_environment": {
+      "heroku_app": "op-e2e-demo-0724-1719",
+      "github_repo": "op-e2e-demo-0724-1719",
+      "deployed_at": "2025-01-25T00:15:00Z",
+      "last_tested": "2025-01-25T01:05:00Z",
+      "note": "Contains real visual bugs for authentic testing experience"
+    }
+  }
+}

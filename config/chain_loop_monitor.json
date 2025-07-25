@@ -14,28 +14,17 @@
         "type": "sendTasksToOperator",
         "parameters": {
           "filterFailedTasks": true,
-          "includeContext": true
+          "includeContext": true,
+          "includeTaskStatus": true,
+          "addInstructions": true
         }
       },
-      "nextChain": "operator_analysis",
+      "nextChain": "claude_fixes_complete",
       "loopCheck": {
         "incrementIteration": true,
         "checkMaxIterations": true,
         "checkAllTasksPassed": true
       }
-    },
-    {
-      "name": "operator_analysis",
-      "keyword": "OPERATOR_READY",
-      "waitForOperatorResponse": true,
-      "action": {
-        "type": "sendOperatorResponseToClaude",
-        "parameters": {
-          "includeTaskStatus": true,
-          "addInstructions": true
-        }
-      },
-      "nextChain": "claude_fixes_complete"
     }
   ],
   "actions": {
