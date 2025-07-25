@@ -28,6 +28,7 @@ import tmuxUtils from '../workflows/tmux_utils.js';
 import { OperatorMessageSenderWithResponse } from '../operator/send_and_wait_for_response.js';
 import workflowUtils from '../workflows/shared/workflow_utils.js';
 import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
+import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -52,7 +53,7 @@ class OperatorE2EExecutor {
         this.logBuffer = []; // Buffer for immediate logging
         
         // TASK_FINISHED detection cooldown
-        this.lastTaskFinishedTime = 0; // Timestamp of last TASK_FINISHED detection
+        this.lastTaskFinishedTime = Date.now(); // Initialize to current time to block stale detections
         this.taskFinishedCooldown = 60000; // 60 seconds cooldown period
         
         // Workflow timing tracking
@@ -724,110 +725,127 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             // Send the prompt to Claude
             const escapedPrompt = claudePrompt.replace(/'/g, "'\"'\"'");
             await execAsync(`tmux send-keys -t ${this.claudeInstanceId} '${escapedPrompt}'`);
-            // Send Enter separately to ensure the message is submitted
+            // Send Enter to submit the message
             await this.sleep(100);
             await execAsync(`tmux send-keys -t ${this.claudeInstanceId} Enter`);
-            console.log('✅ Sent Operator response to Claude Code');
+            // Wait and send Enter again to ensure execution
+            await this.sleep(2000);
+            await execAsync(`tmux send-keys -t ${this.claudeInstanceId} Enter`);
+            console.log('✅ Sent Operator response to Claude Code with double Enter');
             
             // Log the full response to a file for debugging
             await fs.writeFile('./operator_response_debug.txt', operatorResponse, 'utf8');
             console.log('💾 Full Operator response saved to operator_response_debug.txt');
             
-            // Use keyword monitoring to wait for Claude to finish
+            // Run /compact to clear stale TASK_FINISHED messages while preserving context
+            console.log('🧹 Running /compact to clear stale outputs while preserving context...');
+            await execAsync(`tmux send-keys -t ${this.claudeInstanceId} '/compact' Enter`);
+            // Wait and send Enter again to ensure /compact executes
+            await this.sleep(2000);
+            await execAsync(`tmux send-keys -t ${this.claudeInstanceId} Enter`);
+            await this.sleep(3000); // Wait for compact to complete
+            console.log('✅ /compact completed with double Enter - ready for fresh TASK_FINISHED detection');
+            
+            // Use WindowKeywordMonitor to wait for Claude to finish
             console.log('⏳ Waiting for Claude to process Operator response and say TASK_FINISHED...');
             console.log(`📝 Operator response length: ${operatorResponse.length} characters`);
             console.log(`📝 Operator response preview: ${operatorResponse.substring(0, 500)}...`);
             
-            // Instead of using ChainKeywordMonitor (which expects sessions), 
-            // implement direct tmux monitoring for window-based approach
-            const windowTarget = this.claudeInstanceId;
+            // Load monitor configuration
+            const monitorConfig = JSON.parse(
+                await fs.readFile(
+                    path.join(__dirname, 'config', 'task_finished_monitor.json'), 
+                    'utf8'
+                )
+            );
             
-            // Simple polling approach for window-based tmux monitoring
-            const maxWaitTime = 1200000; // 20 minutes - Claude needs time to actually fix code!
-            const startTime = Date.now();
-            const pollInterval = 5000; // 5 seconds - less frequent polling
-            let pollCount = 0;
+            // Update config with window index
+            monitorConfig.windowIndex = this.claudeInstanceId;
             
-            this.log(`⏳ Starting TASK_FINISHED polling - Iteration: ${this.iteration}, Max wait: ${maxWaitTime/1000}s`, 'INFO');
+            // Create WindowKeywordMonitor instance
+            const monitor = new WindowKeywordMonitor(monitorConfig);
             
-            while (Date.now() - startTime < maxWaitTime) {
-                try {
-                    pollCount++;
-                    const pollStartTime = Date.now();
-                    const { stdout: windowContent } = await execAsync(`tmux capture-pane -t ${windowTarget} -p`);
-                    const pollEndTime = Date.now();
+            this.log(`⏳ Starting WindowKeywordMonitor - Iteration: ${this.iteration}, Window: ${this.claudeInstanceId}`, 'INFO');
+            
+            // Set up event handlers
+            const detectionPromise = new Promise((resolve, reject) => {
+                let detectionStartTime = Date.now();
+                let hasDetected = false;
+                
+                monitor.on('keyword_detected', async ({keyword, output, chainIndex}) => {
+                    if (hasDetected) return; // Prevent multiple detections
                     
+                    const currentTime = Date.now();
+                    const timeSinceLastDetection = currentTime - this.lastTaskFinishedTime;
+                    const elapsedTime = currentTime - detectionStartTime;
+                    
+                    // Check cooldown period
+                    if (timeSinceLastDetection < this.taskFinishedCooldown) {
+                        this.log(`⏸️  TASK_FINISHED detected but in cooldown period`, 'WARNING');
+                        this.log(`   Time since last detection: ${Math.floor(timeSinceLastDetection/1000)}s`, 'WARNING');
+                        this.log(`   Cooldown remaining: ${Math.floor((this.taskFinishedCooldown - timeSinceLastDetection)/1000)}s`, 'WARNING');
+                        this.log(`   Ignoring stale detection, continuing to monitor...`, 'WARNING');
+                        return; // Don't resolve, keep monitoring
+                    }
+                    
+                    hasDetected = true;
+                    
+                    // Valid detection
                     const detectionContext = {
-                        pollCount,
-                        pollDuration: pollEndTime - pollStartTime,
-                        totalElapsed: pollEndTime - startTime,
-                        windowTarget
+                        monitorDuration: elapsedTime,
+                        windowTarget: this.claudeInstanceId,
+                        chainIndex
                     };
                     
-                    // Check if TASK_FINISHED appears in the output
-                    if (windowContent.includes('TASK_FINISHED')) {
-                        const currentTime = Date.now();
-                        const timeSinceLastDetection = currentTime - this.lastTaskFinishedTime;
-                        
-                        // Check if we're still in cooldown period
-                        if (timeSinceLastDetection < this.taskFinishedCooldown) {
-                            this.log(`⏸️  TASK_FINISHED detected but in cooldown period`, 'WARNING');
-                            this.log(`   Time since last detection: ${Math.floor(timeSinceLastDetection/1000)}s`, 'WARNING');
-                            this.log(`   Cooldown remaining: ${Math.floor((this.taskFinishedCooldown - timeSinceLastDetection)/1000)}s`, 'WARNING');
-                            this.log(`   Ignoring stale detection, continuing to poll...`, 'WARNING');
-                            
-                            // Continue polling instead of returning
-                            await this.sleep(pollInterval);
-                            continue;
-                        }
-                        
-                        // Valid detection - outside cooldown period
-                        const detectionId = this.logTaskFinishedDetection(windowContent, detectionContext);
-                        this.lastTaskFinishedTime = currentTime; // Update last detection time
-                        
-                        this.log('✅ Claude completed processing (detected: TASK_FINISHED)', 'INFO');
-                        this.log(`   Detection summary: Poll #${pollCount}, Total time: ${Math.floor((pollEndTime - startTime)/1000)}s`, 'INFO');
-                        this.log(`   Time since last detection: ${timeSinceLastDetection > 0 ? Math.floor(timeSinceLastDetection/1000) + 's' : 'First detection'}`, 'INFO');
-                        
-                        // Check if this is a duplicate detection from previous iteration
-                        const previousDetections = Array.from(this.taskFinishedDetections.values())
-                            .filter(det => det.iteration < this.iteration && det.windowContentLength === windowContent.length);
-                        
-                        if (previousDetections.length > 0) {
-                            this.log(`⚠️  POTENTIAL DUPLICATE DETECTION - Found ${previousDetections.length} previous detections with same content length`, 'WARNING');
-                            previousDetections.forEach((prevDet, idx) => {
-                                this.log(`   Previous detection ${idx + 1}: Iteration ${prevDet.iteration}, Time: ${prevDet.timestamp}`, 'WARNING');
-                            });
-                        }
-                        
-                        return {
-                            success: true,
-                            claudeResponse: windowContent,
-                            detectionId,
-                            detectionContext
-                        };
-                    }
+                    const detectionId = this.logTaskFinishedDetection(output, detectionContext);
+                    this.lastTaskFinishedTime = currentTime;
                     
-                    // Show progress every 10 seconds
-                    const elapsed = Date.now() - startTime;
-                    if (elapsed % 10000 < pollInterval) {
-                        this.log(`⏳ Still waiting for TASK_FINISHED... ${Math.floor(elapsed / 1000)}s (Poll #${pollCount})`, 'DEBUG');
-                    }
+                    this.log('✅ Claude completed processing (detected: TASK_FINISHED)', 'INFO');
+                    this.log(`   Detection time: ${Math.floor(elapsedTime/1000)}s`, 'INFO');
+                    this.log(`   Time since last detection: ${timeSinceLastDetection > 0 ? Math.floor(timeSinceLastDetection/1000) + 's' : 'First detection'}`, 'INFO');
                     
-                    await this.sleep(pollInterval);
+                    // Stop monitor and resolve
+                    monitor.stop();
                     
-                } catch (error) {
-                    this.log(`⚠️ Error reading tmux window: ${error.message}`, 'WARNING');
-                    await this.sleep(pollInterval);
-                }
-            }
+                    resolve({
+                        success: true,
+                        claudeResponse: output,
+                        detectionId,
+                        detectionContext
+                    });
+                });
+                
+                monitor.on('timeout', () => {
+                    this.log('⚠️ WindowKeywordMonitor timeout waiting for TASK_FINISHED', 'WARNING');
+                    reject(new Error('Timeout waiting for Claude to finish processing'));
+                });
+                
+                monitor.on('error', ({error, action}) => {
+                    this.log(`❌ WindowKeywordMonitor error during ${action}: ${error}`, 'ERROR');
+                    reject(new Error(`Monitor error: ${error}`));
+                });
+                
+                monitor.on('chain_complete', ({totalStages, executionTime}) => {
+                    // This shouldn't happen with single-chain TASK_FINISHED detection
+                    this.log(`Chain complete event (unexpected): ${totalStages} stages in ${executionTime}ms`, 'DEBUG');
+                });
+            });
             
-            // Timeout reached
-            console.log('⚠️ Timeout waiting for Claude to say TASK_FINISHED');
-            return {
-                success: false,
-                error: 'Timeout waiting for Claude to finish processing'
-            };
+            try {
+                // Start monitoring
+                await monitor.start();
+                
+                // Wait for detection or timeout
+                const result = await detectionPromise;
+                return result;
+                
+            } catch (error) {
+                console.log(`⚠️ Error during TASK_FINISHED monitoring: ${error.message}`);
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
             
         } catch (error) {
             return {

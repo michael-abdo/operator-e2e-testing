@@ -1,0 +1,23 @@
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] Run ID: 2025-07-25_03-11-00
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_03-11-00.log
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 03:11:00] [RUN:2025-07-25_03-11-00] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 03:11:06] [RUN:2025-07-25_03-11-00] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:11:06
+[2025-07-25 03:11:40] [RUN:2025-07-25_03-11-00] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:11:40
+[2025-07-25 03:11:41] [RUN:2025-07-25_03-11-00] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:11:41
+[2025-07-25 03:11:41] [RUN:2025-07-25_03-11-00] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 03:11:42] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 0s (Poll #1)
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413107055
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413107055
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:11:47
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Window content length: 3626 chars
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Window preview:     },\n    {\n      "taskId": "button_hover_too_flashy",\n      "root_cause_analysis": "Hover styles w...
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":28,"totalElapsed":5056,"windowTarget":"3"}
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413107055
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:11:47
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Window content length: 3626 chars
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Window preview:     },\n    {\n      "taskId": "button_hover_too_flashy",\n      "root_cause_analysis": "Hover styles w...
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":28,"totalElapsed":5056,"windowTarget":"3"}
+[2025-07-25 03:11:47] [RUN:2025-07-25_03-11-00] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)

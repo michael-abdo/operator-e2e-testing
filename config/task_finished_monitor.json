@@ -1,0 +1,25 @@
+{
+  "description": "E2E TASK_FINISHED detection configuration",
+  "windowIndex": null,
+  "chains": [
+    {
+      "keyword": "TASK_FINISHED",
+      "instruction": null,
+      "nextKeyword": null
+    }
+  ],
+  "options": {
+    "pollInterval": 5,
+    "timeout": 1200,
+    "retryAttempts": 3,
+    "retryDelay": 2,
+    "bufferSize": 10000,
+    "maxLinesToRead": 200
+  },
+  "e2eOptions": {
+    "cooldownPeriod": 60,
+    "minProcessingTime": 120,
+    "truncationDetection": true,
+    "doubleEnterDelay": 2000
+  }
+}

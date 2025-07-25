@@ -1,0 +1,22 @@
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] Run ID: 2025-07-25_03-08-33
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_03-08-33.log
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 03:08:33] [RUN:2025-07-25_03-08-33] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 03:08:38] [RUN:2025-07-25_03-08-33] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:08:38
+[2025-07-25 03:09:35] [RUN:2025-07-25_03-08-33] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:09:35
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:09:36
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753412976558
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753412976558
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:09:36
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Window content length: 2988 chars
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Window preview:   - ✅ All changes committed to git\n  - ✅ Successfully deployed to Heroku production\n  - ✅ Live on ht...
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":26,"totalElapsed":27,"windowTarget":"3"}
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753412976558
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:09:36
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Window content length: 2988 chars
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Window preview:   - ✅ All changes committed to git\n  - ✅ Successfully deployed to Heroku production\n  - ✅ Live on ht...
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":26,"totalElapsed":27,"windowTarget":"3"}
+[2025-07-25 03:09:36] [RUN:2025-07-25_03-08-33] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)

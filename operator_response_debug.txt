@@ -1,230 +1,228 @@
 jsonCopy[
   {
     "taskId": "logo_positioning_bug",
-    "root_cause": "Recent header refactor introduced a flex‑box rule (`justify-content: flex-end`) that pushes the logo to the right. A temporary debug class (`.logo--debug`) was also committed, adding red background and yellow border.",
-    "recommendations": [
-      "Move the logo element before the nav items in the DOM or set `order: 0` for `.logo` and `order: 1` for the nav list when using flex‑box.",
-      "Change `justify-content` to `space-between` or `flex-start` to keep the logo on the left.",
-      "Remove `.logo--debug` class and its inline styles; instead apply brand colors from the design system (`background: transparent; border: none`).",
-      "Add a CSS regression test or visual snapshot test (e.g., Percy, Chromatic) that asserts the logo’s x‑coordinate is ≤ 16 px from the left edge."
+    "root_cause_analysis": "The header’s logo element is using incorrect CSS (e.g., `float:right` or a flex‑box order override) and has inline debug styles that override the design‑system classes, forcing a red background and yellow border.",
+    "technical_recommendations": [
+      "Remove any inline styles on the logo element; rely on the shared `.logo` class from the design system.",
+      "Update header layout to `display:flex; justify-content:flex-start;` (or grid) so the logo naturally aligns left.",
+      "Add a regression unit test (Jest/React‑Testing‑Library) that asserts the logo class list and computed position.",
+      "Add a visual regression snapshot for the header in the CI pipeline (Percy/Loki)."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Verify placement and styling in Chrome, Firefox, Safari, and Edge.",
-      "Test responsiveness at 320 px, 768 px, 1024 px, 1440 px breakpoints.",
-      "Add unit test that checks `.logo` has no background‑color or border in Jest + React Testing Library."
+    "additional_testing_suggestions": [
+      "Cross‑browser manual check (Chrome, Firefox, Safari, Edge).",
+      "Responsive tests (mobile, tablet, desktop) to confirm the logo stays top‑left.",
+      "Accessibility audit to ensure logo remains focusable and has correct alt text."
     ]
   },
   {
     "taskId": "signin_button_missing",
-    "root_cause": "The `SignInButton` component was hidden by a new feature flag (`authV2`) that is off in production, or it was removed during a merge conflict. Header template now renders nothing when `isAuthenticated` is false.",
-    "recommendations": [
-      "Re‑insert `<SignInButton/>` into the header component and guard it with a safe null‑check instead of a feature flag.",
-      "Ensure the button routes to `/login` or triggers the authentication modal.",
-      "Add Cypress e2e test that asserts the button is visible for unauthenticated users and hidden after login.",
-      "Add unit test to mock `isAuthenticated=false` and expect the button in the DOM."
+    "root_cause_analysis": "Navigation component conditionally renders the Sign In button but the `isAuthenticated` or feature‑flag logic is inverted or missing, causing the button to be omitted for unauthenticated users.",
+    "technical_recommendations": [
+      "Ensure `isAuthenticated === false` renders the Sign In CTA.",
+      "Restore the `<Button variant=\"primary\" id=\"sign-in\">` element in the header template.",
+      "Wire the button’s `onClick` to open the login modal or navigate to `/login`.",
+      "Add an end‑to‑end Cypress test that logs out, visits the homepage, and asserts the Sign In button is visible and functional."
     ],
     "priority": "critical",
-    "testing_suggestions": [
-      "Smoke‑test full login flow (button → modal → success redirect).",
-      "Check accessibility: button has `aria-label=\"Sign in\"` and is focusable.",
-      "Include visual diff test so accidental removal is caught in CI."
+    "additional_testing_suggestions": [
+      "Run full authentication flow tests (login, token refresh, logout).",
+      "Check keyboard navigation (Tab focus) reaches the Sign In button.",
+      "Visual regression snapshot for header when logged‑out vs. logged‑in."
     ]
   },
   {
     "taskId": "calculator_heading_wrong",
-    "root_cause": "A placeholder error component (`<BrokenHeading/>`) is rendered when the `calculatorTitle` prop is undefined. The prop is undefined because the CMS query key changed from `contract_calculator_title` to `calculator_title`.",
-    "recommendations": [
-      "Update the data query or prop name so `calculatorTitle` receives the correct value.",
-      "Remove `<BrokenHeading/>` fallback and replace with default copy `'Contract Calculator'`.",
-      "Apply design system heading class (`.heading-xl`) and remove inline red/yellow/blue styles.",
-      "Add unit test that renders the page with missing CMS data and asserts the default heading appears without error styling."
+    "root_cause_analysis": "The calculator page is rendering a fallback error component due to a missing or misspelled i18n key (`calculator.heading`) or a failed data fetch, resulting in the placeholder error heading and garish debug styles.",
+    "technical_recommendations": [
+      "Restore the correct `<h1>` text: “Contract Calculator” using the design‑system typography class.",
+      "Remove debug CSS (`color:red; background:yellow;`) and apply standard heading styles (e.g., `.heading-xl`).",
+      "Add a Jest snapshot test that verifies the rendered heading text matches the expected string.",
+      "Guard against missing translation keys by adding default values in the i18n config."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Regression test: visit `/tools/calculator` in staging and confirm H1 text.",
-      "Run Lighthouse to ensure color contrast meets WCAG after styling fix.",
-      "Snapshot test for heading element."
+    "additional_testing_suggestions": [
+      "Smoke test page load in all environments (dev, staging, prod).",
+      "Run Lighthouse to ensure heading hierarchy is accessible.",
+      "Visual regression test to catch accidental style overrides."
     ]
   },
   {
     "taskId": "contract_title_field_missing",
-    "root_cause": "Form schema validation removed the `contractTitle` field but the UI still expects it. Build now shows an error placeholder when schema mismatch occurs.",
-    "recommendations": [
-      "Add `contractTitle` back to the JSON form schema and map it to an `<input name=\"contractTitle\" />`.",
-      "Remove error placeholder component or guard it behind a development flag only.",
-      "Add integration test that fills `contractTitle` and submits the form, asserting a successful POST.",
-      "Update backend validation to accept `contractTitle` or make it optional if truly deprecated."
+    "root_cause_analysis": "The form schema or component import was removed/refactored, so the `ContractTitleInput` component fails to mount and an error placeholder box is rendered instead.",
+    "technical_recommendations": [
+      "Re‑add the `Contract Title` `<input type=\"text\" name=\"contractTitle\" />` with label and validation rules.",
+      "Ensure the form schema (e.g., Yup/React‑Hook‑Form) includes `contractTitle` with required validation.",
+      "Remove the hard‑coded error div and rely on form‑level error handling.",
+      "Add unit tests that mount the form and assert the presence of the `contractTitle` field."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Manual QA: confirm all fields render and accept input.",
-      "Add Cypress test: complete form and verify successful calculation.",
-      "Check mobile form layout after field restoration."
+    "additional_testing_suggestions": [
+      "E2E test: fill all form fields, submit, and verify payload includes `contractTitle`.",
+      "Accessibility test: label is associated with input via `for`/`id`.",
+      "Manual test on mobile viewport to ensure field is visible and usable."
     ]
   },
   {
     "taskId": "hourly_rate_wrong_default",
-    "root_cause": "Default value constant was changed from `150` to `999` during performance testing and never reverted. A debug class (`.input--error`) was mistakenly left on the field.",
-    "recommendations": [
-      "Reset default constant in code (`DEFAULT_HOURLY_RATE = 150`).",
-      "Remove `.input--error` class or ensure it is only applied on validation errors.",
-      "Use CSS variables for theming; rely on `.input` base styles.",
-      "Add unit test that mounts the form and checks `getByDisplayValue('150')` exists."
+    "root_cause_analysis": "The default value prop for the Hourly Rate input was set to `999` (likely for demo/testing), and inline error styles were left in place rather than reset to production styles.",
+    "technical_recommendations": [
+      "Change default value in component or form schema to `150`.",
+      "Remove inline styles; apply design‑system input class (e.g., `.input-number`).",
+      "Add min/max attributes (`min=0`, `step=1`) and currency formatting.",
+      "Write a unit test that mounts the form and asserts `defaultValue === 150`."
     ],
     "priority": "medium",
-    "testing_suggestions": [
-      "Cross‑field validation test: ensure changing hourly rate recalculates totals correctly.",
-      "Visual regression test to ensure normal styling persists.",
-      "Check for currency formatting (e.g., two decimals, no thousands separator if not needed)."
+    "additional_testing_suggestions": [
+      "Boundary tests: enter 0, negative numbers, large numbers.",
+      "Visual regression to ensure field styling matches other inputs.",
+      "Keyboard‑only test for increment/decrement behavior."
     ]
   },
   {
     "taskId": "calculate_button_broken",
-    "root_cause": "`handleCalculate` throws an error because the results panel component was renamed (`ResultsPanel` → `CalculationResults`) but import was not updated. A temporary `alert()` was left in place for demo purposes.",
-    "recommendations": [
-      "Update import in `CalculatorPage.tsx` to `import CalculationResults from './CalculationResults'`.",
-      "Remove `alert('DEMO ERROR...')` and restore state update that sets `showResults=true`.",
-      "Add unit tests for `handleCalculate` to mock inputs and assert result state.",
-      "Add Cypress test: fill form, click Calculate, verify results panel shows correct values.",
-      "Consider moving calculation logic to a pure function with Jest coverage for edge cases."
+    "root_cause_analysis": "The Calculate button’s click handler is short‑circuited with a debug `alert()` and the function that computes results is either commented out or throwing an exception, preventing the results panel from rendering.",
+    "technical_recommendations": [
+      "Remove the `alert('DEMO ERROR…')` and restore the `handleCalculate()` logic.",
+      "Ensure calculation service (e.g., `calculateContractTotals()`) returns expected JSON and update state to display the results panel.",
+      "Add unit tests for calculation logic with multiple input scenarios.",
+      "Add a Cypress test: fill inputs, click Calculate, assert results panel appears with correct values."
     ],
     "priority": "critical",
-    "testing_suggestions": [
-      "Test with boundary values (0, large numbers) to ensure safe calculations.",
-      "Check that results panel is keyboard‑navigable and screen‑reader friendly.",
-      "Run performance test to ensure calculation completes <100 ms."
+    "additional_testing_suggestions": [
+      "Performance test large input values (e.g., 10k hours) to ensure no lag.",
+      "Accessibility: ensure results panel is announced via ARIA live region.",
+      "Cross‑browser test for the click handler and focus management."
     ]
   },
   {
     "taskId": "button_hover_too_flashy",
-    "root_cause": "A marketing experiment branch merged hover animation that overrides design tokens with hard‑coded colors and a `transform: scale(1.3)` on hover.",
-    "recommendations": [
-      "Revert to design‑system hover state: `background-color: var(--color-primary-dark); color: #fff; transform: none; transition: background-color 150ms ease-in-out`.",
-      "Define hover styles in a shared SCSS mixin and remove inline styles.",
-      "Add CSS lint rule (`no-hardcoded-colors`) to block bright magenta/yellow in primary button.",
-      "Add visual regression test for hover state using Playwright screenshot diff."
+    "root_cause_analysis": "Hover state CSS uses non‑brand colors and transform scale values, likely added for demo/attention and not reverted. Design tokens are ignored.",
+    "technical_recommendations": [
+      "Replace hover styles with subtle color change using brand palette (e.g., darken primary by 5%).",
+      "Remove large `transform:scale(1.2)` and bright border; instead use `box-shadow:0 0 0 2px var(--primary-600)` or similar.",
+      "Add SCSS mixin for consistent button hover states across the app.",
+      "Add visual regression test that captures default and hover states to detect color/size deviations."
     ],
     "priority": "medium",
-    "testing_suggestions": [
-      "Verify hover effect on all primary buttons across the site.",
-      "Test reduced‑motion preference (`@media (prefers-reduced-motion: reduce)`) to ensure no scaling.",
-      "Check contrast ratio of hover color vs text meets WCAG AA."
+    "additional_testing_suggestions": [
+      "Check WCAG color‑contrast ratios on hover.",
+      "Run across multiple devices to ensure hover/active states degrade gracefully on touch.",
+      "User‑testing session to confirm the new hover effect feels professional."
     ]
   }
 ]
 [
   {
     "taskId": "logo_positioning_bug",
-    "root_cause": "Recent header refactor introduced a flex‑box rule (`justify-content: flex-end`) that pushes the logo to the right. A temporary debug class (`.logo--debug`) was also committed, adding red background and yellow border.",
-    "recommendations": [
-      "Move the logo element before the nav items in the DOM or set `order: 0` for `.logo` and `order: 1` for the nav list when using flex‑box.",
-      "Change `justify-content` to `space-between` or `flex-start` to keep the logo on the left.",
-      "Remove `.logo--debug` class and its inline styles; instead apply brand colors from the design system (`background: transparent; border: none`).",
-      "Add a CSS regression test or visual snapshot test (e.g., Percy, Chromatic) that asserts the logo’s x‑coordinate is ≤ 16 px from the left edge."
+    "root_cause_analysis": "The header’s logo element is using incorrect CSS (e.g., `float:right` or a flex‑box order override) and has inline debug styles that override the design‑system classes, forcing a red background and yellow border.",
+    "technical_recommendations": [
+      "Remove any inline styles on the logo element; rely on the shared `.logo` class from the design system.",
+      "Update header layout to `display:flex; justify-content:flex-start;` (or grid) so the logo naturally aligns left.",
+      "Add a regression unit test (Jest/React‑Testing‑Library) that asserts the logo class list and computed position.",
+      "Add a visual regression snapshot for the header in the CI pipeline (Percy/Loki)."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Verify placement and styling in Chrome, Firefox, Safari, and Edge.",
-      "Test responsiveness at 320 px, 768 px, 1024 px, 1440 px breakpoints.",
-      "Add unit test that checks `.logo` has no background‑color or border in Jest + React Testing Library."
+    "additional_testing_suggestions": [
+      "Cross‑browser manual check (Chrome, Firefox, Safari, Edge).",
+      "Responsive tests (mobile, tablet, desktop) to confirm the logo stays top‑left.",
+      "Accessibility audit to ensure logo remains focusable and has correct alt text."
     ]
   },
   {
     "taskId": "signin_button_missing",
-    "root_cause": "The `SignInButton` component was hidden by a new feature flag (`authV2`) that is off in production, or it was removed during a merge conflict. Header template now renders nothing when `isAuthenticated` is false.",
-    "recommendations": [
-      "Re‑insert `<SignInButton/>` into the header component and guard it with a safe null‑check instead of a feature flag.",
-      "Ensure the button routes to `/login` or triggers the authentication modal.",
-      "Add Cypress e2e test that asserts the button is visible for unauthenticated users and hidden after login.",
-      "Add unit test to mock `isAuthenticated=false` and expect the button in the DOM."
+    "root_cause_analysis": "Navigation component conditionally renders the Sign In button but the `isAuthenticated` or feature‑flag logic is inverted or missing, causing the button to be omitted for unauthenticated users.",
+    "technical_recommendations": [
+      "Ensure `isAuthenticated === false` renders the Sign In CTA.",
+      "Restore the `<Button variant=\"primary\" id=\"sign-in\">` element in the header template.",
+      "Wire the button’s `onClick` to open the login modal or navigate to `/login`.",
+      "Add an end‑to‑end Cypress test that logs out, visits the homepage, and asserts the Sign In button is visible and functional."
     ],
     "priority": "critical",
-    "testing_suggestions": [
-      "Smoke‑test full login flow (button → modal → success redirect).",
-      "Check accessibility: button has `aria-label=\"Sign in\"` and is focusable.",
-      "Include visual diff test so accidental removal is caught in CI."
+    "additional_testing_suggestions": [
+      "Run full authentication flow tests (login, token refresh, logout).",
+      "Check keyboard navigation (Tab focus) reaches the Sign In button.",
+      "Visual regression snapshot for header when logged‑out vs. logged‑in."
     ]
   },
   {
     "taskId": "calculator_heading_wrong",
-    "root_cause": "A placeholder error component (`<BrokenHeading/>`) is rendered when the `calculatorTitle` prop is undefined. The prop is undefined because the CMS query key changed from `contract_calculator_title` to `calculator_title`.",
-    "recommendations": [
-      "Update the data query or prop name so `calculatorTitle` receives the correct value.",
-      "Remove `<BrokenHeading/>` fallback and replace with default copy `'Contract Calculator'`.",
-      "Apply design system heading class (`.heading-xl`) and remove inline red/yellow/blue styles.",
-      "Add unit test that renders the page with missing CMS data and asserts the default heading appears without error styling."
+    "root_cause_analysis": "The calculator page is rendering a fallback error component due to a missing or misspelled i18n key (`calculator.heading`) or a failed data fetch, resulting in the placeholder error heading and garish debug styles.",
+    "technical_recommendations": [
+      "Restore the correct `<h1>` text: “Contract Calculator” using the design‑system typography class.",
+      "Remove debug CSS (`color:red; background:yellow;`) and apply standard heading styles (e.g., `.heading-xl`).",
+      "Add a Jest snapshot test that verifies the rendered heading text matches the expected string.",
+      "Guard against missing translation keys by adding default values in the i18n config."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Regression test: visit `/tools/calculator` in staging and confirm H1 text.",
-      "Run Lighthouse to ensure color contrast meets WCAG after styling fix.",
-      "Snapshot test for heading element."
+    "additional_testing_suggestions": [
+      "Smoke test page load in all environments (dev, staging, prod).",
+      "Run Lighthouse to ensure heading hierarchy is accessible.",
+      "Visual regression test to catch accidental style overrides."
     ]
   },
   {
     "taskId": "contract_title_field_missing",
-    "root_cause": "Form schema validation removed the `contractTitle` field but the UI still expects it. Build now shows an error placeholder when schema mismatch occurs.",
-    "recommendations": [
-      "Add `contractTitle` back to the JSON form schema and map it to an `<input name=\"contractTitle\" />`.",
-      "Remove error placeholder component or guard it behind a development flag only.",
-      "Add integration test that fills `contractTitle` and submits the form, asserting a successful POST.",
-      "Update backend validation to accept `contractTitle` or make it optional if truly deprecated."
+    "root_cause_analysis": "The form schema or component import was removed/refactored, so the `ContractTitleInput` component fails to mount and an error placeholder box is rendered instead.",
+    "technical_recommendations": [
+      "Re‑add the `Contract Title` `<input type=\"text\" name=\"contractTitle\" />` with label and validation rules.",
+      "Ensure the form schema (e.g., Yup/React‑Hook‑Form) includes `contractTitle` with required validation.",
+      "Remove the hard‑coded error div and rely on form‑level error handling.",
+      "Add unit tests that mount the form and assert the presence of the `contractTitle` field."
     ],
     "priority": "high",
-    "testing_suggestions": [
-      "Manual QA: confirm all fields render and accept input.",
-      "Add Cypress test: complete form and verify successful calculation.",
-      "Check mobile form layout after field restoration."
+    "additional_testing_suggestions": [
+      "E2E test: fill all form fields, submit, and verify payload includes `contractTitle`.",
+      "Accessibility test: label is associated with input via `for`/`id`.",
+      "Manual test on mobile viewport to ensure field is visible and usable."
     ]
   },
   {
     "taskId": "hourly_rate_wrong_default",
-    "root_cause": "Default value constant was changed from `150` to `999` during performance testing and never reverted. A debug class (`.input--error`) was mistakenly left on the field.",
-    "recommendations": [
-      "Reset default constant in code (`DEFAULT_HOURLY_RATE = 150`).",
-      "Remove `.input--error` class or ensure it is only applied on validation errors.",
-      "Use CSS variables for theming; rely on `.input` base styles.",
-      "Add unit test that mounts the form and checks `getByDisplayValue('150')` exists."
+    "root_cause_analysis": "The default value prop for the Hourly Rate input was set to `999` (likely for demo/testing), and inline error styles were left in place rather than reset to production styles.",
+    "technical_recommendations": [
+      "Change default value in component or form schema to `150`.",
+      "Remove inline styles; apply design‑system input class (e.g., `.input-number`).",
+      "Add min/max attributes (`min=0`, `step=1`) and currency formatting.",
+      "Write a unit test that mounts the form and asserts `defaultValue === 150`."
     ],
     "priority": "medium",
-    "testing_suggestions": [
-      "Cross‑field validation test: ensure changing hourly rate recalculates totals correctly.",
-      "Visual regression test to ensure normal styling persists.",
-      "Check for currency formatting (e.g., two decimals, no thousands separator if not needed)."
+    "additional_testing_suggestions": [
+      "Boundary tests: enter 0, negative numbers, large numbers.",
+      "Visual regression to ensure field styling matches other inputs.",
+      "Keyboard‑only test for increment/decrement behavior."
     ]
   },
   {
     "taskId": "calculate_button_broken",
-    "root_cause": "`handleCalculate` throws an error because the results panel component was renamed (`ResultsPanel` → `CalculationResults`) but import was not updated. A temporary `alert()` was left in place for demo purposes.",
-    "recommendations": [
-      "Update import in `CalculatorPage.tsx` to `import CalculationResults from './CalculationResults'`.",
-      "Remove `alert('DEMO ERROR...')` and restore state update that sets `showResults=true`.",
-      "Add unit tests for `handleCalculate` to mock inputs and assert result state.",
-      "Add Cypress test: fill form, click Calculate, verify results panel shows correct values.",
-      "Consider moving calculation logic to a pure function with Jest coverage for edge cases."
+    "root_cause_analysis": "The Calculate button’s click handler is short‑circuited with a debug `alert()` and the function that computes results is either commented out or throwing an exception, preventing the results panel from rendering.",
+    "technical_recommendations": [
+      "Remove the `alert('DEMO ERROR…')` and restore the `handleCalculate()` logic.",
+      "Ensure calculation service (e.g., `calculateContractTotals()`) returns expected JSON and update state to display the results panel.",
+      "Add unit tests for calculation logic with multiple input scenarios.",
+      "Add a Cypress test: fill inputs, click Calculate, assert results panel appears with correct values."
     ],
     "priority": "critical",
-    "testing_suggestions": [
-      "Test with boundary values (0, large numbers) to ensure safe calculations.",
-      "Check that results panel is keyboard‑navigable and screen‑reader friendly.",
-      "Run performance test to ensure calculation completes <100 ms."
+    "additional_testing_suggestions": [
+      "Performance test large input values (e.g., 10k hours) to ensure no lag.",
+      "Accessibility: ensure results panel is announced via ARIA live region.",
+      "Cross‑browser test for the click handler and focus management."
     ]
   },
   {
     "taskId": "button_hover_too_flashy",
-    "root_cause": "A marketing experiment branch merged hover animation that overrides design tokens with hard‑coded colors and a `transform: scale(1.3)` on hover.",
-    "recommendations": [
-      "Revert to design‑system hover state: `background-color: var(--color-primary-dark); color: #fff; transform: none; transition: background-color 150ms ease-in-out`.",
-      "Define hover styles in a shared SCSS mixin and remove inline styles.",
-      "Add CSS lint rule (`no-hardcoded-colors`) to block bright magenta/yellow in primary button.",
-      "Add visual regression test for hover state using Playwright screenshot diff."
+    "root_cause_analysis": "Hover state CSS uses non‑brand colors and transform scale values, likely added for demo/attention and not reverted. Design tokens are ignored.",
+    "technical_recommendations": [
+      "Replace hover styles with subtle color change using brand palette (e.g., darken primary by 5%).",
+      "Remove large `transform:scale(1.2)` and bright border; instead use `box-shadow:0 0 0 2px var(--primary-600)` or similar.",
+      "Add SCSS mixin for consistent button hover states across the app.",
+      "Add visual regression test that captures default and hover states to detect color/size deviations."
     ],
     "priority": "medium",
-    "testing_suggestions": [
-      "Verify hover effect on all primary buttons across the site.",
-      "Test reduced‑motion preference (`@media (prefers-reduced-motion: reduce)`) to ensure no scaling.",
-      "Check contrast ratio of hover color vs text meets WCAG AA."
+    "additional_testing_suggestions": [
+      "Check WCAG color‑contrast ratios on hover.",
+      "Run across multiple devices to ensure hover/active states degrade gracefully on touch.",
+      "User‑testing session to confirm the new hover effect feels professional."
     ]
   }
 ]

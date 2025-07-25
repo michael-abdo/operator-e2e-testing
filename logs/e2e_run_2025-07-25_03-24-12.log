@@ -1,0 +1,106 @@
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] Run ID: 2025-07-25_03-24-12
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_03-24-12.log
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 03:24:12] [RUN:2025-07-25_03-24-12] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 03:24:18] [RUN:2025-07-25_03-24-12] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:24:18
+[2025-07-25 03:25:07] [RUN:2025-07-25_03-24-12] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:25:07
+[2025-07-25 03:25:08] [RUN:2025-07-25_03-24-12] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:25:08
+[2025-07-25 03:25:08] [RUN:2025-07-25_03-24-12] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 03:25:08] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 0s (Poll #1)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413913936
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413913936
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:25:13
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Window content length: 3726 chars
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Window preview:     {\n      "taskId": "button_hover_too_flashy",\n      "root_cause": "Hover state is using experimen...
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":27,"totalElapsed":5049,"windowTarget":"3"}
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753413913936
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:25:13
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Window content length: 3726 chars
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Window preview:     {\n      "taskId": "button_hover_too_flashy",\n      "root_cause": "Hover state is using experimen...
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":27,"totalElapsed":5049,"windowTarget":"3"}
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [INFO] 📊 OPERATOR PHASE: 0m 49s (49274ms)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [WARNING] ⚠️  WARNING: Operator phase too fast (0.8 min < 1 min minimum)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [INFO] 📊 CLAUDE PHASE: 0m 5s (5224ms)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 03:25:13] [RUN:2025-07-25_03-24-12] [ITER:1] [INFO] 📊 TOTAL ITERATION: 0m 55s (55499ms)
+[2025-07-25 03:25:16] [RUN:2025-07-25_03-24-12] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:25:16
+[2025-07-25 03:26:13] [RUN:2025-07-25_03-24-12] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:26:13
+[2025-07-25 03:26:14] [RUN:2025-07-25_03-24-12] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:26:14
+[2025-07-25 03:26:14] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 2, Max wait: 1200s
+[2025-07-25 03:26:14] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 0s (Poll #1)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753413979482
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753413979482
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:26:19
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Window content length: 3585 chars
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Window preview:         "Error‑state test: simulate calculation failure and show user‑friendly message."\n      ]\n   ...
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":28,"totalElapsed":5057,"windowTarget":"3"}
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753413979482
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:26:19
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Window content length: 3585 chars
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Window preview:         "Error‑state test: simulate calculation failure and show user‑friendly message."\n      ]\n   ...
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":28,"totalElapsed":5057,"windowTarget":"3"}
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 56s (56606ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 CLAUDE PHASE: 0m 5s (5224ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 TOTAL ITERATION: 1m 2s (62832ms)
+[2025-07-25 03:26:22] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:26:22
+[2025-07-25 03:27:15] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:27:15
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:27:16
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53601ms)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:27:19] [RUN:2025-07-25_03-24-12] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:27:19
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 56s (56606ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 CLAUDE PHASE: 0m 5s (5224ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 TOTAL ITERATION: 1m 2s (62832ms)
+[2025-07-25 03:26:22] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:26:22
+[2025-07-25 03:27:15] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:27:15
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:27:16
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53601ms)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:27:19] [RUN:2025-07-25_03-24-12] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:27:19
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: No response received within timeout
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:952:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1120:9)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 56s (56606ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 CLAUDE PHASE: 0m 5s (5224ms)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 03:26:19] [RUN:2025-07-25_03-24-12] [ITER:2] [INFO] 📊 TOTAL ITERATION: 1m 2s (62832ms)
+[2025-07-25 03:26:22] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:26:22
+[2025-07-25 03:27:15] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:27:15
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:27:16
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53601ms)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 03:27:16] [RUN:2025-07-25_03-24-12] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:27:19] [RUN:2025-07-25_03-24-12] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:27:19
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: No response received within timeout
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:952:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1120:9)
+[2025-07-25 03:37:21] [RUN:2025-07-25_03-24-12] [ITER:4] [INFO] 🧹 Operator connection cleaned up

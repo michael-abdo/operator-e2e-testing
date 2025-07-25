@@ -1,0 +1,106 @@
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] Run ID: 2025-07-25_04-08-26
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_04-08-26.log
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 04:08:26] [RUN:2025-07-25_04-08-26] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 04:08:32] [RUN:2025-07-25_04-08-26] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:08:32
+[2025-07-25 04:11:21] [RUN:2025-07-25_04-08-26] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 04:11:21
+[2025-07-25 04:11:22] [RUN:2025-07-25_04-08-26] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 04:11:22
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753416689348
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:11:29
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Window content length: 3530 chars
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Window preview:       "root_cause": "Experimental CSS animation added for marketing demo was not behind a feature fl...
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":30,"totalElapsed":30,"windowTarget":"3"}
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753416689348
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753416689348
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:11:29
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Window content length: 3530 chars
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Window preview:       "root_cause": "Experimental CSS animation added for marketing demo was not behind a feature fl...
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":30,"totalElapsed":30,"windowTarget":"3"}
+[2025-07-25 04:11:29] [RUN:2025-07-25_04-08-26] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 04:11:32] [RUN:2025-07-25_04-08-26] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:11:32
+[2025-07-25 04:12:15] [RUN:2025-07-25_04-08-26] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 04:12:15
+[2025-07-25 04:12:16] [RUN:2025-07-25_04-08-26] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 04:12:16
+[2025-07-25 04:12:23] [RUN:2025-07-25_04-08-26] [ITER:2] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 2, Max wait: 1200s
+[2025-07-25 04:12:23] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 04:12:28] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416753530
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416753530
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:12:33
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Window content length: 3179 chars
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Window preview:     }\n  }\n\n  ANALYZE the broken parts deeply and once the problem has been discovered, FIX them usin...
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Detection context: {"pollCount":3,"pollDuration":29,"totalElapsed":10098,"windowTarget":"3"}
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416753530
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:12:33
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Window content length: 3179 chars
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Window preview:     }\n  }\n\n  ANALYZE the broken parts deeply and once the problem has been discovered, FIX them usin...
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [DEBUG]    Detection context: {"pollCount":3,"pollDuration":29,"totalElapsed":10098,"windowTarget":"3"}
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 42s (42817ms)
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [INFO] 📊 CLAUDE PHASE: 0m 17s (17346ms)
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING] ⚠️  WARNING: Claude phase too fast (0.3 min < 2 min minimum)
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:12:33] [RUN:2025-07-25_04-08-26] [ITER:2] [INFO] 📊 TOTAL ITERATION: 1m 1s (61166ms)
+[2025-07-25 04:12:36] [RUN:2025-07-25_04-08-26] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:12:36
+[2025-07-25 04:13:19] [RUN:2025-07-25_04-08-26] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 04:13:19
+[2025-07-25 04:13:20] [RUN:2025-07-25_04-08-26] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 04:13:20
+[2025-07-25 04:13:28] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 3, Max wait: 1200s
+[2025-07-25 04:13:28] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 04:13:33] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416818090
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416818090
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:13:38
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Window content length: 3364 chars
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Window preview:   ]\n\n  ANALYZE the broken parts deeply and once the problem has been discovered, FIX them using thes...
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Detection context: {"pollCount":3,"pollDuration":28,"totalElapsed":10086,"windowTarget":"3"}
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416818090
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:13:38
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Window content length: 3364 chars
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Window preview:   ]\n\n  ANALYZE the broken parts deeply and once the problem has been discovered, FIX them using thes...
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [DEBUG]    Detection context: {"pollCount":3,"pollDuration":28,"totalElapsed":10086,"windowTarget":"3"}
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 43s (43332ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 17s (17341ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.3 min < 2 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 TOTAL ITERATION: 1m 1s (61675ms)
+[2025-07-25 04:13:40] [RUN:2025-07-25_04-08-26] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:13:40
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 43s (43332ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 17s (17341ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.3 min < 2 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 TOTAL ITERATION: 1m 1s (61675ms)
+[2025-07-25 04:13:40] [RUN:2025-07-25_04-08-26] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:13:40
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: No response received within timeout
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:964:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1132:9)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 43s (43332ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 17s (17341ms)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.3 min < 2 min minimum)
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:13:38] [RUN:2025-07-25_04-08-26] [ITER:3] [INFO] 📊 TOTAL ITERATION: 1m 1s (61675ms)
+[2025-07-25 04:13:40] [RUN:2025-07-25_04-08-26] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:13:40
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: No response received within timeout
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: No response received within timeout
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:964:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1132:9)
+[2025-07-25 04:23:43] [RUN:2025-07-25_04-08-26] [ITER:4] [INFO] 🧹 Operator connection cleaned up

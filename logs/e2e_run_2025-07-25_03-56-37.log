@@ -1,0 +1,132 @@
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] Run ID: 2025-07-25_03-56-37
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_03-56-37.log
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 03:56:37] [RUN:2025-07-25_03-56-37] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 03:56:42] [RUN:2025-07-25_03-56-37] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:56:42
+[2025-07-25 03:57:05] [RUN:2025-07-25_03-56-37] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:57:05
+[2025-07-25 03:57:06] [RUN:2025-07-25_03-56-37] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:57:06
+[2025-07-25 03:57:10] [RUN:2025-07-25_03-56-37] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 03:57:10] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:15] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:20] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:25] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:30] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:35] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753415860344
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753415860344
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:57:40
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Window content length: 3391 chars
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Window preview:   - Made actual code changes to fix the issues\n  - Committed the changes to git\n  - Deployed to the ...
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Detection context: {"pollCount":7,"pollDuration":27,"totalElapsed":30195,"windowTarget":"3"}
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753415860344
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 03:57:40
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Window content length: 3391 chars
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Window preview:   - Made actual code changes to fix the issues\n  - Committed the changes to git\n  - Deployed to the ...
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [DEBUG]    Detection context: {"pollCount":7,"pollDuration":27,"totalElapsed":30195,"windowTarget":"3"}
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [INFO] 📊 OPERATOR PHASE: 0m 22s (22982ms)
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⚠️  WARNING: Operator phase too fast (0.4 min < 1 min minimum)
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [INFO] 📊 CLAUDE PHASE: 0m 33s (33399ms)
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING] ⚠️  WARNING: Claude phase too fast (0.6 min < 2 min minimum)
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 03:57:40] [RUN:2025-07-25_03-56-37] [ITER:1] [INFO] 📊 TOTAL ITERATION: 0m 57s (57385ms)
+[2025-07-25 03:57:43] [RUN:2025-07-25_03-56-37] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 03:57:43
+[2025-07-25 03:59:16] [RUN:2025-07-25_03-56-37] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 03:59:16
+[2025-07-25 03:59:17] [RUN:2025-07-25_03-56-37] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 03:59:17
+[2025-07-25 03:59:21] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 2, Max wait: 1200s
+[2025-07-25 03:59:21] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 0s (Poll #1)
+[2025-07-25 03:59:31] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 10s (Poll #3)
+[2025-07-25 03:59:41] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 20s (Poll #5)
+[2025-07-25 03:59:51] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 30s (Poll #7)
+[2025-07-25 04:00:01] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 40s (Poll #9)
+[2025-07-25 04:00:11] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 50s (Poll #11)
+[2025-07-25 04:00:21] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 60s (Poll #13)
+[2025-07-25 04:00:31] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 70s (Poll #15)
+[2025-07-25 04:00:41] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 80s (Poll #17)
+[2025-07-25 04:00:51] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 90s (Poll #19)
+[2025-07-25 04:01:01] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 100s (Poll #21)
+[2025-07-25 04:01:11] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 110s (Poll #23)
+[2025-07-25 04:01:21] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 120s (Poll #25)
+[2025-07-25 04:01:31] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 130s (Poll #27)
+[2025-07-25 04:01:41] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 140s (Poll #29)
+[2025-07-25 04:01:52] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 150s (Poll #31)
+[2025-07-25 04:02:02] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 160s (Poll #33)
+[2025-07-25 04:02:12] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 171s (Poll #35)
+[2025-07-25 04:02:22] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 181s (Poll #37)
+[2025-07-25 04:02:32] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 191s (Poll #39)
+[2025-07-25 04:02:42] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 201s (Poll #41)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416167386
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416167386
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:02:47
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Window content length: 4515 chars
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Window preview: ⏺ Bash(git log --oneline -n 3)\n  ⎿  d936819 Fix QA/UX issues: logo positioning, debug styles, button...
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Detection context: {"pollCount":42,"pollDuration":29,"totalElapsed":206235,"windowTarget":"3"}
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753416167386
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:02:47
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Window content length: 4515 chars
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Window preview: ⏺ Bash(git log --oneline -n 3)\n  ⎿  d936819 Fix QA/UX issues: logo positioning, debug styles, button...
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [DEBUG]    Detection context: {"pollCount":42,"pollDuration":29,"totalElapsed":206235,"windowTarget":"3"}
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] 📊 OPERATOR PHASE: 1m 33s (93276ms)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] ✅ Operator phase timing acceptable (≥ 1 min)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] 📊 CLAUDE PHASE: 3m 29s (209505ms)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-25 04:02:47] [RUN:2025-07-25_03-56-37] [ITER:2] [INFO] 📊 TOTAL ITERATION: 5m 3s (303790ms)
+[2025-07-25 04:02:50] [RUN:2025-07-25_03-56-37] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:02:50
+[2025-07-25 04:03:43] [RUN:2025-07-25_03-56-37] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-25 04:03:43
+[2025-07-25 04:03:44] [RUN:2025-07-25_03-56-37] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-25 04:03:44
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 3, Max wait: 1200s
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416228126
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416228126
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:03:48
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Window content length: 4889 chars
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Window preview: ⏺ Bash(git log --oneline -n 3)\n  ⎿  d936819 Fix QA/UX issues: logo positioning, debug styles, button...
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":25,"totalElapsed":25,"windowTarget":"3"}
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753416228126
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-25 04:03:48
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Window content length: 4889 chars
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Window preview: ⏺ Bash(git log --oneline -n 3)\n  ⎿  d936819 Fix QA/UX issues: logo positioning, debug styles, button...
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":25,"totalElapsed":25,"windowTarget":"3"}
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53774ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 3s (3218ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 TOTAL ITERATION: 0m 57s (57994ms)
+[2025-07-25 04:03:50] [RUN:2025-07-25_03-56-37] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:03:50
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket is not open: readyState 3 (CLOSED)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53774ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 3s (3218ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 TOTAL ITERATION: 0m 57s (57994ms)
+[2025-07-25 04:03:50] [RUN:2025-07-25_03-56-37] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:03:50
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket is not open: readyState 3 (CLOSED)
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: WebSocket is not open: readyState 3 (CLOSED)
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:958:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1126:9)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 OPERATOR PHASE: 0m 53s (53774ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Operator phase too fast (0.9 min < 1 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 CLAUDE PHASE: 0m 3s (3218ms)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING] ⚠️  WARNING: Claude phase too fast (0.1 min < 2 min minimum)
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [WARNING]    This may indicate Claude didn't properly implement fixes
+[2025-07-25 04:03:48] [RUN:2025-07-25_03-56-37] [ITER:3] [INFO] 📊 TOTAL ITERATION: 0m 57s (57994ms)
+[2025-07-25 04:03:50] [RUN:2025-07-25_03-56-37] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-25 04:03:50
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket is not open: readyState 3 (CLOSED)
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: WebSocket is not open: readyState 3 (CLOSED)
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:630:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:958:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1126:9)
+[2025-07-25 04:05:26] [RUN:2025-07-25_03-56-37] [ITER:4] [INFO] 🧹 Operator connection cleaned up
