@@ -1,0 +1,89 @@
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] Run ID: 2025-07-25_01-36-15
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_01-36-15.log
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 01:36:15] [RUN:2025-07-25_01-36-15] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 01:36:57] [RUN:2025-07-25_01-36-15] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 300s
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753407418003
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753407418003
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Window content length: 2676 chars
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Window preview:     setTimeout(() => {\n      warningDiv.style.display = 'none';\n    }, 5000);\n  }\n\n  4. Missing Prod...
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":27,"totalElapsed":27,"windowTarget":"3"}
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753407418003
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Window content length: 2676 chars
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Window preview:     setTimeout(() => {\n      warningDiv.style.display = 'none';\n    }, 5000);\n  }\n\n  4. Missing Prod...
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":27,"totalElapsed":27,"windowTarget":"3"}
+[2025-07-25 01:36:58] [RUN:2025-07-25_01-36-15] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 01:37:19] [RUN:2025-07-25_01-36-15] [ITER:2] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 2, Max wait: 300s
+[2025-07-25 01:37:19] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:21] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:23] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:25] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:27] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:29] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:31] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:33] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:35] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:37] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:39] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:41] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:43] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:45] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:47] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:49] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:51] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:53] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:55] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:57] [RUN:2025-07-25_01-36-15] [ITER:2] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753407479801
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753407479801
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Window content length: 3909 chars
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Window preview:       ],\n      "technical_recommendations": [\n        "Update header layout:\n  ```scss\n  .site-hea...
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Detection context: {"pollCount":21,"pollDuration":23,"totalElapsed":40626,"windowTarget":"3"}
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753407479801
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Window content length: 3909 chars
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Window preview:       ],\n      "technical_recommendations": [\n        "Update header layout:\n  ```scss\n  .site-hea...
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [DEBUG]    Detection context: {"pollCount":21,"pollDuration":23,"totalElapsed":40626,"windowTarget":"3"}
+[2025-07-25 01:37:59] [RUN:2025-07-25_01-36-15] [ITER:2] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 01:38:30] [RUN:2025-07-25_01-36-15] [ITER:3] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 3, Max wait: 300s
+[2025-07-25 01:38:30] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:32] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:34] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:36] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:38] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:40] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:43] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:45] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:47] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:49] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:51] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:53] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:55] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:57] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:38:59] [RUN:2025-07-25_01-36-15] [ITER:3] [WARNING] ⏸️  TASK_FINISHED detected but in cooldown period
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753407541261
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753407541261
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Window content length: 4309 chars
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Window preview:    the top‑right corner.",\n        "Inline or fallback styles applied during a previous experiment/h...
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Detection context: {"pollCount":16,"pollDuration":26,"totalElapsed":30457,"windowTarget":"3"}
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753407541261
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Window content length: 4309 chars
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Window preview:    the top‑right corner.",\n        "Inline or fallback styles applied during a previous experiment/h...
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [DEBUG]    Detection context: {"pollCount":16,"pollDuration":26,"totalElapsed":30457,"windowTarget":"3"}
+[2025-07-25 01:39:01] [RUN:2025-07-25_01-36-15] [ITER:3] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket connection closed
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket connection closed
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: WebSocket connection closed
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:503:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:801:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:952:9)
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: WebSocket connection closed
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [ERROR] Stack trace: Error: Failed to get response from Operator: WebSocket connection closed
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:503:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:801:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:952:9)
+[2025-07-25 01:42:24] [RUN:2025-07-25_01-36-15] [ITER:4] [INFO] 🧹 Operator connection cleaned up

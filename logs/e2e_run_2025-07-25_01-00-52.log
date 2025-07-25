@@ -1,0 +1,34 @@
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] Run ID: 2025-07-25_01-00-52
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_01-00-52.log
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 01:00:52] [RUN:2025-07-25_01-00-52] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 300s
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753405280228
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753405280228
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Window content length: 3270 chars
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Window preview:      ☒ Fix calculate button - remove placeholder alert and restore real calculation\n     ☒ Fix butto...
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":33,"totalElapsed":33,"windowTarget":"3"}
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753405280228
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Window content length: 3270 chars
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Window preview:      ☒ Fix calculate button - remove placeholder alert and restore real calculation\n     ☒ Fix butto...
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":33,"totalElapsed":33,"windowTarget":"3"}
+[2025-07-25 01:01:20] [RUN:2025-07-25_01-00-52] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: Textarea not found
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: Textarea not found
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [ERROR] Stack trace: Error: Failed to get response from Operator: Textarea not found
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:499:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:779:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:927:9)
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to get response from Operator: Textarea not found
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [ERROR] Stack trace: Error: Failed to get response from Operator: Textarea not found
+    at OperatorE2EExecutor.sendTasksToOperator (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:499:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:779:42)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:927:9)
+[2025-07-25 01:01:23] [RUN:2025-07-25_01-00-52] [ITER:2] [INFO] 🧹 Operator connection cleaned up

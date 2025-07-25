@@ -1,0 +1,18 @@
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] Run ID: 2025-07-25_02-52-01
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_02-52-01.log
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 02:52:01] [RUN:2025-07-25_02-52-01] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 02:52:53] [RUN:2025-07-25_02-52-01] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 1200s
+[2025-07-25 02:52:53] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG] ⏳ Still waiting for TASK_FINISHED... 0s (Poll #1)
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753411978579
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753411978579
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Window content length: 3720 chars
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Window preview:     {\n      "taskId": "button_hover_too_flashy",\n      "root_cause": "A marketing experiment branch ...
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":30,"totalElapsed":5110,"windowTarget":"3"}
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753411978579
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Window content length: 3720 chars
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Window preview:     {\n      "taskId": "button_hover_too_flashy",\n      "root_cause": "A marketing experiment branch ...
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [DEBUG]    Detection context: {"pollCount":2,"pollDuration":30,"totalElapsed":5110,"windowTarget":"3"}
+[2025-07-25 02:52:58] [RUN:2025-07-25_02-52-01] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)

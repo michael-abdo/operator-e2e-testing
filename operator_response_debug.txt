@@ -1,0 +1,230 @@
+jsonCopy[
+  {
+    "taskId": "logo_positioning_bug",
+    "root_cause": "Recent header refactor introduced a flex‑box rule (`justify-content: flex-end`) that pushes the logo to the right. A temporary debug class (`.logo--debug`) was also committed, adding red background and yellow border.",
+    "recommendations": [
+      "Move the logo element before the nav items in the DOM or set `order: 0` for `.logo` and `order: 1` for the nav list when using flex‑box.",
+      "Change `justify-content` to `space-between` or `flex-start` to keep the logo on the left.",
+      "Remove `.logo--debug` class and its inline styles; instead apply brand colors from the design system (`background: transparent; border: none`).",
+      "Add a CSS regression test or visual snapshot test (e.g., Percy, Chromatic) that asserts the logo’s x‑coordinate is ≤ 16 px from the left edge."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Verify placement and styling in Chrome, Firefox, Safari, and Edge.",
+      "Test responsiveness at 320 px, 768 px, 1024 px, 1440 px breakpoints.",
+      "Add unit test that checks `.logo` has no background‑color or border in Jest + React Testing Library."
+    ]
+  },
+  {
+    "taskId": "signin_button_missing",
+    "root_cause": "The `SignInButton` component was hidden by a new feature flag (`authV2`) that is off in production, or it was removed during a merge conflict. Header template now renders nothing when `isAuthenticated` is false.",
+    "recommendations": [
+      "Re‑insert `<SignInButton/>` into the header component and guard it with a safe null‑check instead of a feature flag.",
+      "Ensure the button routes to `/login` or triggers the authentication modal.",
+      "Add Cypress e2e test that asserts the button is visible for unauthenticated users and hidden after login.",
+      "Add unit test to mock `isAuthenticated=false` and expect the button in the DOM."
+    ],
+    "priority": "critical",
+    "testing_suggestions": [
+      "Smoke‑test full login flow (button → modal → success redirect).",
+      "Check accessibility: button has `aria-label=\"Sign in\"` and is focusable.",
+      "Include visual diff test so accidental removal is caught in CI."
+    ]
+  },
+  {
+    "taskId": "calculator_heading_wrong",
+    "root_cause": "A placeholder error component (`<BrokenHeading/>`) is rendered when the `calculatorTitle` prop is undefined. The prop is undefined because the CMS query key changed from `contract_calculator_title` to `calculator_title`.",
+    "recommendations": [
+      "Update the data query or prop name so `calculatorTitle` receives the correct value.",
+      "Remove `<BrokenHeading/>` fallback and replace with default copy `'Contract Calculator'`.",
+      "Apply design system heading class (`.heading-xl`) and remove inline red/yellow/blue styles.",
+      "Add unit test that renders the page with missing CMS data and asserts the default heading appears without error styling."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Regression test: visit `/tools/calculator` in staging and confirm H1 text.",
+      "Run Lighthouse to ensure color contrast meets WCAG after styling fix.",
+      "Snapshot test for heading element."
+    ]
+  },
+  {
+    "taskId": "contract_title_field_missing",
+    "root_cause": "Form schema validation removed the `contractTitle` field but the UI still expects it. Build now shows an error placeholder when schema mismatch occurs.",
+    "recommendations": [
+      "Add `contractTitle` back to the JSON form schema and map it to an `<input name=\"contractTitle\" />`.",
+      "Remove error placeholder component or guard it behind a development flag only.",
+      "Add integration test that fills `contractTitle` and submits the form, asserting a successful POST.",
+      "Update backend validation to accept `contractTitle` or make it optional if truly deprecated."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Manual QA: confirm all fields render and accept input.",
+      "Add Cypress test: complete form and verify successful calculation.",
+      "Check mobile form layout after field restoration."
+    ]
+  },
+  {
+    "taskId": "hourly_rate_wrong_default",
+    "root_cause": "Default value constant was changed from `150` to `999` during performance testing and never reverted. A debug class (`.input--error`) was mistakenly left on the field.",
+    "recommendations": [
+      "Reset default constant in code (`DEFAULT_HOURLY_RATE = 150`).",
+      "Remove `.input--error` class or ensure it is only applied on validation errors.",
+      "Use CSS variables for theming; rely on `.input` base styles.",
+      "Add unit test that mounts the form and checks `getByDisplayValue('150')` exists."
+    ],
+    "priority": "medium",
+    "testing_suggestions": [
+      "Cross‑field validation test: ensure changing hourly rate recalculates totals correctly.",
+      "Visual regression test to ensure normal styling persists.",
+      "Check for currency formatting (e.g., two decimals, no thousands separator if not needed)."
+    ]
+  },
+  {
+    "taskId": "calculate_button_broken",
+    "root_cause": "`handleCalculate` throws an error because the results panel component was renamed (`ResultsPanel` → `CalculationResults`) but import was not updated. A temporary `alert()` was left in place for demo purposes.",
+    "recommendations": [
+      "Update import in `CalculatorPage.tsx` to `import CalculationResults from './CalculationResults'`.",
+      "Remove `alert('DEMO ERROR...')` and restore state update that sets `showResults=true`.",
+      "Add unit tests for `handleCalculate` to mock inputs and assert result state.",
+      "Add Cypress test: fill form, click Calculate, verify results panel shows correct values.",
+      "Consider moving calculation logic to a pure function with Jest coverage for edge cases."
+    ],
+    "priority": "critical",
+    "testing_suggestions": [
+      "Test with boundary values (0, large numbers) to ensure safe calculations.",
+      "Check that results panel is keyboard‑navigable and screen‑reader friendly.",
+      "Run performance test to ensure calculation completes <100 ms."
+    ]
+  },
+  {
+    "taskId": "button_hover_too_flashy",
+    "root_cause": "A marketing experiment branch merged hover animation that overrides design tokens with hard‑coded colors and a `transform: scale(1.3)` on hover.",
+    "recommendations": [
+      "Revert to design‑system hover state: `background-color: var(--color-primary-dark); color: #fff; transform: none; transition: background-color 150ms ease-in-out`.",
+      "Define hover styles in a shared SCSS mixin and remove inline styles.",
+      "Add CSS lint rule (`no-hardcoded-colors`) to block bright magenta/yellow in primary button.",
+      "Add visual regression test for hover state using Playwright screenshot diff."
+    ],
+    "priority": "medium",
+    "testing_suggestions": [
+      "Verify hover effect on all primary buttons across the site.",
+      "Test reduced‑motion preference (`@media (prefers-reduced-motion: reduce)`) to ensure no scaling.",
+      "Check contrast ratio of hover color vs text meets WCAG AA."
+    ]
+  }
+]
+[
+  {
+    "taskId": "logo_positioning_bug",
+    "root_cause": "Recent header refactor introduced a flex‑box rule (`justify-content: flex-end`) that pushes the logo to the right. A temporary debug class (`.logo--debug`) was also committed, adding red background and yellow border.",
+    "recommendations": [
+      "Move the logo element before the nav items in the DOM or set `order: 0` for `.logo` and `order: 1` for the nav list when using flex‑box.",
+      "Change `justify-content` to `space-between` or `flex-start` to keep the logo on the left.",
+      "Remove `.logo--debug` class and its inline styles; instead apply brand colors from the design system (`background: transparent; border: none`).",
+      "Add a CSS regression test or visual snapshot test (e.g., Percy, Chromatic) that asserts the logo’s x‑coordinate is ≤ 16 px from the left edge."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Verify placement and styling in Chrome, Firefox, Safari, and Edge.",
+      "Test responsiveness at 320 px, 768 px, 1024 px, 1440 px breakpoints.",
+      "Add unit test that checks `.logo` has no background‑color or border in Jest + React Testing Library."
+    ]
+  },
+  {
+    "taskId": "signin_button_missing",
+    "root_cause": "The `SignInButton` component was hidden by a new feature flag (`authV2`) that is off in production, or it was removed during a merge conflict. Header template now renders nothing when `isAuthenticated` is false.",
+    "recommendations": [
+      "Re‑insert `<SignInButton/>` into the header component and guard it with a safe null‑check instead of a feature flag.",
+      "Ensure the button routes to `/login` or triggers the authentication modal.",
+      "Add Cypress e2e test that asserts the button is visible for unauthenticated users and hidden after login.",
+      "Add unit test to mock `isAuthenticated=false` and expect the button in the DOM."
+    ],
+    "priority": "critical",
+    "testing_suggestions": [
+      "Smoke‑test full login flow (button → modal → success redirect).",
+      "Check accessibility: button has `aria-label=\"Sign in\"` and is focusable.",
+      "Include visual diff test so accidental removal is caught in CI."
+    ]
+  },
+  {
+    "taskId": "calculator_heading_wrong",
+    "root_cause": "A placeholder error component (`<BrokenHeading/>`) is rendered when the `calculatorTitle` prop is undefined. The prop is undefined because the CMS query key changed from `contract_calculator_title` to `calculator_title`.",
+    "recommendations": [
+      "Update the data query or prop name so `calculatorTitle` receives the correct value.",
+      "Remove `<BrokenHeading/>` fallback and replace with default copy `'Contract Calculator'`.",
+      "Apply design system heading class (`.heading-xl`) and remove inline red/yellow/blue styles.",
+      "Add unit test that renders the page with missing CMS data and asserts the default heading appears without error styling."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Regression test: visit `/tools/calculator` in staging and confirm H1 text.",
+      "Run Lighthouse to ensure color contrast meets WCAG after styling fix.",
+      "Snapshot test for heading element."
+    ]
+  },
+  {
+    "taskId": "contract_title_field_missing",
+    "root_cause": "Form schema validation removed the `contractTitle` field but the UI still expects it. Build now shows an error placeholder when schema mismatch occurs.",
+    "recommendations": [
+      "Add `contractTitle` back to the JSON form schema and map it to an `<input name=\"contractTitle\" />`.",
+      "Remove error placeholder component or guard it behind a development flag only.",
+      "Add integration test that fills `contractTitle` and submits the form, asserting a successful POST.",
+      "Update backend validation to accept `contractTitle` or make it optional if truly deprecated."
+    ],
+    "priority": "high",
+    "testing_suggestions": [
+      "Manual QA: confirm all fields render and accept input.",
+      "Add Cypress test: complete form and verify successful calculation.",
+      "Check mobile form layout after field restoration."
+    ]
+  },
+  {
+    "taskId": "hourly_rate_wrong_default",
+    "root_cause": "Default value constant was changed from `150` to `999` during performance testing and never reverted. A debug class (`.input--error`) was mistakenly left on the field.",
+    "recommendations": [
+      "Reset default constant in code (`DEFAULT_HOURLY_RATE = 150`).",
+      "Remove `.input--error` class or ensure it is only applied on validation errors.",
+      "Use CSS variables for theming; rely on `.input` base styles.",
+      "Add unit test that mounts the form and checks `getByDisplayValue('150')` exists."
+    ],
+    "priority": "medium",
+    "testing_suggestions": [
+      "Cross‑field validation test: ensure changing hourly rate recalculates totals correctly.",
+      "Visual regression test to ensure normal styling persists.",
+      "Check for currency formatting (e.g., two decimals, no thousands separator if not needed)."
+    ]
+  },
+  {
+    "taskId": "calculate_button_broken",
+    "root_cause": "`handleCalculate` throws an error because the results panel component was renamed (`ResultsPanel` → `CalculationResults`) but import was not updated. A temporary `alert()` was left in place for demo purposes.",
+    "recommendations": [
+      "Update import in `CalculatorPage.tsx` to `import CalculationResults from './CalculationResults'`.",
+      "Remove `alert('DEMO ERROR...')` and restore state update that sets `showResults=true`.",
+      "Add unit tests for `handleCalculate` to mock inputs and assert result state.",
+      "Add Cypress test: fill form, click Calculate, verify results panel shows correct values.",
+      "Consider moving calculation logic to a pure function with Jest coverage for edge cases."
+    ],
+    "priority": "critical",
+    "testing_suggestions": [
+      "Test with boundary values (0, large numbers) to ensure safe calculations.",
+      "Check that results panel is keyboard‑navigable and screen‑reader friendly.",
+      "Run performance test to ensure calculation completes <100 ms."
+    ]
+  },
+  {
+    "taskId": "button_hover_too_flashy",
+    "root_cause": "A marketing experiment branch merged hover animation that overrides design tokens with hard‑coded colors and a `transform: scale(1.3)` on hover.",
+    "recommendations": [
+      "Revert to design‑system hover state: `background-color: var(--color-primary-dark); color: #fff; transform: none; transition: background-color 150ms ease-in-out`.",
+      "Define hover styles in a shared SCSS mixin and remove inline styles.",
+      "Add CSS lint rule (`no-hardcoded-colors`) to block bright magenta/yellow in primary button.",
+      "Add visual regression test for hover state using Playwright screenshot diff."
+    ],
+    "priority": "medium",
+    "testing_suggestions": [
+      "Verify hover effect on all primary buttons across the site.",
+      "Test reduced‑motion preference (`@media (prefers-reduced-motion: reduce)`) to ensure no scaling.",
+      "Check contrast ratio of hover color vs text meets WCAG AA."
+    ]
+  }
+]

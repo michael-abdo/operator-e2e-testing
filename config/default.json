@@ -1,0 +1,28 @@
+{
+  "execution": {
+    "maxIterations": 5,
+    "timeoutPerIteration": 300000,
+    "pauseBetweenIterations": 2000
+  },
+  "claude": {
+    "responseTimeout": 30000,
+    "maxRetries": 3,
+    "workingDirectory": null
+  },
+  "operator": {
+    "chromeDebugPort": 9222,
+    "responseTimeout": 30000,
+    "preferConversation": false,
+    "waitForResponse": true
+  },
+  "statusUpdate": {
+    "autoPassThreshold": 0.7,
+    "requireExplicitPass": false,
+    "backupOnUpdate": true
+  },
+  "logging": {
+    "verbose": true,
+    "saveConversations": true,
+    "logDir": "./logs"
+  }
+}

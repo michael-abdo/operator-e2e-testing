@@ -1,0 +1,34 @@
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] Run ID: 2025-07-25_01-55-25
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e_run_2025-07-25_01-55-25.log
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] Max iterations: 5
+[2025-07-25 01:55:25] [RUN:2025-07-25_01-55-25] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [INFO] ⏳ Starting TASK_FINISHED polling - Iteration: 1, Max wait: 300s
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753408551238
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753408551238
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Window content length: 3029 chars
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Window preview:   ⎿  (No content)\n\n⏺ Update Todos\n  ⎿  ☒ Find and analyze the header component with logo positioning...
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":26,"totalElapsed":26,"windowTarget":"3"}
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753408551238
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Window content length: 3029 chars
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Window preview:   ⎿  (No content)\n\n⏺ Update Todos\n  ⎿  ☒ Find and analyze the header component with logo positioning...
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [DEBUG]    Detection context: {"pollCount":1,"pollDuration":26,"totalElapsed":26,"windowTarget":"3"}
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to connect to Operator. Ensure Chrome is running with --remote-debugging-port=9222 and has a fresh Operator home page open
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to connect to Operator. Ensure Chrome is running with --remote-debugging-port=9222 and has a fresh Operator home page open
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [ERROR] Stack trace: Error: Failed to connect to Operator. Ensure Chrome is running with --remote-debugging-port=9222 and has a fresh Operator home page open
+    at OperatorE2EExecutor.setupOperatorConnection (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:297:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:760:17)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:936:9)
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [ERROR] 
+❌ Execution failed: Failed to connect to Operator. Ensure Chrome is running with --remote-debugging-port=9222 and has a fresh Operator home page open
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [ERROR] Stack trace: Error: Failed to connect to Operator. Ensure Chrome is running with --remote-debugging-port=9222 and has a fresh Operator home page open
+    at OperatorE2EExecutor.setupOperatorConnection (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:297:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:760:17)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:936:9)
+[2025-07-25 01:55:51] [RUN:2025-07-25_01-55-25] [ITER:2] [INFO] 🧹 Operator connection cleaned up
