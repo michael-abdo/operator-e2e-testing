@@ -192,15 +192,23 @@ class OperatorE2EExecutor {
         }
         
         const sessionName = await tmuxUtils.getCurrentSession();
-        const windowName = `claude-e2e-${Date.now()}`;
-        console.log(`📍 Creating new tmux window: ${windowName}`);
+        const windowName = 'op-loop';
         
-        await tmuxUtils.createWindow(sessionName, windowName);
-        console.log(`✅ Created tmux window: ${windowName}`);
-        
-        const windowTarget = await tmuxUtils.getWindowIndex(sessionName, windowName);
+        // Check if op-loop window already exists
+        let windowTarget;
+        try {
+            windowTarget = await tmuxUtils.getWindowIndex(sessionName, windowName);
+            console.log(`✅ Found existing tmux window: ${windowName}`);
+            console.log(`🎯 Using existing window target: ${windowTarget}`);
+        } catch (error) {
+            // Window doesn't exist, create it
+            console.log(`📍 Creating new tmux window: ${windowName}`);
+            await tmuxUtils.createWindow(sessionName, windowName);
+            console.log(`✅ Created tmux window: ${windowName}`);
+            windowTarget = await tmuxUtils.getWindowIndex(sessionName, windowName);
+            console.log(`🎯 Using new window target: ${windowTarget}`);
+        }
         this.claudeInstanceId = windowTarget;
-        console.log(`🎯 Using window target: ${windowTarget}`);
         
         console.log(`📁 Navigating to project root: ${this.workingDir}`);
         await tmuxUtils.sendToWindow(windowTarget, `cd "${this.workingDir}"`);
@@ -607,13 +615,13 @@ Focus on providing actionable, specific technical guidance that a developer can 
         await fs.writeFile('operator_response_debug.txt', this.currentOperatorResponse);
         console.log('💾 Full Operator response saved to operator_response_debug.txt');
         
-        console.log('🧹 Running /compact to clear stale outputs while preserving context...');
-        await this.sleep(2000);
-        await tmuxUtils.sendToWindow(this.claudeInstanceId, '/compact');
-        await this.sleep(500);
-        await tmuxUtils.sendKeys(this.claudeInstanceId, 'Enter');
-        await tmuxUtils.sendKeys(this.claudeInstanceId, 'Enter');
-        console.log('✅ /compact completed with double Enter - ready for fresh TASK_FINISHED detection');
+        // console.log('🧹 Running /compact to clear stale outputs while preserving context...');
+        // await this.sleep(2000);
+        // await tmuxUtils.sendToWindow(this.claudeInstanceId, '/compact');
+        // await this.sleep(500);
+        // await tmuxUtils.sendKeys(this.claudeInstanceId, 'Enter');
+        // await tmuxUtils.sendKeys(this.claudeInstanceId, 'Enter');
+        // console.log('✅ /compact completed with double Enter - ready for fresh TASK_FINISHED detection');
         
         return true;
     }
@@ -625,30 +633,12 @@ Focus on providing actionable, specific technical guidance that a developer can 
         const responseLength = operatorResponse.length;
         console.log(`📝 Operator response length: ${responseLength} characters`);
         
-        const preview = operatorResponse.substring(0, 150).replace(/\n/g, ' ');
-        console.log(`📝 Operator response preview: ${preview}...`);
-        
-        const prompt = `The Operator has analyzed the QA/UX issues and provided technical recommendations. Here's their analysis:
+        // Simple, direct prompt
+        const prompt = `Please fix these bugs directly:
 
 ${operatorResponse}
 
-Based on this analysis, please:
-1. Implement the recommended fixes for ALL issues
-2. Ensure all changes follow the existing code patterns
-3. Test your changes locally if possible
-4. Commit your changes with a clear message
-5. Deploy to production (the deployment method should be auto-detected)
-6. Verify the deployment was successful
-
-${parameters.addInstructions ? `
-IMPORTANT: 
-- Fix ALL issues identified, not just some
-- Make minimal changes that solve the problems
-- Preserve existing functionality while fixing the issues
-- After deployment is complete and verified, say "TASK_FINISHED"
-` : ''}
-
-When you have completed ALL fixes, deployed them, and verified the deployment, say exactly: TASK_FINISHED`;
+When done, say: TASK_FINISHED`;
 
         return prompt;
     }
