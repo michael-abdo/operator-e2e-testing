@@ -1,22 +1,21 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly bundled logo file, so the browser shows the alt‑text (“Demo Logo”) instead of the image. Because the image never loads, no logo‑specific CSS (height, margin, vertical centering) is applied, making the header look unfinished and misaligned.",
+    "root_cause": "The header is rendering only fallback text (\"Demo Logo\") because the image asset is missing or referenced with an incorrect path. The navbar’s default padding also leaves the element slightly mis‑aligned, and the fallback text inherits the default link color, giving an unpolished look.",
     "technical_recommendations": [
-      "Add the real logo file (SVG or PNG) to the folder that is copied to the production build (e.g., /public/assets/logo.svg).",
-      "Reference the file with a path that survives the build step:\n  • Plain HTML: <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" class=\"header-logo\" />\n  • React: import logo from \"../assets/logo.svg\"; … <img src={logo} alt=\"Operator E2E Demo\" className=\"header-logo\" />",
-      "Create a reusable .header-logo class:\n```css\n.header-logo {\n  height: 40px;          /* consistent size */\n  width: auto;           /* keep aspect ratio */\n  object-fit: contain;   /* prevent distortion */\n  margin-right: 0.75rem; /* spacing from nav items */\n}\n```",
-      "Ensure the header/nav bar uses flexbox so the logo is vertically centered:\n```css\nheader.navbar {\n  display: flex;\n  align-items: center;\n  padding: 0 1rem;\n}\n```",
-      "Use a neutral or monochrome version of the logo to avoid bright, distracting colors.",
-      "Optionally hide the broken‑image icon if the file is ever missing again:\n```css\n.header-logo:not([src]) { visibility: hidden; }\n```"
+      "Add the real logo file (SVG/PNG) to the project’s public or assets folder and reference it with a correct path or via an ES‑module import.",
+      "Replace the text placeholder with an <img> element wrapped in an anchor (<a class=\"navbar-brand\">) so Bootstrap/Flexbox can align it correctly.",
+      "Constrain the logo size in CSS (e.g., max-height: 40px; width: auto) to keep proportions consistent across viewports.",
+      "Use flexbox utilities (e.g., d-flex align-items-center) or custom CSS (display:flex; align-items:center) on the .navbar to vertically center the logo with nav links.",
+      "Remove any inline or hard‑coded bright colors; rely on the site’s neutral palette or CSS variables for brand colors to keep the header professional."
     ],
     "implementation_steps": [
-      "Place the final logo file in /public/assets (or the framework‑specific static folder).",
-      "Update the Header component/template to use the correct path or import for the logo.",
-      "Add the .header-logo and header.navbar styles to the main stylesheet or component‑scoped CSS.",
-      "Run the app locally; verify the logo loads, is 40 px tall, and is left‑aligned and vertically centered.",
-      "Build the production bundle (e.g., npm run build) and confirm the logo file is present in the build output.",
-      "Deploy to Heroku; perform a hard refresh (Ctrl+Shift+R) to clear cache and confirm the logo now appears and passes the QA checks."
+      "Add the logo file to the codebase (e.g., /src/assets/logo.svg or /public/logo.svg).",
+      "In the header component (Header.jsx, Navbar.vue, etc.), import the asset: `import logo from '../assets/logo.svg';`",
+      "Replace the placeholder with: `<a className=\"navbar-brand\" href=\"/\"><img src={logo} alt=\"Operator Logo\" /></a>`",
+      "Add or update CSS:\n  ```css\n  .navbar-brand img {\n    max-height: 40px;\n    width: auto;\n  }\n  .navbar {\n    display: flex;\n    align-items: center;\n  }\n  ```",
+      "Remove any bright inline styles; ensure the header background is #fff (or brand neutral) and text colors are #212529 (or brand variables).",
+      "Run the application and perform a hard refresh (Ctrl+Shift+R) to confirm the logo appears in the top‑left, is properly centered vertically, and matches the overall design."
     ],
     "estimated_complexity": "low"
   }
@@ -24,22 +23,21 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly bundled logo file, so the browser shows the alt‑text (“Demo Logo”) instead of the image. Because the image never loads, no logo‑specific CSS (height, margin, vertical centering) is applied, making the header look unfinished and misaligned.",
+    "root_cause": "The header is rendering only fallback text (\"Demo Logo\") because the image asset is missing or referenced with an incorrect path. The navbar’s default padding also leaves the element slightly mis‑aligned, and the fallback text inherits the default link color, giving an unpolished look.",
     "technical_recommendations": [
-      "Add the real logo file (SVG or PNG) to the folder that is copied to the production build (e.g., /public/assets/logo.svg).",
-      "Reference the file with a path that survives the build step:\n  • Plain HTML: <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" class=\"header-logo\" />\n  • React: import logo from \"../assets/logo.svg\"; … <img src={logo} alt=\"Operator E2E Demo\" className=\"header-logo\" />",
-      "Create a reusable .header-logo class:\n```css\n.header-logo {\n  height: 40px;          /* consistent size */\n  width: auto;           /* keep aspect ratio */\n  object-fit: contain;   /* prevent distortion */\n  margin-right: 0.75rem; /* spacing from nav items */\n}\n```",
-      "Ensure the header/nav bar uses flexbox so the logo is vertically centered:\n```css\nheader.navbar {\n  display: flex;\n  align-items: center;\n  padding: 0 1rem;\n}\n```",
-      "Use a neutral or monochrome version of the logo to avoid bright, distracting colors.",
-      "Optionally hide the broken‑image icon if the file is ever missing again:\n```css\n.header-logo:not([src]) { visibility: hidden; }\n```"
+      "Add the real logo file (SVG/PNG) to the project’s public or assets folder and reference it with a correct path or via an ES‑module import.",
+      "Replace the text placeholder with an <img> element wrapped in an anchor (<a class=\"navbar-brand\">) so Bootstrap/Flexbox can align it correctly.",
+      "Constrain the logo size in CSS (e.g., max-height: 40px; width: auto) to keep proportions consistent across viewports.",
+      "Use flexbox utilities (e.g., d-flex align-items-center) or custom CSS (display:flex; align-items:center) on the .navbar to vertically center the logo with nav links.",
+      "Remove any inline or hard‑coded bright colors; rely on the site’s neutral palette or CSS variables for brand colors to keep the header professional."
     ],
     "implementation_steps": [
-      "Place the final logo file in /public/assets (or the framework‑specific static folder).",
-      "Update the Header component/template to use the correct path or import for the logo.",
-      "Add the .header-logo and header.navbar styles to the main stylesheet or component‑scoped CSS.",
-      "Run the app locally; verify the logo loads, is 40 px tall, and is left‑aligned and vertically centered.",
-      "Build the production bundle (e.g., npm run build) and confirm the logo file is present in the build output.",
-      "Deploy to Heroku; perform a hard refresh (Ctrl+Shift+R) to clear cache and confirm the logo now appears and passes the QA checks."
+      "Add the logo file to the codebase (e.g., /src/assets/logo.svg or /public/logo.svg).",
+      "In the header component (Header.jsx, Navbar.vue, etc.), import the asset: `import logo from '../assets/logo.svg';`",
+      "Replace the placeholder with: `<a className=\"navbar-brand\" href=\"/\"><img src={logo} alt=\"Operator Logo\" /></a>`",
+      "Add or update CSS:\n  ```css\n  .navbar-brand img {\n    max-height: 40px;\n    width: auto;\n  }\n  .navbar {\n    display: flex;\n    align-items: center;\n  }\n  ```",
+      "Remove any bright inline styles; ensure the header background is #fff (or brand neutral) and text colors are #212529 (or brand variables).",
+      "Run the application and perform a hard refresh (Ctrl+Shift+R) to confirm the logo appears in the top‑left, is properly centered vertically, and matches the overall design."
     ],
     "estimated_complexity": "low"
   }
