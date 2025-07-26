@@ -1,21 +1,22 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "The header is rendering only fallback text (\"Demo Logo\") because the image asset is missing or referenced with an incorrect path. The navbar’s default padding also leaves the element slightly mis‑aligned, and the fallback text inherits the default link color, giving an unpolished look.",
+    "root_cause": "The logo is rendered as plain alt‑text ('Demo Logo') with a leading list bullet, indicating the <img> source is missing/incorrect and the surrounding <li> element still has default list‑style. No dedicated CSS is applied to size, align, or hide list bullets for the logo container.",
     "technical_recommendations": [
-      "Add the real logo file (SVG/PNG) to the project’s public or assets folder and reference it with a correct path or via an ES‑module import.",
-      "Replace the text placeholder with an <img> element wrapped in an anchor (<a class=\"navbar-brand\">) so Bootstrap/Flexbox can align it correctly.",
-      "Constrain the logo size in CSS (e.g., max-height: 40px; width: auto) to keep proportions consistent across viewports.",
-      "Use flexbox utilities (e.g., d-flex align-items-center) or custom CSS (display:flex; align-items:center) on the .navbar to vertically center the logo with nav links.",
-      "Remove any inline or hard‑coded bright colors; rely on the site’s neutral palette or CSS variables for brand colors to keep the header professional."
+      "Provide a valid logo asset (e.g., /assets/logo.svg or /static/logo.png) and reference it in the <img src> attribute.",
+      "Wrap the logo in an <a> tag linking to the home page for better UX (e.g., <a href=\"/\">).",
+      "Remove default list bullets by adding `list-style: none; margin: 0; padding: 0;` to any <ul>/<li> used in the header.",
+      "Use flexbox on the header container to vertically center items: `.header { display: flex; align-items: center; justify-content: space-between; }`.",
+      "Add a dedicated class for the logo image with fixed height and auto width: `.logo { height: 40px; width: auto; display: block; }`.",
+      "Add appropriate margin/padding to separate the logo from navigation links: `.logo-wrapper { margin-right: 1rem; }`."
     ],
     "implementation_steps": [
-      "Add the logo file to the codebase (e.g., /src/assets/logo.svg or /public/logo.svg).",
-      "In the header component (Header.jsx, Navbar.vue, etc.), import the asset: `import logo from '../assets/logo.svg';`",
-      "Replace the placeholder with: `<a className=\"navbar-brand\" href=\"/\"><img src={logo} alt=\"Operator Logo\" /></a>`",
-      "Add or update CSS:\n  ```css\n  .navbar-brand img {\n    max-height: 40px;\n    width: auto;\n  }\n  .navbar {\n    display: flex;\n    align-items: center;\n  }\n  ```",
-      "Remove any bright inline styles; ensure the header background is #fff (or brand neutral) and text colors are #212529 (or brand variables).",
-      "Run the application and perform a hard refresh (Ctrl+Shift+R) to confirm the logo appears in the top‑left, is properly centered vertically, and matches the overall design."
+      "Place the logo file (e.g., logo.svg) in the public/static assets directory of the project.",
+      "Update the header markup (React/HTML):\n   ```html\n   <header class=\"header\">\n     <a href=\"/\" class=\"logo-wrapper\">\n       <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo Logo\" class=\"logo\" />\n     </a>\n     <!-- existing nav -->\n   </header>\n   ```",
+      "If the logo is inside a <ul>, set `ul { list-style: none; margin: 0; padding: 0; }` in the header’s CSS (or remove the <ul>/<li> wrapper entirely).",
+      "Add/merge the following SCSS or CSS rules:\n   ```css\n   .header {\n     display: flex;\n     align-items: center;\n     justify-content: space-between;\n     padding: 0 1rem;\n   }\n   .logo-wrapper { margin-right: 1rem; }\n   .logo { height: 40px; width: auto; display: block; }\n   ```",
+      "Test in all breakpoints; adjust the logo height (e.g., 32–48 px) to match the design system.",
+      "Commit changes, deploy, then perform a hard refresh (Ctrl+Shift+R) to verify the image loads, no bullet is shown, and the logo is aligned top‑left."
     ],
     "estimated_complexity": "low"
   }
@@ -23,21 +24,22 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "The header is rendering only fallback text (\"Demo Logo\") because the image asset is missing or referenced with an incorrect path. The navbar’s default padding also leaves the element slightly mis‑aligned, and the fallback text inherits the default link color, giving an unpolished look.",
+    "root_cause": "The logo is rendered as plain alt‑text ('Demo Logo') with a leading list bullet, indicating the <img> source is missing/incorrect and the surrounding <li> element still has default list‑style. No dedicated CSS is applied to size, align, or hide list bullets for the logo container.",
     "technical_recommendations": [
-      "Add the real logo file (SVG/PNG) to the project’s public or assets folder and reference it with a correct path or via an ES‑module import.",
-      "Replace the text placeholder with an <img> element wrapped in an anchor (<a class=\"navbar-brand\">) so Bootstrap/Flexbox can align it correctly.",
-      "Constrain the logo size in CSS (e.g., max-height: 40px; width: auto) to keep proportions consistent across viewports.",
-      "Use flexbox utilities (e.g., d-flex align-items-center) or custom CSS (display:flex; align-items:center) on the .navbar to vertically center the logo with nav links.",
-      "Remove any inline or hard‑coded bright colors; rely on the site’s neutral palette or CSS variables for brand colors to keep the header professional."
+      "Provide a valid logo asset (e.g., /assets/logo.svg or /static/logo.png) and reference it in the <img src> attribute.",
+      "Wrap the logo in an <a> tag linking to the home page for better UX (e.g., <a href=\"/\">).",
+      "Remove default list bullets by adding `list-style: none; margin: 0; padding: 0;` to any <ul>/<li> used in the header.",
+      "Use flexbox on the header container to vertically center items: `.header { display: flex; align-items: center; justify-content: space-between; }`.",
+      "Add a dedicated class for the logo image with fixed height and auto width: `.logo { height: 40px; width: auto; display: block; }`.",
+      "Add appropriate margin/padding to separate the logo from navigation links: `.logo-wrapper { margin-right: 1rem; }`."
     ],
     "implementation_steps": [
-      "Add the logo file to the codebase (e.g., /src/assets/logo.svg or /public/logo.svg).",
-      "In the header component (Header.jsx, Navbar.vue, etc.), import the asset: `import logo from '../assets/logo.svg';`",
-      "Replace the placeholder with: `<a className=\"navbar-brand\" href=\"/\"><img src={logo} alt=\"Operator Logo\" /></a>`",
-      "Add or update CSS:\n  ```css\n  .navbar-brand img {\n    max-height: 40px;\n    width: auto;\n  }\n  .navbar {\n    display: flex;\n    align-items: center;\n  }\n  ```",
-      "Remove any bright inline styles; ensure the header background is #fff (or brand neutral) and text colors are #212529 (or brand variables).",
-      "Run the application and perform a hard refresh (Ctrl+Shift+R) to confirm the logo appears in the top‑left, is properly centered vertically, and matches the overall design."
+      "Place the logo file (e.g., logo.svg) in the public/static assets directory of the project.",
+      "Update the header markup (React/HTML):\n   ```html\n   <header class=\"header\">\n     <a href=\"/\" class=\"logo-wrapper\">\n       <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo Logo\" class=\"logo\" />\n     </a>\n     <!-- existing nav -->\n   </header>\n   ```",
+      "If the logo is inside a <ul>, set `ul { list-style: none; margin: 0; padding: 0; }` in the header’s CSS (or remove the <ul>/<li> wrapper entirely).",
+      "Add/merge the following SCSS or CSS rules:\n   ```css\n   .header {\n     display: flex;\n     align-items: center;\n     justify-content: space-between;\n     padding: 0 1rem;\n   }\n   .logo-wrapper { margin-right: 1rem; }\n   .logo { height: 40px; width: auto; display: block; }\n   ```",
+      "Test in all breakpoints; adjust the logo height (e.g., 32–48 px) to match the design system.",
+      "Commit changes, deploy, then perform a hard refresh (Ctrl+Shift+R) to verify the image loads, no bullet is shown, and the logo is aligned top‑left."
     ],
     "estimated_complexity": "low"
   }
