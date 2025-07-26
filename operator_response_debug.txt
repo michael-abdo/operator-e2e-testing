@@ -1,22 +1,23 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly resolved source file, so the browser falls back to showing the alt text (\"Demo Logo\"). Because the image never loads, any intended CSS for sizing/positioning the logo image is not applied, leaving the header mis‑aligned and visually unpolished.",
+    "root_cause": "The <img> element inside the header is either pointing to a missing/incorrect asset path or has no explicit size/alignment styles. As a result the browser falls back to the alt text (\"Demo Logo\") and the element sits flush to the top‑left without vertical centering, giving the appearance of a misplaced, un‑styled logo.",
     "technical_recommendations": [
-      "Add the actual logo file (e.g., /public/assets/logo.svg or logo.png) to the project and commit it to the build pipeline so it is served by the web server.",
-      "Update the <img src=\"…\"> in the Header component (or template) to reference the correct, fingerprinted/hashed path produced by the asset pipeline (e.g., import logo from \"@/assets/logo.svg\" in React/Vue; use the asset_url helper in Rails; or place the file in /public and reference it with an absolute path).",
-      "Constrain logo dimensions with CSS so it scales consistently (e.g., `.header__logo img { height: 40px; width: auto; }`).",
-      "Place the logo inside a flex container that left‑aligns it and vertically centers it with the nav items:  \n```css\n.header { display: flex; align-items: center; justify-content: space-between; }\n```",
-      "Remove any inline or hard‑coded bright colors from the logo element; rely on the actual image colors or apply CSS filters only if needed.",
-      "Add fallback styling for the alt text (e.g., hidden or visually‑hidden) so users do not see raw text if the image fails again."
+      "Add a real logo file (SVG/PNG) to the project’s public/assets folder and reference it with an absolute or hashed path that your bundler (Vite/Webpack/CRA) will keep intact.",
+      "Wrap the logo in an anchor with a utility class (e.g. .navbar-brand) and apply flexbox centering: `display:flex; align-items:center;`.",
+      "Constrain the logo’s visual size with CSS (height:40px; width:auto) to keep it proportional on all breakpoints.",
+      "Remove any inline bright background/fill colors from the SVG or override them with CSS variables that match the site’s neutral palette (#1E293B, #334155, etc.).",
+      "Add left/right margin so the logo does not touch the viewport edge (e.g. .navbar-brand { margin-left:1rem; }).",
+      "Use `loading=\"lazy\"` and `decoding=\"async\"` on the <img> tag for minor performance gain."
     ],
     "implementation_steps": [
-      "1. Copy the approved logo asset into the project’s static/assets folder (e.g., `/src/assets/logo.svg`).",
-      "2. Import and reference the logo in the header component:\n   ```jsx\n   import logo from \"@/assets/logo.svg\";\n   …\n   <a href=\"/\" className=\"header__logo\">\n     <img src={logo} alt=\"Operator E2E Demo Logo\" />\n   </a>\n   ```",
-      "3. Add (or update) header CSS:\n   ```css\n   .header { display: flex; align-items: center; padding: 0 1rem; }\n   .header__logo img { height: 40px; width: auto; object-fit: contain; }\n   ```",
-      "4. Remove any placeholder text (\"Demo Logo\") that was previously rendered when the image failed.",
-      "5. Run a hard refresh (Ctrl+Shift+R) locally and in staging to confirm the logo appears in the top‑left corner with the correct styling.",
-      "6. Commit and deploy; re‑run the QA test case to verify the issue is resolved."
+      "Place the final logo asset in `/public/images/logo.svg` (or `/src/assets/logo.svg` if using an import).",
+      "Update the header component: `<a href=\"/\" class=\"navbar-brand\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" height=\"40\" /></a>`.",
+      "Add (or extend) CSS/SCSS:\n```css\n.navbar {\n  display:flex;\n  align-items:center;\n  padding:0.5rem 1rem;\n}\n.navbar-brand {\n  display:flex;\n  align-items:center;\n  margin-right:1rem;\n}\n.navbar-brand img {\n  height:40px;\n  width:auto;\n}\n```\n",
+      "If using Tailwind, replace with utility classes: `<a href=\"/\" class=\"navbar-brand flex items-center mr-4\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" class=\"h-10 w-auto\" /></a>`.",
+      "Remove any hard‑coded bright colors in the SVG. If the SVG contains fills, set them to `currentColor` and control the color via `.navbar-brand { color:#1E293B; }`.",
+      "Run the app, perform a hard refresh (Ctrl+Shift+R) and verify the logo is now visible, vertically centered, and uses subdued colors.",
+      "Test on common breakpoints (320px, 768px, 1024px) to ensure the logo scales and remains aligned."
     ],
     "estimated_complexity": "low"
   }
@@ -24,22 +25,23 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly resolved source file, so the browser falls back to showing the alt text (\"Demo Logo\"). Because the image never loads, any intended CSS for sizing/positioning the logo image is not applied, leaving the header mis‑aligned and visually unpolished.",
+    "root_cause": "The <img> element inside the header is either pointing to a missing/incorrect asset path or has no explicit size/alignment styles. As a result the browser falls back to the alt text (\"Demo Logo\") and the element sits flush to the top‑left without vertical centering, giving the appearance of a misplaced, un‑styled logo.",
     "technical_recommendations": [
-      "Add the actual logo file (e.g., /public/assets/logo.svg or logo.png) to the project and commit it to the build pipeline so it is served by the web server.",
-      "Update the <img src=\"…\"> in the Header component (or template) to reference the correct, fingerprinted/hashed path produced by the asset pipeline (e.g., import logo from \"@/assets/logo.svg\" in React/Vue; use the asset_url helper in Rails; or place the file in /public and reference it with an absolute path).",
-      "Constrain logo dimensions with CSS so it scales consistently (e.g., `.header__logo img { height: 40px; width: auto; }`).",
-      "Place the logo inside a flex container that left‑aligns it and vertically centers it with the nav items:  \n```css\n.header { display: flex; align-items: center; justify-content: space-between; }\n```",
-      "Remove any inline or hard‑coded bright colors from the logo element; rely on the actual image colors or apply CSS filters only if needed.",
-      "Add fallback styling for the alt text (e.g., hidden or visually‑hidden) so users do not see raw text if the image fails again."
+      "Add a real logo file (SVG/PNG) to the project’s public/assets folder and reference it with an absolute or hashed path that your bundler (Vite/Webpack/CRA) will keep intact.",
+      "Wrap the logo in an anchor with a utility class (e.g. .navbar-brand) and apply flexbox centering: `display:flex; align-items:center;`.",
+      "Constrain the logo’s visual size with CSS (height:40px; width:auto) to keep it proportional on all breakpoints.",
+      "Remove any inline bright background/fill colors from the SVG or override them with CSS variables that match the site’s neutral palette (#1E293B, #334155, etc.).",
+      "Add left/right margin so the logo does not touch the viewport edge (e.g. .navbar-brand { margin-left:1rem; }).",
+      "Use `loading=\"lazy\"` and `decoding=\"async\"` on the <img> tag for minor performance gain."
     ],
     "implementation_steps": [
-      "1. Copy the approved logo asset into the project’s static/assets folder (e.g., `/src/assets/logo.svg`).",
-      "2. Import and reference the logo in the header component:\n   ```jsx\n   import logo from \"@/assets/logo.svg\";\n   …\n   <a href=\"/\" className=\"header__logo\">\n     <img src={logo} alt=\"Operator E2E Demo Logo\" />\n   </a>\n   ```",
-      "3. Add (or update) header CSS:\n   ```css\n   .header { display: flex; align-items: center; padding: 0 1rem; }\n   .header__logo img { height: 40px; width: auto; object-fit: contain; }\n   ```",
-      "4. Remove any placeholder text (\"Demo Logo\") that was previously rendered when the image failed.",
-      "5. Run a hard refresh (Ctrl+Shift+R) locally and in staging to confirm the logo appears in the top‑left corner with the correct styling.",
-      "6. Commit and deploy; re‑run the QA test case to verify the issue is resolved."
+      "Place the final logo asset in `/public/images/logo.svg` (or `/src/assets/logo.svg` if using an import).",
+      "Update the header component: `<a href=\"/\" class=\"navbar-brand\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" height=\"40\" /></a>`.",
+      "Add (or extend) CSS/SCSS:\n```css\n.navbar {\n  display:flex;\n  align-items:center;\n  padding:0.5rem 1rem;\n}\n.navbar-brand {\n  display:flex;\n  align-items:center;\n  margin-right:1rem;\n}\n.navbar-brand img {\n  height:40px;\n  width:auto;\n}\n```\n",
+      "If using Tailwind, replace with utility classes: `<a href=\"/\" class=\"navbar-brand flex items-center mr-4\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" class=\"h-10 w-auto\" /></a>`.",
+      "Remove any hard‑coded bright colors in the SVG. If the SVG contains fills, set them to `currentColor` and control the color via `.navbar-brand { color:#1E293B; }`.",
+      "Run the app, perform a hard refresh (Ctrl+Shift+R) and verify the logo is now visible, vertically centered, and uses subdued colors.",
+      "Test on common breakpoints (320px, 768px, 1024px) to ensure the logo scales and remains aligned."
     ],
     "estimated_complexity": "low"
   }

@@ -643,7 +643,7 @@ Focus on providing actionable, specific technical guidance that a developer can 
 
 ${operatorResponse}
 
-When done, say: TASK_FINISHED`;
+When done, please say: TASK_FINISHED`;
 
         return prompt;
     }
