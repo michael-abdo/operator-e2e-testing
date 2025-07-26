@@ -1,0 +1,42 @@
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Run ID: 2025-07-26_22-01-55
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-01-55.log
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to create tmux window: Command failed: tmux send-keys -t feature-op-debug C-c C-c C-c C-c C-c
+not in a mode
+
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Run ID: 2025-07-26_22-01-55
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-01-55.log
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to create tmux window: Command failed: tmux send-keys -t feature-op-debug C-c C-c C-c C-c C-c
+not in a mode
+
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [ERROR] Stack trace: Error: Failed to create tmux window: Command failed: tmux send-keys -t feature-op-debug C-c C-c C-c C-c C-c
+not in a mode
+
+    at OperatorE2EExecutor.setupClaudeSession (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:353:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:948:13)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:1153:9)
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Run ID: 2025-07-26_22-01-55
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-01-55.log
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to create tmux window: Command failed: tmux send-keys -t feature-op-debug C-c C-c C-c C-c C-c
+not in a mode
+
+[2025-07-26 22:01:55] [RUN:2025-07-26_22-01-55] [ITER:0] [ERROR] Stack trace: Error: Failed to create tmux window: Command failed: tmux send-keys -t feature-op-debug C-c C-c C-c C-c C-c
+not in a mode
+
+    at OperatorE2EExecutor.setupClaudeSession (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:353:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:948:13)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/operator.execute_e2e.js:1153:9)

@@ -1,50 +1,48 @@
-jsonCopy[
-  {
-    "taskId": "header-logo",
-    "root_cause": "The logo is rendered as a Bootstrap \"btn‑dark\" button inside the navbar. Because buttons inherit padding, border‑radius, and a dark background, the element looks like a pill‑shaped call‑to‑action instead of a brand mark, and the extra horizontal padding pushes it away from the true top‑left corner.",
+jsonCopy{
+  "header-logo": {
+    "root_cause_analysis": [
+      "The logo is rendered as a plain SVG <span> inside the Bootstrap navbar without a dedicated wrapper or grid container, so it inherits the navbar’s global flex‑center rules and is not truly anchored to the far left.",
+      "Default Bootstrap spacing (padding‑x on .navbar and margin‑start on .navbar-brand) pushes the icon away from the viewport edge, making it appear mis‑aligned.",
+      "The logo uses a solid #000 fill with no brand guidelines applied, giving it a generic, visually harsh appearance that QA flagged as “not clean / professional”."
+    ],
     "technical_recommendations": [
-      "Replace the <button> element with an <a> element that uses the Bootstrap class \"navbar-brand\" (or a custom class) instead of \"btn btn-dark\".",
-      "Insert the actual logo asset (SVG/PNG) inside the anchor tag and remove button‑related classes so no background color or border‑radius is applied.",
-      "Add CSS: .navbar-brand { padding-left: 0; margin-right: 1rem; display: flex; align-items: center; } .navbar-brand img { max-height: 40px; width: auto; }",
-      "Ensure the navbar container uses \"justify-content-between\" (or flex-start) so the brand sits flush left while the nav links stay centered/right.",
-      "Move color definitions to CSS variables (e.g., --brand-primary) and avoid hard‑coded bright colors for the logo background.",
-      "Provide accessible text: <span class=\"sr-only\">Operator E2E Demo</span> inside the anchor for screen readers."
+      "Wrap the logo in its own element (e.g., <a class=\"navbar-brand logo-wrapper\" …>) and place the navbar content inside a .container or .container-fluid so flex justification does not override the left anchor.",
+      "Override Bootstrap defaults:\n  ```css\n  .logo-wrapper {\n    padding-left: 0;          /* remove extra space */\n    margin-left: 0;           /* flush to edge */\n    display: flex;\n    align-items: center;      /* vertical centering */\n  }\n  .logo-wrapper svg,\n  .logo-wrapper img {\n    height: 32px;             /* consistent size */\n    width: auto;\n    fill: #333;               /* softer, professional tone */\n  }\n  ```",
+      "Replace the placeholder star with a branded SVG or PNG (exported @2x for retina) that follows the product’s color palette and accessibility contrast rules.",
+      "Add meaningful `alt=\"Operator E2E Demo\"` text for screen readers.",
+      "Update the favicon to match the new logo so the brand is consistent across browser tabs."
     ],
-    "implementation_steps": [
-      "Open the header/navbar component file (e.g., src/components/Header.jsx).",
-      "Locate the current button markup: <button className=\"btn btn-dark\">E2E Demo</button>.",
-      "Replace it with: <a href=\"/\" className=\"navbar-brand\"><img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" /></a>.",
-      "Delete any CSS/SCSS rules that target .btn-dark for the logo.",
-      "Add the new CSS rules shown above to header.css (or the relevant SCSS module).",
-      "Ensure the surrounding <nav> has class \"navbar navbar-expand-lg navbar-light bg-white shadow-sm\" and its inner <div class=\"container-fluid\"> uses \"d-flex justify-content-between align-items-center\".",
-      "Run the application locally, resize the viewport to confirm the brand stays in the top‑left on all breakpoints, and perform a hard refresh (Ctrl + Shift + R) in the browser to verify the production build.",
-      "Commit changes and deploy."
-    ],
-    "estimated_complexity": "low"
+    "priority": "high",
+    "testing_suggestions": [
+      "Hard‑refresh (Ctrl + Shift + R) on staging and production after deploying the fix to ensure the new CSS is not cached.",
+      "Responsive checks: verify logo position on ≥1200 px, 992 px, 768 px, 576 px, and 375 px widths.",
+      "Cross‑browser smoke test (Chrome, Firefox, Edge, Safari).",
+      "Run an automated visual regression tool (e.g., Percy, Chromatic) on the header component.",
+      "Accessibility audit (Lighthouse or axe‑core) to confirm alt text and color contrast pass WCAG AA."
+    ]
   }
-]
-[
-  {
-    "taskId": "header-logo",
-    "root_cause": "The logo is rendered as a Bootstrap \"btn‑dark\" button inside the navbar. Because buttons inherit padding, border‑radius, and a dark background, the element looks like a pill‑shaped call‑to‑action instead of a brand mark, and the extra horizontal padding pushes it away from the true top‑left corner.",
+}
+{
+  "header-logo": {
+    "root_cause_analysis": [
+      "The logo is rendered as a plain SVG <span> inside the Bootstrap navbar without a dedicated wrapper or grid container, so it inherits the navbar’s global flex‑center rules and is not truly anchored to the far left.",
+      "Default Bootstrap spacing (padding‑x on .navbar and margin‑start on .navbar-brand) pushes the icon away from the viewport edge, making it appear mis‑aligned.",
+      "The logo uses a solid #000 fill with no brand guidelines applied, giving it a generic, visually harsh appearance that QA flagged as “not clean / professional”."
+    ],
     "technical_recommendations": [
-      "Replace the <button> element with an <a> element that uses the Bootstrap class \"navbar-brand\" (or a custom class) instead of \"btn btn-dark\".",
-      "Insert the actual logo asset (SVG/PNG) inside the anchor tag and remove button‑related classes so no background color or border‑radius is applied.",
-      "Add CSS: .navbar-brand { padding-left: 0; margin-right: 1rem; display: flex; align-items: center; } .navbar-brand img { max-height: 40px; width: auto; }",
-      "Ensure the navbar container uses \"justify-content-between\" (or flex-start) so the brand sits flush left while the nav links stay centered/right.",
-      "Move color definitions to CSS variables (e.g., --brand-primary) and avoid hard‑coded bright colors for the logo background.",
-      "Provide accessible text: <span class=\"sr-only\">Operator E2E Demo</span> inside the anchor for screen readers."
+      "Wrap the logo in its own element (e.g., <a class=\"navbar-brand logo-wrapper\" …>) and place the navbar content inside a .container or .container-fluid so flex justification does not override the left anchor.",
+      "Override Bootstrap defaults:\n  ```css\n  .logo-wrapper {\n    padding-left: 0;          /* remove extra space */\n    margin-left: 0;           /* flush to edge */\n    display: flex;\n    align-items: center;      /* vertical centering */\n  }\n  .logo-wrapper svg,\n  .logo-wrapper img {\n    height: 32px;             /* consistent size */\n    width: auto;\n    fill: #333;               /* softer, professional tone */\n  }\n  ```",
+      "Replace the placeholder star with a branded SVG or PNG (exported @2x for retina) that follows the product’s color palette and accessibility contrast rules.",
+      "Add meaningful `alt=\"Operator E2E Demo\"` text for screen readers.",
+      "Update the favicon to match the new logo so the brand is consistent across browser tabs."
     ],
-    "implementation_steps": [
-      "Open the header/navbar component file (e.g., src/components/Header.jsx).",
-      "Locate the current button markup: <button className=\"btn btn-dark\">E2E Demo</button>.",
-      "Replace it with: <a href=\"/\" className=\"navbar-brand\"><img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" /></a>.",
-      "Delete any CSS/SCSS rules that target .btn-dark for the logo.",
-      "Add the new CSS rules shown above to header.css (or the relevant SCSS module).",
-      "Ensure the surrounding <nav> has class \"navbar navbar-expand-lg navbar-light bg-white shadow-sm\" and its inner <div class=\"container-fluid\"> uses \"d-flex justify-content-between align-items-center\".",
-      "Run the application locally, resize the viewport to confirm the brand stays in the top‑left on all breakpoints, and perform a hard refresh (Ctrl + Shift + R) in the browser to verify the production build.",
-      "Commit changes and deploy."
-    ],
-    "estimated_complexity": "low"
+    "priority": "high",
+    "testing_suggestions": [
+      "Hard‑refresh (Ctrl + Shift + R) on staging and production after deploying the fix to ensure the new CSS is not cached.",
+      "Responsive checks: verify logo position on ≥1200 px, 992 px, 768 px, 576 px, and 375 px widths.",
+      "Cross‑browser smoke test (Chrome, Firefox, Edge, Safari).",
+      "Run an automated visual regression tool (e.g., Percy, Chromatic) on the header component.",
+      "Accessibility audit (Lighthouse or axe‑core) to confirm alt text and color contrast pass WCAG AA."
+    ]
   }
-]
+}

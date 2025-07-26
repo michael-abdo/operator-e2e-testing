@@ -1,0 +1,271 @@
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Run ID: 2025-07-26_22-02-28
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-02-28.log
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:02:34] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:02:34
+[2025-07-26 22:04:00] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:04:00
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:04:01
+[2025-07-26 22:04:08] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 1, Window: 3
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753567719068
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Run ID: 2025-07-26_22-02-28
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-02-28.log
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:02:34] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:02:34
+[2025-07-26 22:04:00] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:04:00
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:04:01
+[2025-07-26 22:04:08] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 1, Window: 3
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753567719068
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:08:39
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Window content length: 4484 chars
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Window preview: \n⏺ Let me read a larger section of the script to find where calculate might be defined:\n\n⏺ Read(publ...
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Detection context: {"monitorDuration":270068,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Run ID: 2025-07-26_22-02-28
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-02-28.log
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] Max iterations: 5
+[2025-07-26 22:02:28] [RUN:2025-07-26_22-02-28] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:02:34] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:02:34
+[2025-07-26 22:04:00] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:04:00
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:04:01] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:04:01
+[2025-07-26 22:04:08] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 1, Window: 3
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 1_1753567719068
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:08:39
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Window content length: 4484 chars
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Window preview: \n⏺ Let me read a larger section of the script to find where calculate might be defined:\n\n⏺ Read(publ...
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [DEBUG]    Detection context: {"monitorDuration":270068,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 OPERATOR PHASE: 1m 26s (86368ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Operator phase timing acceptable (≥ 1 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 CLAUDE PHASE: 4m 37s (277319ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 TOTAL ITERATION: 6m 4s (364690ms)
+[2025-07-26 22:08:42] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:08:42
+[2025-07-26 22:09:24] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:09:24
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:09:25
+[2025-07-26 22:09:32] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 2, Window: 3
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753567927802
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 OPERATOR PHASE: 1m 26s (86368ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Operator phase timing acceptable (≥ 1 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 CLAUDE PHASE: 4m 37s (277319ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 TOTAL ITERATION: 6m 4s (364690ms)
+[2025-07-26 22:08:42] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:08:42
+[2025-07-26 22:09:24] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:09:24
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:09:25
+[2025-07-26 22:09:32] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 2, Window: 3
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753567927802
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:12:07
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Window content length: 4451 chars
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Window preview:   ⎿  On branch main\n     Your branch is ahead of 'origin/main' by 3 commits.\n       (use "git push" ...
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Detection context: {"monitorDuration":155065,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 OPERATOR PHASE: 1m 26s (86368ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Operator phase timing acceptable (≥ 1 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 CLAUDE PHASE: 4m 37s (277319ms)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:08:39] [RUN:2025-07-26_22-02-28] [ITER:1] [INFO] 📊 TOTAL ITERATION: 6m 4s (364690ms)
+[2025-07-26 22:08:42] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:08:42
+[2025-07-26 22:09:24] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:09:24
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:09:25] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:09:25
+[2025-07-26 22:09:32] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 2, Window: 3
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 2_1753567927802
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:12:07
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Window content length: 4451 chars
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Window preview:   ⎿  On branch main\n     Your branch is ahead of 'origin/main' by 3 commits.\n       (use "git push" ...
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [DEBUG]    Detection context: {"monitorDuration":155065,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 41s (41626ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 CLAUDE PHASE: 2m 42s (162296ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 TOTAL ITERATION: 3m 24s (204924ms)
+[2025-07-26 22:12:10] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:12:10
+[2025-07-26 22:12:52] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:12:52
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:12:53
+[2025-07-26 22:13:00] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 3, Window: 3
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753568230978
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 41s (41626ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 CLAUDE PHASE: 2m 42s (162296ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 TOTAL ITERATION: 3m 24s (204924ms)
+[2025-07-26 22:12:10] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:12:10
+[2025-07-26 22:12:52] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:12:52
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:12:53
+[2025-07-26 22:13:00] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 3, Window: 3
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753568230978
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:17:10
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Window content length: 4428 chars
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Window preview:   ⎿  [main 9ffdb37] Fix: remove absolutely positioned logo and enhance navbar layout\n      1 file ch...
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Detection context: {"monitorDuration":250112,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 OPERATOR PHASE: 0m 41s (41626ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING] ⚠️  WARNING: Operator phase too fast (0.7 min < 1 min minimum)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 CLAUDE PHASE: 2m 42s (162296ms)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:12:07] [RUN:2025-07-26_22-02-28] [ITER:2] [INFO] 📊 TOTAL ITERATION: 3m 24s (204924ms)
+[2025-07-26 22:12:10] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:12:10
+[2025-07-26 22:12:52] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:12:52
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:12:53] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:12:53
+[2025-07-26 22:13:00] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 3, Window: 3
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 3_1753568230978
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:17:10
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Window content length: 4428 chars
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Window preview:   ⎿  [main 9ffdb37] Fix: remove absolutely positioned logo and enhance navbar layout\n      1 file ch...
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [DEBUG]    Detection context: {"monitorDuration":250112,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:17:10] [RUN:2025-07-26_22-02-28] [ITER:3] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-26 22:17:13] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:17:13
+[2025-07-26 22:17:46] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:17:46
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:17:47
+[2025-07-26 22:17:54] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 4, Window: 3
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 4_1753568474891
+[2025-07-26 22:17:13] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:17:13
+[2025-07-26 22:17:46] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:17:46
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:17:47
+[2025-07-26 22:17:54] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 4, Window: 3
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 4_1753568474891
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:21:14
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Window content length: 4867 chars
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Window preview:      ☒ Fix logo wrapper to use proper navbar-brand class within flex container\n     ☒ Replace unicod...
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Detection context: {"monitorDuration":200105,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:17:13] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:17:13
+[2025-07-26 22:17:46] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:17:46
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:17:47] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:17:47
+[2025-07-26 22:17:54] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 4, Window: 3
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 4_1753568474891
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:21:14
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Window content length: 4867 chars
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Window preview:      ☒ Fix logo wrapper to use proper navbar-brand class within flex container\n     ☒ Replace unicod...
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [DEBUG]    Detection context: {"monitorDuration":200105,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 OPERATOR PHASE: 0m 32s (32812ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING] ⚠️  WARNING: Operator phase too fast (0.5 min < 1 min minimum)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 CLAUDE PHASE: 3m 27s (207360ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 TOTAL ITERATION: 4m 1s (241173ms)
+[2025-07-26 22:21:17] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:21:17
+[2025-07-26 22:21:54] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:21:54
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:21:55
+[2025-07-26 22:22:03] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 5, Window: 3
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 5_1753568708263
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 OPERATOR PHASE: 0m 32s (32812ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING] ⚠️  WARNING: Operator phase too fast (0.5 min < 1 min minimum)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 CLAUDE PHASE: 3m 27s (207360ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 TOTAL ITERATION: 4m 1s (241173ms)
+[2025-07-26 22:21:17] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:21:17
+[2025-07-26 22:21:54] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:21:54
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:21:55
+[2025-07-26 22:22:03] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 5, Window: 3
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 5_1753568708263
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:25:08
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Window content length: 4747 chars
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Window preview: ⏺ Bash(curl -s "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/style.css" | grep -A 10 -B ...
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Detection context: {"monitorDuration":185083,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 OPERATOR PHASE: 0m 32s (32812ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING] ⚠️  WARNING: Operator phase too fast (0.5 min < 1 min minimum)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 CLAUDE PHASE: 3m 27s (207360ms)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:21:14] [RUN:2025-07-26_22-02-28] [ITER:4] [INFO] 📊 TOTAL ITERATION: 4m 1s (241173ms)
+[2025-07-26 22:21:17] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 22:21:17
+[2025-07-26 22:21:54] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 22:21:54
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication
+[2025-07-26 22:21:55] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 22:21:55
+[2025-07-26 22:22:03] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ⏳ Starting WindowKeywordMonitor - Iteration: 5, Window: 3
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [CRITICAL] 🎯 TASK_FINISHED DETECTED - ID: 5_1753568708263
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [TIMING] 🕐 CLAUDE FINISHED: 2025-07-26 22:25:08
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Window content length: 4747 chars
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Window preview: ⏺ Bash(curl -s "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/style.css" | grep -A 10 -B ...
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [DEBUG]    Detection context: {"monitorDuration":185083,"windowTarget":"3","chainIndex":0}
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ✅ Claude completed processing (detected: TASK_FINISHED)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 OPERATOR PHASE: 0m 37s (37119ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING] ⚠️  WARNING: Operator phase too fast (0.6 min < 1 min minimum)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 CLAUDE PHASE: 3m 12s (192336ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 TOTAL ITERATION: 3m 50s (230459ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+🏁 Execution Summary
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total iterations: 6/5
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total duration: 1359.4s
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Final status: ⚠️  Max iterations (5) reached - Some tasks may require deeper investigation
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [WARNING] Remaining failed tasks may indicate complex issues that need manual intervention
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Operator session: https://operator.chatgpt.com/c/688554dfa3848192a1f48fc4dabeb8d4
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+📊 TASK_FINISHED Detection Summary:
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 OPERATOR PHASE: 0m 37s (37119ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING] ⚠️  WARNING: Operator phase too fast (0.6 min < 1 min minimum)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 CLAUDE PHASE: 3m 12s (192336ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 TOTAL ITERATION: 3m 50s (230459ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+🏁 Execution Summary
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total iterations: 6/5
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total duration: 1359.4s
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Final status: ⚠️  Max iterations (5) reached - Some tasks may require deeper investigation
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [WARNING] Remaining failed tasks may indicate complex issues that need manual intervention
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Operator session: https://operator.chatgpt.com/c/688554dfa3848192a1f48fc4dabeb8d4
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+📊 TASK_FINISHED Detection Summary:
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Cooldown period: 60 seconds
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total detections: 5
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 1_1753567719068: Iteration 1, Time: 2025-07-26 22:08:39
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 2_1753567927802: Iteration 2, Time: 2025-07-26 22:12:07
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 3_1753568230978: Iteration 3, Time: 2025-07-26 22:17:10
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 4_1753568474891: Iteration 4, Time: 2025-07-26 22:21:14
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 5_1753568708263: Iteration 5, Time: 2025-07-26 22:25:08
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] ✅ ANALYSIS: No duplicate TASK_FINISHED detections found within iterations
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 OPERATOR PHASE: 0m 37s (37119ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING] ⚠️  WARNING: Operator phase too fast (0.6 min < 1 min minimum)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [WARNING]    This may indicate Operator didn't properly analyze the tasks
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 CLAUDE PHASE: 3m 12s (192336ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] ✅ Claude phase timing acceptable (≥ 2 min)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:5] [INFO] 📊 TOTAL ITERATION: 3m 50s (230459ms)
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+🏁 Execution Summary
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total iterations: 6/5
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total duration: 1359.4s
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Final status: ⚠️  Max iterations (5) reached - Some tasks may require deeper investigation
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [WARNING] Remaining failed tasks may indicate complex issues that need manual intervention
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Operator session: https://operator.chatgpt.com/c/688554dfa3848192a1f48fc4dabeb8d4
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+📊 TASK_FINISHED Detection Summary:
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Cooldown period: 60 seconds
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] Total detections: 5
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 1_1753567719068: Iteration 1, Time: 2025-07-26 22:08:39
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 2_1753567927802: Iteration 2, Time: 2025-07-26 22:12:07
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 3_1753568230978: Iteration 3, Time: 2025-07-26 22:17:10
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 4_1753568474891: Iteration 4, Time: 2025-07-26 22:21:14
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]   Detection 5_1753568708263: Iteration 5, Time: 2025-07-26 22:25:08
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] ✅ ANALYSIS: No duplicate TASK_FINISHED detections found within iterations
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO]    Cooldown period successfully prevented stale detections
+[2025-07-26 22:25:08] [RUN:2025-07-26_22-02-28] [ITER:6] [INFO] 
+💾 Complete log saved to: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_22-02-28.log

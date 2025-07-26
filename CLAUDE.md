@@ -66,7 +66,17 @@ An intelligent end-to-end testing automation system that uses AI to analyze QA/U
 
 ### **Usage**
 ```bash
+# JSON format (traditional)
 node operator.execute_e2e.js tests/demo_test/qa_ux_demo_realistic.json
+
+# Markdown format (new)
+node operator.execute_e2e.js qa/ux-tests/sales-prediction-dashboard.md
+
+# Text format (new)
+node operator.execute_e2e.js qa/ux-tests/bug-reports.txt
+
+# Any file format with automatic detection
+node operator.execute_e2e.js /path/to/any/qa-file
 ```
 
 ## System Requirements
@@ -78,9 +88,12 @@ node operator.execute_e2e.js tests/demo_test/qa_ux_demo_realistic.json
 5. **QA/UX JSON file** with task definitions
 6. **Deployment environment** configured (Heroku, AWS, etc.)
 
-## QA/UX Document Format
+## QA/UX Document Formats
 
-The system expects a JSON file with this structure:
+The system supports multiple file formats for QA/UX test definitions:
+
+### **JSON Format (Traditional)**
+The system accepts JSON files with this structure:
 
 ```json
 {
@@ -99,6 +112,65 @@ The system expects a JSON file with this structure:
   }
 }
 ```
+
+### **Markdown Format (New)**
+Markdown files with YAML front matter for metadata:
+
+```markdown
+---
+demo_app_url: https://your-app.herokuapp.com
+description: QA test suite description
+priority: high
+---
+
+# QA/UX Test Suite
+
+## Header Logo Issues
+
+The logo has positioning and styling problems:
+
+- [ ] Logo not positioned in top-left corner
+- [ ] Logo has harsh black styling
+- [ ] Missing proper brand guidelines
+
+## Navigation Problems
+
+1. Navigation menu items are not properly aligned
+2. Mobile menu toggle not working correctly
+3. Dropdown menus have accessibility issues
+
+Test: Header logo positioning
+Bug: Logo appears misaligned in header
+Issue: Professional styling needs improvement
+```
+
+### **Text Format (New)**
+Plain text files with structured content:
+
+```text
+Demo App URL: https://your-app.herokuapp.com
+
+QA/UX Issues Found:
+
+Issue: Logo positioning is incorrect in header
+Problem: Navigation menu alignment is off
+Bug: Mobile responsive design breaks on smaller screens
+Error: Form validation messages not displaying properly
+Missing: Accessibility features for screen readers
+
+Test Requirements:
+1. Fix header logo positioning to top-left
+2. Improve navigation menu alignment
+3. Test responsive design on mobile devices
+```
+
+### **Path Resolution**
+The system supports flexible path formats:
+
+- **Absolute paths**: `/full/path/to/qa-file.md`
+- **Relative paths**: `./local/qa-file.json`
+- **Root-relative paths**: `qa/ux-tests/dashboard.md` → `/root/qa/ux-tests/dashboard.md`
+- **Auto-detection**: File format determined by extension or content analysis
 
 ## Deployment Integration
 

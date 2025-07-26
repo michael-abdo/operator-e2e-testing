@@ -30,6 +30,7 @@ import workflowUtils from '../workflows/shared/workflow_utils.js';
 import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
 import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
 import { sharedLock } from './shared-state.js';
+import MultiFormatParser from './lib/file-parsers/MultiFormatParser.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -215,13 +216,15 @@ class OperatorE2EExecutor {
     }
 
     /**
-     * Load and parse QA_UX JSON file
+     * Load and parse QA_UX file (supports JSON, MD, TXT)
      */
     async loadQaUxFile() {
         try {
             console.log(`📄 Loading QA_UX file: ${this.qaUxFilePath}`);
-            const fileContent = await fs.readFile(this.qaUxFilePath, 'utf8');
-            const qaUxData = JSON.parse(fileContent);
+            
+            // Use MultiFormatParser for any file type
+            const parser = new MultiFormatParser();
+            const qaUxData = await parser.parseFile(this.qaUxFilePath);
             
             console.log(`✅ Loaded QA_UX file with ${Object.keys(qaUxData.tasks || {}).length} tasks`);
             return qaUxData;
