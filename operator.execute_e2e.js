@@ -29,6 +29,7 @@ import { OperatorMessageSenderWithResponse } from '../operator/send_and_wait_for
 import workflowUtils from '../workflows/shared/workflow_utils.js';
 import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
 import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
+import { sharedLock } from './shared-state.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -667,17 +668,27 @@ IMPORTANT: Your response should match the JSON format`;
      * Send Operator response to Claude via tmux and wait for processing
      */
     async sendOperatorResponseToClaudeAndWait(operatorResponse) {
-        console.log('📤 Sending Operator response to Claude Code...');
-        
-        // Record Claude input timestamp
-        this.workflowTimings.claudeInputTime = Date.now(); 
-        this.log(`🕐 CLAUDE INPUT: ${this.getTimestamp()}`, 'TIMING');
-        
-        const { exec } = await import('child_process');
-        const { promisify } = await import('util');
-        const execAsync = promisify(exec);
-        
+        // Acquire shared lock to prevent duplicate messages to Claude
+        if (!sharedLock.tryAcquireSendLock('e2e-executor')) {
+            this.log('⚠️ DUPLICATE BLOCKED: Another layer is already sending to Claude', 'WARNING');
+            return {
+                success: false,
+                error: 'Duplicate send blocked - another layer is currently sending to Claude',
+                reason: 'duplicate_blocked'
+            };
+        }
+
         try {
+            this.log('🔒 SEND LOCK ACQUIRED: e2e-executor - Starting Claude communication', 'INFO');
+            console.log('📤 Sending Operator response to Claude Code...');
+            
+            // Record Claude input timestamp
+            this.workflowTimings.claudeInputTime = Date.now(); 
+            this.log(`🕐 CLAUDE INPUT: ${this.getTimestamp()}`, 'TIMING');
+        
+            const { exec } = await import('child_process');
+            const { promisify } = await import('util');
+            const execAsync = promisify(exec);
             // Build Claude prompt with Operator's analysis
             const claudePrompt = `Here's an analysis from an AI operator about some failed QA/UX tasks:
 
@@ -852,6 +863,10 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                 success: false,
                 error: `Failed to send to Claude: ${error.message}`
             };
+        } finally {
+            // Always release the lock, even on error
+            sharedLock.releaseSendLock('e2e-executor');
+            this.log('🔓 SEND LOCK RELEASED: e2e-executor - Claude communication complete', 'INFO');
         }
     }
 

@@ -1,0 +1,97 @@
+[2025-07-26T21:11:00.821Z] [INFO] 🚀 STARTING FULL INTEGRATION TEST SUITE
+[2025-07-26T21:11:00.821Z] [INFO] ============================================================
+[2025-07-26T21:11:00.822Z] [TEST] 🧪 TEST 2: Rapid Sequential Messages
+[2025-07-26T21:11:00.823Z] [INFO] Testing cooldown period enforcement between messages
+[2025-07-26T21:11:00.896Z] [INFO] Message 1: blocked
+[2025-07-26T21:11:00.897Z] [INFO] Message 2: blocked
+[2025-07-26T21:11:00.897Z] [INFO] Message 3: blocked
+[2025-07-26T21:11:00.897Z] [INFO] Successful sends: 0
+[2025-07-26T21:11:00.897Z] [INFO] Blocked by cooldown: 2
+[2025-07-26T21:11:00.898Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:11:00.898Z] [TEST] 🧪 TEST 3: Cross-Layer Coordination
+[2025-07-26T21:11:00.898Z] [INFO] Testing all 3 layers preventing duplicates together
+[2025-07-26T21:11:00.901Z] [ERROR] Test error: Missing required config: chains array
+[2025-07-26T21:11:00.901Z] [TEST] 🧪 TEST 4: Lock Timeout and Recovery
+[2025-07-26T21:11:00.901Z] [INFO] Testing stale lock detection and force release
+[2025-07-26T21:11:00.901Z] [INFO] Lock acquired, waiting for timeout...
+[2025-07-26T21:11:02.403Z] [INFO] Can acquire after timeout: false
+[2025-07-26T21:11:02.403Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:11:02.403Z] [TEST] 🧪 TEST 5: Metrics Accuracy
+[2025-07-26T21:11:02.404Z] [INFO] Testing comprehensive metrics tracking
+[2025-07-26T21:11:02.404Z] [INFO] Total acquisitions: 2
+[2025-07-26T21:11:02.404Z] [INFO] Duplicates blocked: 2
+[2025-07-26T21:11:02.405Z] [INFO] Lock efficiency: 100.00%
+[2025-07-26T21:11:02.405Z] [INFO] Duplicate rate: 50.00%
+[2025-07-26T21:11:02.405Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:11:02.405Z] [INFO] 
+📊 INTEGRATION TEST SUMMARY
+[2025-07-26T21:11:02.405Z] [INFO] ============================================================
+[2025-07-26T21:11:02.406Z] [INFO] ❌ FAIL - Rapid Sequential Messages: 0 sent, 2 blocked by cooldown
+[2025-07-26T21:11:02.406Z] [INFO] ❌ FAIL - bound testCrossLayerCoordination: Error: Missing required config: chains array
+[2025-07-26T21:11:02.406Z] [INFO] ❌ FAIL - Lock Timeout and Recovery: Lock stuck after timeout
+[2025-07-26T21:11:02.406Z] [INFO] ✅ PASS - Metrics Accuracy: Acquisitions: 2, Blocked: 2
+[2025-07-26T21:11:02.406Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:11:02.406Z] [INFO] Total Tests: 4
+[2025-07-26T21:11:02.407Z] [INFO] Passed: 1
+[2025-07-26T21:11:02.407Z] [INFO] Failed: 3
+[2025-07-26T21:11:02.407Z] [INFO] Success Rate: 25.0%
+[2025-07-26T21:11:02.407Z] [INFO] Test Duration: 1.6s
+[2025-07-26T21:11:02.407Z] [INFO] 
+📈 FINAL SHARED LOCK METRICS:
+[2025-07-26T21:11:02.407Z] [INFO] Total Lock Acquisitions: 2
+[2025-07-26T21:11:02.408Z] [INFO] Total Duplicates Blocked: 2
+[2025-07-26T21:11:02.408Z] [INFO] Lock Efficiency: 100.00%
+[2025-07-26T21:11:02.408Z] [INFO] Duplicate Prevention Rate: 50.00%
+[2025-07-26T21:11:02.408Z] [WARNING] 
+⚠️ SOME INTEGRATION TESTS FAILED
+[2025-07-26T21:11:02.408Z] [INFO] Review the failed tests and fix issues before deployment.
+[2025-07-26T21:12:21.629Z] [INFO] 🚀 STARTING FULL INTEGRATION TEST SUITE
+[2025-07-26T21:12:21.630Z] [INFO] ============================================================
+[2025-07-26T21:12:21.631Z] [TEST] 🧪 TEST 2: Rapid Sequential Messages
+[2025-07-26T21:12:21.631Z] [INFO] Testing cooldown period enforcement between messages
+[2025-07-26T21:12:21.684Z] [INFO] Message 1: sent
+[2025-07-26T21:12:21.684Z] [INFO] Message 2: blocked
+[2025-07-26T21:12:21.685Z] [INFO] Message 3: blocked
+[2025-07-26T21:12:21.686Z] [INFO] Successful sends: 1
+[2025-07-26T21:12:21.686Z] [INFO] Blocked by cooldown: 2
+[2025-07-26T21:12:21.686Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:12:21.687Z] [TEST] 🧪 TEST 3: Cross-Layer Coordination
+[2025-07-26T21:12:21.687Z] [INFO] Testing all 3 layers preventing duplicates together
+[2025-07-26T21:12:21.787Z] [INFO] Successful sends: 1 (should be 1)
+[2025-07-26T21:12:21.788Z] [INFO] Lock acquisitions: 1
+[2025-07-26T21:12:21.788Z] [INFO] Duplicates blocked: 2
+[2025-07-26T21:12:21.789Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:12:21.789Z] [TEST] 🧪 TEST 4: Lock Timeout and Recovery
+[2025-07-26T21:12:21.789Z] [INFO] Testing stale lock detection and force release
+[2025-07-26T21:12:21.790Z] [INFO] Lock acquired, waiting for timeout...
+[2025-07-26T21:12:21.941Z] [INFO] Can acquire after timeout: true
+[2025-07-26T21:12:21.942Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:12:21.942Z] [TEST] 🧪 TEST 5: Metrics Accuracy
+[2025-07-26T21:12:21.943Z] [INFO] Testing comprehensive metrics tracking
+[2025-07-26T21:12:21.943Z] [INFO] Total acquisitions: 2
+[2025-07-26T21:12:21.944Z] [INFO] Duplicates blocked: 2
+[2025-07-26T21:12:21.945Z] [INFO] Lock efficiency: 100.00%
+[2025-07-26T21:12:21.945Z] [INFO] Duplicate rate: 50.00%
+[2025-07-26T21:12:21.945Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:12:21.946Z] [INFO] 
+📊 INTEGRATION TEST SUMMARY
+[2025-07-26T21:12:21.946Z] [INFO] ============================================================
+[2025-07-26T21:12:21.946Z] [INFO] ✅ PASS - Rapid Sequential Messages: 1 sent, 2 blocked by cooldown
+[2025-07-26T21:12:21.946Z] [INFO] ✅ PASS - Cross-Layer Coordination: 1 succeeded, 2 blocked
+[2025-07-26T21:12:21.947Z] [INFO] ✅ PASS - Lock Timeout and Recovery: Lock recovered after timeout
+[2025-07-26T21:12:21.947Z] [INFO] ✅ PASS - Metrics Accuracy: Acquisitions: 2, Blocked: 2
+[2025-07-26T21:12:21.947Z] [INFO] ------------------------------------------------------------
+[2025-07-26T21:12:21.947Z] [INFO] Total Tests: 4
+[2025-07-26T21:12:21.947Z] [INFO] Passed: 4
+[2025-07-26T21:12:21.948Z] [INFO] Failed: 0
+[2025-07-26T21:12:21.948Z] [INFO] Success Rate: 100.0%
+[2025-07-26T21:12:21.948Z] [INFO] Test Duration: 0.3s
+[2025-07-26T21:12:21.948Z] [INFO] 
+📈 FINAL SHARED LOCK METRICS:
+[2025-07-26T21:12:21.948Z] [INFO] Total Lock Acquisitions: 2
+[2025-07-26T21:12:21.949Z] [INFO] Total Duplicates Blocked: 2
+[2025-07-26T21:12:21.949Z] [INFO] Lock Efficiency: 100.00%
+[2025-07-26T21:12:21.949Z] [INFO] Duplicate Prevention Rate: 50.00%
+[2025-07-26T21:12:21.949Z] [SUCCESS] 
+🎉 ALL INTEGRATION TESTS PASSED!
+[2025-07-26T21:12:21.950Z] [INFO] The shared lock system is working correctly across all layers.

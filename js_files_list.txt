@@ -1,0 +1,15 @@
+./test_operator_fast.js
+./test_chain_loop.js
+./operator.execute_e2e.js
+./operator.execute_e2e_refactored.js
+./lib/monitors/WindowKeywordMonitor.js
+./lib/monitors/ChainLoopMonitor.js
+./lib/tmux_helpers.js
+./demo_app/fix_all_bugs.js
+./demo_app/server.js
+./demo_app/inject_bugs.js
+./demo_app/public/script.js
+./demo_app/demo_app/fix_all_bugs.js
+./demo_app/demo_app/server.js
+./demo_app/demo_app/inject_bugs.js
+./demo_app/demo_app/public/script.js

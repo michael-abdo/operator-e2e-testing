@@ -706,8 +706,11 @@ async function main() {
 Operator E2E Execution Script - Chain-Driven Architecture
 
 Usage:
-  node operator.execute_e2e_refactored.js <qa_ux_file.json>
+  node operator.execute_e2e_refactored.js <qa_ux_file.json> [--cooldown <seconds>]
   node operator.execute_e2e_refactored.js --help
+
+Options:
+  --cooldown <seconds>     Set detection cooldown period (default: 60)
 
 Description:
   Executes end-to-end testing using ChainLoopMonitor to control the workflow:
@@ -722,8 +725,9 @@ Requirements:
   - Fresh Operator home page tab open at https://operator.chatgpt.com/
   - QA_UX JSON file with task definitions
 
-Example:
+Examples:
   node operator.execute_e2e_refactored.js ./test/sample_qa_ux.json
+  node operator.execute_e2e_refactored.js ./test/sample_qa_ux.json --cooldown 30
         `);
         process.exit(0);
     }
