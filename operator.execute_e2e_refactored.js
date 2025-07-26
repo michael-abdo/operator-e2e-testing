@@ -239,8 +239,8 @@ class OperatorE2EExecutor {
     async setupOperatorConnection() {
         console.log('🔌 Setting up Operator connection...');
         
-        if (this.isFirstIteration) {
-            // First iteration: require fresh home page tab
+        if (this.isFirstIteration || !this.operatorTabUrl) {
+            // First iteration OR no captured URL: require fresh home page tab
             console.log('🆕 FIRST ITERATION: Requiring fresh operator.chatgpt.com/ home page tab');
             this.operatorSender = new OperatorMessageSenderWithResponse({
                 waitForResponse: true,
@@ -252,9 +252,6 @@ class OperatorE2EExecutor {
         } else {
             // Subsequent iterations: navigate existing tab to home page
             console.log('♻️  SUBSEQUENT ITERATION: Navigating existing tab back to home page');
-            if (!this.operatorTabUrl) {
-                throw new Error('No operator tab URL captured from first iteration');
-            }
             
             // Connect to the existing tab
             this.operatorSender = new OperatorMessageSenderWithResponse({
