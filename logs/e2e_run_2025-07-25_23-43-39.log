@@ -1,0 +1,6 @@
+[2025-07-25 23:43:39] [RUN:2025-07-25_23-43-39] [INFO] 🎯 Initializing Operator E2E System
+[2025-07-25 23:43:39] [RUN:2025-07-25_23-43-39] [INFO] Run ID: 2025-07-25_23-43-39
+[2025-07-25 23:43:39] [RUN:2025-07-25_23-43-39] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-25_23-43-39.log
+[2025-07-25 23:43:39] [RUN:2025-07-25_23-43-39] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-25 23:43:39] [RUN:2025-07-25_23-43-39] [INFO] ──────────────────────────────────────────────────
+[2025-07-25 23:43:48] [RUN:2025-07-25_23-43-39] [INFO] ✅ E2E system initialized

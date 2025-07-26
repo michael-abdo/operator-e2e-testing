@@ -1,125 +1,128 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "The header CSS positions the logo with `justify-content: flex-end` (or an explicit `float: right`) and applies temporary debugging styles (`background: red; border: 2px solid yellow`). These were likely left in from development.",
+    "root_cause": "A temporary debug CSS rule (likely using !important) overrides the normal header layout, forcing the logo to float right and applying red/yellow styling that is not part of the design tokens.",
     "technical_recommendations": [
-      "Update the header container to `justify-content: flex-start` (or remove the right‑float).",
-      "Strip the inline/temporary red background and yellow border from the `.logo` class.",
-      "Apply brand‑approved dimensions and spacing (e.g., `height: 32px; margin-right: 16px`).",
-      "Add a dedicated SCSS/ CSS module for the logo that inherits colors from the design system."
+      "Delete or override the rule that sets `float:right`, `background:red`, and `border:2px solid yellow` on the logo element.",
+      "Place the logo inside a flex container that is left‑aligned (`justify-content:flex-start`).",
+      "Move all logo styling into a dedicated SCSS module that uses design‑system variables (no hard‑coded colors).",
+      "Add a visual regression test to snapshot the header layout."
     ],
     "implementation_steps": [
-      "Open `Header.tsx` (or `Header.vue` / equivalent) and ensure the logo element is the first child inside the flex container.",
-      "In `header.scss`, remove `float: right`, `background`, and `border` declarations from `.logo`.",
-      "Add: `.logo { display: flex; align-items: center; height: 32px; background: transparent; border: none; }`",
-      "Run `npm run lint && npm run stylelint` to confirm no style regressions.",
-      "Hard‑refresh the homepage and verify the logo appears at the top‑left with clean styling."
+      "Open `src/components/layout/Header.jsx` (or equivalent).",
+      "Remove the inline style or class that applies the debug colors and right‑float.",
+      "Wrap the logo and nav links in `<header className=\"header\">` and add `.header { display:flex; align-items:center; justify-content:space-between; }` in `header.scss`.",
+      "Create `.header__logo { height:40px; background:none; border:none; }` and import the SCSS file.",
+      "Run `npm run test` and visually confirm the logo is on the left with clean styling."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "authentication",
-    "root_cause": "The `SignInButton` component (or link) was removed from `Header` during a refactor, or its visibility is toggled off via CSS (`display:none`).",
+    "root_cause": "During a previous refactor the `<SignInButton />` component was removed from the header; the authentication route still exists but there is no visible entry point.",
     "technical_recommendations": [
-      "Re‑insert the `SignInButton` component in the header’s right‑aligned slot.",
-      "Ensure the button routes to `/login` or opens the authentication modal.",
-      "Add accessibility attributes: `aria-label=\"Sign in\"`.",
-      "Write a Cypress test to assert the button’s presence and clickability."
+      "Re‑insert the Sign‑In button into the header’s right‑hand action area.",
+      "Hook the button to open the login modal or navigate to `/auth/login`.",
+      "Add proper ARIA attributes for accessibility.",
+      "Write a Cypress test that asserts the button exists and opens the login form."
     ],
     "implementation_steps": [
-      "Edit `Header.tsx` and add `<SignInButton />` as the last child in the flex container (order: logo, nav, spacer, SignInButton).",
-      "If CSS was hiding it, remove or override `.sign-in { display: none; }` in `header.scss`.",
-      "In `SignInButton.tsx`, confirm it calls `openLoginModal()` or `navigate('/login')` on click.",
-      "Add unit test (`Header.test.tsx`) asserting the button renders when the user is logged out.",
-      "Deploy to staging and perform a hard refresh to validate."
+      "Edit `Header.jsx` and import `SignInButton` (or create one).",
+      "Add `<SignInButton />` inside a right‑aligned flex container: `<div className=\"header__actions\"><SignInButton /></div>`.",
+      "If modal‑based auth: connect onClick to `dispatch(openLoginModal())`; if route‑based: wrap with `<Link to=\"/auth/login\" className=\"btn btn--primary\">Sign In</Link>`.",
+      "Add Jest test: `expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();`.",
+      "Run E2E test to confirm full authentication flow."
     ],
     "estimated_complexity": "medium"
   },
   {
     "taskId": "calculator-page",
-    "root_cause": "A placeholder error banner (`<div class=\"error-heading\">BROKEN CALCULATOR PAGE…</div>`) was committed instead of the production heading.",
+    "root_cause": "A placeholder error banner (`<div class=\"broken-banner\">`) left in the template overrides the normal `<h1>` heading with loud colors.",
     "technical_recommendations": [
-      "Replace the placeholder with a semantic `<h1>` that reads “Contract Calculator”.",
-      "Remove the `.error-heading` CSS (red/yellow/blue styles).",
-      "Apply design‑system typography tokens (e.g., `font-size: 2rem; font-weight: 600`)."
+      "Remove the broken banner markup and its associated CSS.",
+      "Insert a semantic `<h1 class=\"page-title\">Contract Calculator</h1>` styled with design‑system typography.",
+      "Ensure the heading uses neutral colors from the token set.",
+      "Add a unit test that asserts the correct heading text is rendered."
     ],
     "implementation_steps": [
-      "Open `CalculatorPage.tsx` (or `.vue`/`.jsx`).",
-      "Delete or comment out the error `<div>` block.",
-      "Insert `<h1 className=\"page-title\">Contract Calculator</h1>` at the top of the page component.",
-      "In `calculator.scss`, add `.page-title { @include heading-1; margin-bottom: 24px; }`.",
-      "Hard refresh `/tools/calculator` to confirm the correct heading appears."
+      "Open `src/pages/CalculatorPage.jsx`.",
+      "Delete `<div className=\"broken-banner\">BROKEN CALCULATOR PAGE - HEADING MISSING</div>`.",
+      "Add `<h1 className=\"page-title\">Contract Calculator</h1>` above the form component.",
+      "Update `calculator.scss`: `.page-title { font-size:2rem; margin-bottom:1.5rem; color:var(--color-text-primary); }`.",
+      "Run tests and visually verify the page looks professional."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "calculator-form",
-    "root_cause": "The `contractTitle` input was removed (possibly during schema changes) and replaced with a static error div.",
+    "root_cause": "The Contract Title input was commented out and replaced by a red error div during debugging, so the form schema no longer renders the field.",
     "technical_recommendations": [
-      "Re‑add the `contractTitle` field to the form’s JSX/ template.",
-      "Update the form validation schema (Yup / Zod) to include `contractTitle: string().required()`. ",
-      "Remove the error div and associated red box styling."
+      "Restore the `<input name=\"contractTitle\" ... />` field inside the form.",
+      "Remove the red error box from the markup and stylesheet.",
+      "Add validation (e.g. Yup) to require a non‑empty contract title.",
+      "Update form tests to include the Contract Title field."
     ],
     "implementation_steps": [
-      "In `CalculatorForm.tsx`, locate the section labelled “Contract Details”.",
-      "Insert:\n  ```jsx\n  <FormField name=\"contractTitle\" label=\"Contract Title\">\n    <Input placeholder=\"e.g., Website Redesign\" />\n  </FormField>\n  ```",
-      "Extend `initialValues` with `contractTitle: ''`.",
-      "Update validation schema to require a non‑empty string.",
-      "Delete `.missing-field-error` CSS and its usage.",
-      "Run unit tests for form submission to ensure no validation errors for a valid title."
+      "Edit `CalculatorForm.jsx`.",
+      "Delete `<div className=\"error-box\">ERROR: Contract Title input field is MISSING!</div>`.",
+      "Insert the controlled input: `<Input label=\"Contract Title\" name=\"contractTitle\" placeholder=\"e.g. Web Development\" />`.",
+      "In the Yup schema add: `contractTitle: Yup.string().required('Contract Title is required')`.",
+      "Run `npm run test` and verify the field renders and validates."
     ],
     "estimated_complexity": "medium"
   },
   {
     "taskId": "calculator-defaults",
-    "root_cause": "The default value for `hourlyRate` was set to `999` during testing, and the field was given an `.error` CSS class for visibility.",
+    "root_cause": "The default value for `hourlyRate` was temporarily set to 999 for stress‑testing; a red/yellow inline style was applied for visibility during QA.",
     "technical_recommendations": [
-      "Reset `initialValues.hourlyRate` to `150` in the form state.",
-      "Remove `.error` class from the hourly rate input.",
-      "Apply standard input styling (`background: #fff; border: 1px solid #ccc; color: #000`)."
+      "Change the default value in the form state from `999` to `150`.",
+      "Remove inline styles that set red background, white text, and yellow border.",
+      "Ensure the input component inherits normal styling from the design system.",
+      "Add a regression test asserting the default value is 150."
     ],
     "implementation_steps": [
-      "Open `CalculatorForm.tsx` and change `initialValues = { hourlyRate: 150, … }`.",
-      "Find the `<Input>` for `hourlyRate` and remove `className=\"error\"` (or conditional that adds it).",
-      "Delete or neutralize `.error` styles in `calculator.scss` (or restrict them to actual validation errors).",
-      "Write a regression test checking the default value is `150` on render."
+      "Open `CalculatorForm.jsx` (or the hook `useCalculatorForm`).",
+      "Replace `hourlyRate: 999` with `hourlyRate: 150` in the `initialValues` object.",
+      "Delete the `style={...}` prop on the Hourly Rate input.",
+      "Confirm the input uses the standard `.input` class only.",
+      "Run unit tests and visually validate the field."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "calculator-functionality",
-    "root_cause": "The calculate handler intentionally throws an alert and exits early (`alert('DEMO ERROR…'); return;`) leaving the results panel unrendered.",
+    "root_cause": "The `handleCalculate` function intentionally fires an alert and returns early for demo purposes, preventing state update and results rendering.",
     "technical_recommendations": [
-      "Remove the alert and early `return` from the `handleCalculate` function.",
-      "Implement calculation logic: `grossPay = hourlyRate * hours; taxes = grossPay * taxRate; netPay = grossPay - taxes` (example).",
-      "Store results in component state (e.g., `setResults({ grossPay, netPay, taxes })`).",
-      "Render a `<ResultsPanel>` component when results are present.",
-      "Add integration tests (Cypress) to verify end‑to‑end calculations."
+      "Remove the `alert('DEMO ERROR...')` call and the early `return`.",
+      "Implement proper calculation logic (gross, tax, net) or call an existing calculation service.",
+      "Store results in React state (e.g. `setResults`) and conditionally render a `<ResultsPanel />`.",
+      "Write an integration test that fills the form, clicks Calculate, and asserts that results are displayed."
     ],
     "implementation_steps": [
-      "Edit `CalculatorForm.tsx` (or `CalculatorPage.tsx`) and locate `handleCalculate()`.",
-      "Delete the `alert()` line and any `return;` that prevents execution.",
-      "Add calculation formulas using current form values.",
-      "Create/Update `<ResultsPanel>` to accept props for `grossPay`, `netPay`, `taxes` and display them with currency formatting.",
-      "Conditionally render `<ResultsPanel>` only when results exist.",
-      "Add unit tests for `calculate()` utility and E2E test clicking the button and asserting results appear."
+      "Edit `CalculatorPage.jsx` and locate `handleCalculate`.",
+      "Delete the alert and early return.",
+      "Compute values: `const gross = hours * rate; const tax = gross * TAX_RATE; const net = gross - tax;`.",
+      "Call `setResults({ gross, tax, net })` and set `showResults(true)`.",
+      "Create or update `<ResultsPanel>` to show Gross Pay, Net Pay, and tax breakdown.",
+      "Add Cypress test `calculator.spec.ts` to verify calculation flow end‑to‑end."
     ],
     "estimated_complexity": "high"
   },
   {
     "taskId": "button-interactions",
-    "root_cause": "The `.btn-primary:hover` rule in the global stylesheet sets `background: magenta; color: yellow; transform: scale(1.3); border: 2px solid red`—likely added for demo visibility.",
+    "root_cause": "The hover rules for `.btn--primary` were overridden with experimental colors and a `transform:scale(1.3)` animation, resulting in garish effects.",
     "technical_recommendations": [
-      "Replace hover colors with a subtle shade change (`darken($primary, 5%)`).",
-      "Remove the scale transform and red border.",
-      "Ensure transitions use `transition: background-color 150ms ease-in-out;`."
+      "Replace hover colors with a subtle shade darkening (e.g. 8% darker).",
+      "Remove `transform: scale()` and any flashing border animations.",
+      "Use design‑system variables for both default and hover states.",
+      "Add a visual regression test for hover state using Percy or Chromatic."
     ],
     "implementation_steps": [
-      "Open `buttons.scss` and locate `.btn-primary:hover`.",
-      "Change to:\n  ```scss\n  .btn-primary:hover {\n    background-color: darken($primary, 5%);\n    color: #fff;\n    border-color: darken($primary, 5%);\n    transform: none;\n  }\n  ```",
-      "Add `transition` property to `.btn-primary` for smoothness.",
-      "Run visual regression tests or Percy snapshots to confirm the new hover state.",
-      "Hard refresh the homepage and verify the Get Started button behaves professionally."
+      "Open `buttons.scss`.",
+      "Comment out or delete the current `.btn--primary:hover` block that sets magenta/yellow colors and scaling.",
+      "Add new rule:\n  ```scss\n  .btn--primary {\n    background: var(--color-primary);\n    color: #fff;\n    transition: background 150ms ease, box-shadow 150ms ease;\n  }\n  .btn--primary:hover:not(:disabled) {\n    background: color-mix(in srgb, var(--color-primary) 90%, #000 10%);\n    box-shadow: 0 2px 6px rgba(0,0,0,0.15);\n  }\n  ```",
+      "Ensure no `transform` or border color changes remain.",
+      "Run Storybook or local build to confirm the hover effect is subtle and professional."
     ],
     "estimated_complexity": "low"
   }
@@ -127,125 +130,128 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "The header CSS positions the logo with `justify-content: flex-end` (or an explicit `float: right`) and applies temporary debugging styles (`background: red; border: 2px solid yellow`). These were likely left in from development.",
+    "root_cause": "A temporary debug CSS rule (likely using !important) overrides the normal header layout, forcing the logo to float right and applying red/yellow styling that is not part of the design tokens.",
     "technical_recommendations": [
-      "Update the header container to `justify-content: flex-start` (or remove the right‑float).",
-      "Strip the inline/temporary red background and yellow border from the `.logo` class.",
-      "Apply brand‑approved dimensions and spacing (e.g., `height: 32px; margin-right: 16px`).",
-      "Add a dedicated SCSS/ CSS module for the logo that inherits colors from the design system."
+      "Delete or override the rule that sets `float:right`, `background:red`, and `border:2px solid yellow` on the logo element.",
+      "Place the logo inside a flex container that is left‑aligned (`justify-content:flex-start`).",
+      "Move all logo styling into a dedicated SCSS module that uses design‑system variables (no hard‑coded colors).",
+      "Add a visual regression test to snapshot the header layout."
     ],
     "implementation_steps": [
-      "Open `Header.tsx` (or `Header.vue` / equivalent) and ensure the logo element is the first child inside the flex container.",
-      "In `header.scss`, remove `float: right`, `background`, and `border` declarations from `.logo`.",
-      "Add: `.logo { display: flex; align-items: center; height: 32px; background: transparent; border: none; }`",
-      "Run `npm run lint && npm run stylelint` to confirm no style regressions.",
-      "Hard‑refresh the homepage and verify the logo appears at the top‑left with clean styling."
+      "Open `src/components/layout/Header.jsx` (or equivalent).",
+      "Remove the inline style or class that applies the debug colors and right‑float.",
+      "Wrap the logo and nav links in `<header className=\"header\">` and add `.header { display:flex; align-items:center; justify-content:space-between; }` in `header.scss`.",
+      "Create `.header__logo { height:40px; background:none; border:none; }` and import the SCSS file.",
+      "Run `npm run test` and visually confirm the logo is on the left with clean styling."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "authentication",
-    "root_cause": "The `SignInButton` component (or link) was removed from `Header` during a refactor, or its visibility is toggled off via CSS (`display:none`).",
+    "root_cause": "During a previous refactor the `<SignInButton />` component was removed from the header; the authentication route still exists but there is no visible entry point.",
     "technical_recommendations": [
-      "Re‑insert the `SignInButton` component in the header’s right‑aligned slot.",
-      "Ensure the button routes to `/login` or opens the authentication modal.",
-      "Add accessibility attributes: `aria-label=\"Sign in\"`.",
-      "Write a Cypress test to assert the button’s presence and clickability."
+      "Re‑insert the Sign‑In button into the header’s right‑hand action area.",
+      "Hook the button to open the login modal or navigate to `/auth/login`.",
+      "Add proper ARIA attributes for accessibility.",
+      "Write a Cypress test that asserts the button exists and opens the login form."
     ],
     "implementation_steps": [
-      "Edit `Header.tsx` and add `<SignInButton />` as the last child in the flex container (order: logo, nav, spacer, SignInButton).",
-      "If CSS was hiding it, remove or override `.sign-in { display: none; }` in `header.scss`.",
-      "In `SignInButton.tsx`, confirm it calls `openLoginModal()` or `navigate('/login')` on click.",
-      "Add unit test (`Header.test.tsx`) asserting the button renders when the user is logged out.",
-      "Deploy to staging and perform a hard refresh to validate."
+      "Edit `Header.jsx` and import `SignInButton` (or create one).",
+      "Add `<SignInButton />` inside a right‑aligned flex container: `<div className=\"header__actions\"><SignInButton /></div>`.",
+      "If modal‑based auth: connect onClick to `dispatch(openLoginModal())`; if route‑based: wrap with `<Link to=\"/auth/login\" className=\"btn btn--primary\">Sign In</Link>`.",
+      "Add Jest test: `expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();`.",
+      "Run E2E test to confirm full authentication flow."
     ],
     "estimated_complexity": "medium"
   },
   {
     "taskId": "calculator-page",
-    "root_cause": "A placeholder error banner (`<div class=\"error-heading\">BROKEN CALCULATOR PAGE…</div>`) was committed instead of the production heading.",
+    "root_cause": "A placeholder error banner (`<div class=\"broken-banner\">`) left in the template overrides the normal `<h1>` heading with loud colors.",
     "technical_recommendations": [
-      "Replace the placeholder with a semantic `<h1>` that reads “Contract Calculator”.",
-      "Remove the `.error-heading` CSS (red/yellow/blue styles).",
-      "Apply design‑system typography tokens (e.g., `font-size: 2rem; font-weight: 600`)."
+      "Remove the broken banner markup and its associated CSS.",
+      "Insert a semantic `<h1 class=\"page-title\">Contract Calculator</h1>` styled with design‑system typography.",
+      "Ensure the heading uses neutral colors from the token set.",
+      "Add a unit test that asserts the correct heading text is rendered."
     ],
     "implementation_steps": [
-      "Open `CalculatorPage.tsx` (or `.vue`/`.jsx`).",
-      "Delete or comment out the error `<div>` block.",
-      "Insert `<h1 className=\"page-title\">Contract Calculator</h1>` at the top of the page component.",
-      "In `calculator.scss`, add `.page-title { @include heading-1; margin-bottom: 24px; }`.",
-      "Hard refresh `/tools/calculator` to confirm the correct heading appears."
+      "Open `src/pages/CalculatorPage.jsx`.",
+      "Delete `<div className=\"broken-banner\">BROKEN CALCULATOR PAGE - HEADING MISSING</div>`.",
+      "Add `<h1 className=\"page-title\">Contract Calculator</h1>` above the form component.",
+      "Update `calculator.scss`: `.page-title { font-size:2rem; margin-bottom:1.5rem; color:var(--color-text-primary); }`.",
+      "Run tests and visually verify the page looks professional."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "calculator-form",
-    "root_cause": "The `contractTitle` input was removed (possibly during schema changes) and replaced with a static error div.",
+    "root_cause": "The Contract Title input was commented out and replaced by a red error div during debugging, so the form schema no longer renders the field.",
     "technical_recommendations": [
-      "Re‑add the `contractTitle` field to the form’s JSX/ template.",
-      "Update the form validation schema (Yup / Zod) to include `contractTitle: string().required()`. ",
-      "Remove the error div and associated red box styling."
+      "Restore the `<input name=\"contractTitle\" ... />` field inside the form.",
+      "Remove the red error box from the markup and stylesheet.",
+      "Add validation (e.g. Yup) to require a non‑empty contract title.",
+      "Update form tests to include the Contract Title field."
     ],
     "implementation_steps": [
-      "In `CalculatorForm.tsx`, locate the section labelled “Contract Details”.",
-      "Insert:\n  ```jsx\n  <FormField name=\"contractTitle\" label=\"Contract Title\">\n    <Input placeholder=\"e.g., Website Redesign\" />\n  </FormField>\n  ```",
-      "Extend `initialValues` with `contractTitle: ''`.",
-      "Update validation schema to require a non‑empty string.",
-      "Delete `.missing-field-error` CSS and its usage.",
-      "Run unit tests for form submission to ensure no validation errors for a valid title."
+      "Edit `CalculatorForm.jsx`.",
+      "Delete `<div className=\"error-box\">ERROR: Contract Title input field is MISSING!</div>`.",
+      "Insert the controlled input: `<Input label=\"Contract Title\" name=\"contractTitle\" placeholder=\"e.g. Web Development\" />`.",
+      "In the Yup schema add: `contractTitle: Yup.string().required('Contract Title is required')`.",
+      "Run `npm run test` and verify the field renders and validates."
     ],
     "estimated_complexity": "medium"
   },
   {
     "taskId": "calculator-defaults",
-    "root_cause": "The default value for `hourlyRate` was set to `999` during testing, and the field was given an `.error` CSS class for visibility.",
+    "root_cause": "The default value for `hourlyRate` was temporarily set to 999 for stress‑testing; a red/yellow inline style was applied for visibility during QA.",
     "technical_recommendations": [
-      "Reset `initialValues.hourlyRate` to `150` in the form state.",
-      "Remove `.error` class from the hourly rate input.",
-      "Apply standard input styling (`background: #fff; border: 1px solid #ccc; color: #000`)."
+      "Change the default value in the form state from `999` to `150`.",
+      "Remove inline styles that set red background, white text, and yellow border.",
+      "Ensure the input component inherits normal styling from the design system.",
+      "Add a regression test asserting the default value is 150."
     ],
     "implementation_steps": [
-      "Open `CalculatorForm.tsx` and change `initialValues = { hourlyRate: 150, … }`.",
-      "Find the `<Input>` for `hourlyRate` and remove `className=\"error\"` (or conditional that adds it).",
-      "Delete or neutralize `.error` styles in `calculator.scss` (or restrict them to actual validation errors).",
-      "Write a regression test checking the default value is `150` on render."
+      "Open `CalculatorForm.jsx` (or the hook `useCalculatorForm`).",
+      "Replace `hourlyRate: 999` with `hourlyRate: 150` in the `initialValues` object.",
+      "Delete the `style={...}` prop on the Hourly Rate input.",
+      "Confirm the input uses the standard `.input` class only.",
+      "Run unit tests and visually validate the field."
     ],
     "estimated_complexity": "low"
   },
   {
     "taskId": "calculator-functionality",
-    "root_cause": "The calculate handler intentionally throws an alert and exits early (`alert('DEMO ERROR…'); return;`) leaving the results panel unrendered.",
+    "root_cause": "The `handleCalculate` function intentionally fires an alert and returns early for demo purposes, preventing state update and results rendering.",
     "technical_recommendations": [
-      "Remove the alert and early `return` from the `handleCalculate` function.",
-      "Implement calculation logic: `grossPay = hourlyRate * hours; taxes = grossPay * taxRate; netPay = grossPay - taxes` (example).",
-      "Store results in component state (e.g., `setResults({ grossPay, netPay, taxes })`).",
-      "Render a `<ResultsPanel>` component when results are present.",
-      "Add integration tests (Cypress) to verify end‑to‑end calculations."
+      "Remove the `alert('DEMO ERROR...')` call and the early `return`.",
+      "Implement proper calculation logic (gross, tax, net) or call an existing calculation service.",
+      "Store results in React state (e.g. `setResults`) and conditionally render a `<ResultsPanel />`.",
+      "Write an integration test that fills the form, clicks Calculate, and asserts that results are displayed."
     ],
     "implementation_steps": [
-      "Edit `CalculatorForm.tsx` (or `CalculatorPage.tsx`) and locate `handleCalculate()`.",
-      "Delete the `alert()` line and any `return;` that prevents execution.",
-      "Add calculation formulas using current form values.",
-      "Create/Update `<ResultsPanel>` to accept props for `grossPay`, `netPay`, `taxes` and display them with currency formatting.",
-      "Conditionally render `<ResultsPanel>` only when results exist.",
-      "Add unit tests for `calculate()` utility and E2E test clicking the button and asserting results appear."
+      "Edit `CalculatorPage.jsx` and locate `handleCalculate`.",
+      "Delete the alert and early return.",
+      "Compute values: `const gross = hours * rate; const tax = gross * TAX_RATE; const net = gross - tax;`.",
+      "Call `setResults({ gross, tax, net })` and set `showResults(true)`.",
+      "Create or update `<ResultsPanel>` to show Gross Pay, Net Pay, and tax breakdown.",
+      "Add Cypress test `calculator.spec.ts` to verify calculation flow end‑to‑end."
     ],
     "estimated_complexity": "high"
   },
   {
     "taskId": "button-interactions",
-    "root_cause": "The `.btn-primary:hover` rule in the global stylesheet sets `background: magenta; color: yellow; transform: scale(1.3); border: 2px solid red`—likely added for demo visibility.",
+    "root_cause": "The hover rules for `.btn--primary` were overridden with experimental colors and a `transform:scale(1.3)` animation, resulting in garish effects.",
     "technical_recommendations": [
-      "Replace hover colors with a subtle shade change (`darken($primary, 5%)`).",
-      "Remove the scale transform and red border.",
-      "Ensure transitions use `transition: background-color 150ms ease-in-out;`."
+      "Replace hover colors with a subtle shade darkening (e.g. 8% darker).",
+      "Remove `transform: scale()` and any flashing border animations.",
+      "Use design‑system variables for both default and hover states.",
+      "Add a visual regression test for hover state using Percy or Chromatic."
     ],
     "implementation_steps": [
-      "Open `buttons.scss` and locate `.btn-primary:hover`.",
-      "Change to:\n  ```scss\n  .btn-primary:hover {\n    background-color: darken($primary, 5%);\n    color: #fff;\n    border-color: darken($primary, 5%);\n    transform: none;\n  }\n  ```",
-      "Add `transition` property to `.btn-primary` for smoothness.",
-      "Run visual regression tests or Percy snapshots to confirm the new hover state.",
-      "Hard refresh the homepage and verify the Get Started button behaves professionally."
+      "Open `buttons.scss`.",
+      "Comment out or delete the current `.btn--primary:hover` block that sets magenta/yellow colors and scaling.",
+      "Add new rule:\n  ```scss\n  .btn--primary {\n    background: var(--color-primary);\n    color: #fff;\n    transition: background 150ms ease, box-shadow 150ms ease;\n  }\n  .btn--primary:hover:not(:disabled) {\n    background: color-mix(in srgb, var(--color-primary) 90%, #000 10%);\n    box-shadow: 0 2px 6px rgba(0,0,0,0.15);\n  }\n  ```",
+      "Ensure no `transform` or border color changes remain.",
+      "Run Storybook or local build to confirm the hover effect is subtle and professional."
     ],
     "estimated_complexity": "low"
   }
