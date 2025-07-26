@@ -492,9 +492,8 @@ class OperatorE2EExecutor {
     async sendTasksToOperator(failedTasks, parameters = {}) {
         console.log(`🔍 Found ${failedTasks.length} failed tasks`);
         
-        if (!this.operatorSender) {
-            await this.setupOperatorConnection();
-        }
+        // Always setup connection for each iteration (handles navigation for subsequent iterations)
+        await this.setupOperatorConnection();
         
         const message = this.formatTasksForOperator(failedTasks);
         console.log(`📤 Sending ${failedTasks.length} failed tasks to Operator using fast method...`);

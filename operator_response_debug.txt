@@ -1,128 +1,22 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "A temporary debug CSS rule (likely using !important) overrides the normal header layout, forcing the logo to float right and applying red/yellow styling that is not part of the design tokens.",
+    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly bundled logo file, so the browser shows the alt‑text (“Demo Logo”) instead of the image. Because the image never loads, no logo‑specific CSS (height, margin, vertical centering) is applied, making the header look unfinished and misaligned.",
     "technical_recommendations": [
-      "Delete or override the rule that sets `float:right`, `background:red`, and `border:2px solid yellow` on the logo element.",
-      "Place the logo inside a flex container that is left‑aligned (`justify-content:flex-start`).",
-      "Move all logo styling into a dedicated SCSS module that uses design‑system variables (no hard‑coded colors).",
-      "Add a visual regression test to snapshot the header layout."
+      "Add the real logo file (SVG or PNG) to the folder that is copied to the production build (e.g., /public/assets/logo.svg).",
+      "Reference the file with a path that survives the build step:\n  • Plain HTML: <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" class=\"header-logo\" />\n  • React: import logo from \"../assets/logo.svg\"; … <img src={logo} alt=\"Operator E2E Demo\" className=\"header-logo\" />",
+      "Create a reusable .header-logo class:\n```css\n.header-logo {\n  height: 40px;          /* consistent size */\n  width: auto;           /* keep aspect ratio */\n  object-fit: contain;   /* prevent distortion */\n  margin-right: 0.75rem; /* spacing from nav items */\n}\n```",
+      "Ensure the header/nav bar uses flexbox so the logo is vertically centered:\n```css\nheader.navbar {\n  display: flex;\n  align-items: center;\n  padding: 0 1rem;\n}\n```",
+      "Use a neutral or monochrome version of the logo to avoid bright, distracting colors.",
+      "Optionally hide the broken‑image icon if the file is ever missing again:\n```css\n.header-logo:not([src]) { visibility: hidden; }\n```"
     ],
     "implementation_steps": [
-      "Open `src/components/layout/Header.jsx` (or equivalent).",
-      "Remove the inline style or class that applies the debug colors and right‑float.",
-      "Wrap the logo and nav links in `<header className=\"header\">` and add `.header { display:flex; align-items:center; justify-content:space-between; }` in `header.scss`.",
-      "Create `.header__logo { height:40px; background:none; border:none; }` and import the SCSS file.",
-      "Run `npm run test` and visually confirm the logo is on the left with clean styling."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "authentication",
-    "root_cause": "During a previous refactor the `<SignInButton />` component was removed from the header; the authentication route still exists but there is no visible entry point.",
-    "technical_recommendations": [
-      "Re‑insert the Sign‑In button into the header’s right‑hand action area.",
-      "Hook the button to open the login modal or navigate to `/auth/login`.",
-      "Add proper ARIA attributes for accessibility.",
-      "Write a Cypress test that asserts the button exists and opens the login form."
-    ],
-    "implementation_steps": [
-      "Edit `Header.jsx` and import `SignInButton` (or create one).",
-      "Add `<SignInButton />` inside a right‑aligned flex container: `<div className=\"header__actions\"><SignInButton /></div>`.",
-      "If modal‑based auth: connect onClick to `dispatch(openLoginModal())`; if route‑based: wrap with `<Link to=\"/auth/login\" className=\"btn btn--primary\">Sign In</Link>`.",
-      "Add Jest test: `expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();`.",
-      "Run E2E test to confirm full authentication flow."
-    ],
-    "estimated_complexity": "medium"
-  },
-  {
-    "taskId": "calculator-page",
-    "root_cause": "A placeholder error banner (`<div class=\"broken-banner\">`) left in the template overrides the normal `<h1>` heading with loud colors.",
-    "technical_recommendations": [
-      "Remove the broken banner markup and its associated CSS.",
-      "Insert a semantic `<h1 class=\"page-title\">Contract Calculator</h1>` styled with design‑system typography.",
-      "Ensure the heading uses neutral colors from the token set.",
-      "Add a unit test that asserts the correct heading text is rendered."
-    ],
-    "implementation_steps": [
-      "Open `src/pages/CalculatorPage.jsx`.",
-      "Delete `<div className=\"broken-banner\">BROKEN CALCULATOR PAGE - HEADING MISSING</div>`.",
-      "Add `<h1 className=\"page-title\">Contract Calculator</h1>` above the form component.",
-      "Update `calculator.scss`: `.page-title { font-size:2rem; margin-bottom:1.5rem; color:var(--color-text-primary); }`.",
-      "Run tests and visually verify the page looks professional."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "calculator-form",
-    "root_cause": "The Contract Title input was commented out and replaced by a red error div during debugging, so the form schema no longer renders the field.",
-    "technical_recommendations": [
-      "Restore the `<input name=\"contractTitle\" ... />` field inside the form.",
-      "Remove the red error box from the markup and stylesheet.",
-      "Add validation (e.g. Yup) to require a non‑empty contract title.",
-      "Update form tests to include the Contract Title field."
-    ],
-    "implementation_steps": [
-      "Edit `CalculatorForm.jsx`.",
-      "Delete `<div className=\"error-box\">ERROR: Contract Title input field is MISSING!</div>`.",
-      "Insert the controlled input: `<Input label=\"Contract Title\" name=\"contractTitle\" placeholder=\"e.g. Web Development\" />`.",
-      "In the Yup schema add: `contractTitle: Yup.string().required('Contract Title is required')`.",
-      "Run `npm run test` and verify the field renders and validates."
-    ],
-    "estimated_complexity": "medium"
-  },
-  {
-    "taskId": "calculator-defaults",
-    "root_cause": "The default value for `hourlyRate` was temporarily set to 999 for stress‑testing; a red/yellow inline style was applied for visibility during QA.",
-    "technical_recommendations": [
-      "Change the default value in the form state from `999` to `150`.",
-      "Remove inline styles that set red background, white text, and yellow border.",
-      "Ensure the input component inherits normal styling from the design system.",
-      "Add a regression test asserting the default value is 150."
-    ],
-    "implementation_steps": [
-      "Open `CalculatorForm.jsx` (or the hook `useCalculatorForm`).",
-      "Replace `hourlyRate: 999` with `hourlyRate: 150` in the `initialValues` object.",
-      "Delete the `style={...}` prop on the Hourly Rate input.",
-      "Confirm the input uses the standard `.input` class only.",
-      "Run unit tests and visually validate the field."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "calculator-functionality",
-    "root_cause": "The `handleCalculate` function intentionally fires an alert and returns early for demo purposes, preventing state update and results rendering.",
-    "technical_recommendations": [
-      "Remove the `alert('DEMO ERROR...')` call and the early `return`.",
-      "Implement proper calculation logic (gross, tax, net) or call an existing calculation service.",
-      "Store results in React state (e.g. `setResults`) and conditionally render a `<ResultsPanel />`.",
-      "Write an integration test that fills the form, clicks Calculate, and asserts that results are displayed."
-    ],
-    "implementation_steps": [
-      "Edit `CalculatorPage.jsx` and locate `handleCalculate`.",
-      "Delete the alert and early return.",
-      "Compute values: `const gross = hours * rate; const tax = gross * TAX_RATE; const net = gross - tax;`.",
-      "Call `setResults({ gross, tax, net })` and set `showResults(true)`.",
-      "Create or update `<ResultsPanel>` to show Gross Pay, Net Pay, and tax breakdown.",
-      "Add Cypress test `calculator.spec.ts` to verify calculation flow end‑to‑end."
-    ],
-    "estimated_complexity": "high"
-  },
-  {
-    "taskId": "button-interactions",
-    "root_cause": "The hover rules for `.btn--primary` were overridden with experimental colors and a `transform:scale(1.3)` animation, resulting in garish effects.",
-    "technical_recommendations": [
-      "Replace hover colors with a subtle shade darkening (e.g. 8% darker).",
-      "Remove `transform: scale()` and any flashing border animations.",
-      "Use design‑system variables for both default and hover states.",
-      "Add a visual regression test for hover state using Percy or Chromatic."
-    ],
-    "implementation_steps": [
-      "Open `buttons.scss`.",
-      "Comment out or delete the current `.btn--primary:hover` block that sets magenta/yellow colors and scaling.",
-      "Add new rule:\n  ```scss\n  .btn--primary {\n    background: var(--color-primary);\n    color: #fff;\n    transition: background 150ms ease, box-shadow 150ms ease;\n  }\n  .btn--primary:hover:not(:disabled) {\n    background: color-mix(in srgb, var(--color-primary) 90%, #000 10%);\n    box-shadow: 0 2px 6px rgba(0,0,0,0.15);\n  }\n  ```",
-      "Ensure no `transform` or border color changes remain.",
-      "Run Storybook or local build to confirm the hover effect is subtle and professional."
+      "Place the final logo file in /public/assets (or the framework‑specific static folder).",
+      "Update the Header component/template to use the correct path or import for the logo.",
+      "Add the .header-logo and header.navbar styles to the main stylesheet or component‑scoped CSS.",
+      "Run the app locally; verify the logo loads, is 40 px tall, and is left‑aligned and vertically centered.",
+      "Build the production bundle (e.g., npm run build) and confirm the logo file is present in the build output.",
+      "Deploy to Heroku; perform a hard refresh (Ctrl+Shift+R) to clear cache and confirm the logo now appears and passes the QA checks."
     ],
     "estimated_complexity": "low"
   }
@@ -130,128 +24,22 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "A temporary debug CSS rule (likely using !important) overrides the normal header layout, forcing the logo to float right and applying red/yellow styling that is not part of the design tokens.",
+    "root_cause": "The <img> element in the header points to a non‑existent or incorrectly bundled logo file, so the browser shows the alt‑text (“Demo Logo”) instead of the image. Because the image never loads, no logo‑specific CSS (height, margin, vertical centering) is applied, making the header look unfinished and misaligned.",
     "technical_recommendations": [
-      "Delete or override the rule that sets `float:right`, `background:red`, and `border:2px solid yellow` on the logo element.",
-      "Place the logo inside a flex container that is left‑aligned (`justify-content:flex-start`).",
-      "Move all logo styling into a dedicated SCSS module that uses design‑system variables (no hard‑coded colors).",
-      "Add a visual regression test to snapshot the header layout."
+      "Add the real logo file (SVG or PNG) to the folder that is copied to the production build (e.g., /public/assets/logo.svg).",
+      "Reference the file with a path that survives the build step:\n  • Plain HTML: <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo\" class=\"header-logo\" />\n  • React: import logo from \"../assets/logo.svg\"; … <img src={logo} alt=\"Operator E2E Demo\" className=\"header-logo\" />",
+      "Create a reusable .header-logo class:\n```css\n.header-logo {\n  height: 40px;          /* consistent size */\n  width: auto;           /* keep aspect ratio */\n  object-fit: contain;   /* prevent distortion */\n  margin-right: 0.75rem; /* spacing from nav items */\n}\n```",
+      "Ensure the header/nav bar uses flexbox so the logo is vertically centered:\n```css\nheader.navbar {\n  display: flex;\n  align-items: center;\n  padding: 0 1rem;\n}\n```",
+      "Use a neutral or monochrome version of the logo to avoid bright, distracting colors.",
+      "Optionally hide the broken‑image icon if the file is ever missing again:\n```css\n.header-logo:not([src]) { visibility: hidden; }\n```"
     ],
     "implementation_steps": [
-      "Open `src/components/layout/Header.jsx` (or equivalent).",
-      "Remove the inline style or class that applies the debug colors and right‑float.",
-      "Wrap the logo and nav links in `<header className=\"header\">` and add `.header { display:flex; align-items:center; justify-content:space-between; }` in `header.scss`.",
-      "Create `.header__logo { height:40px; background:none; border:none; }` and import the SCSS file.",
-      "Run `npm run test` and visually confirm the logo is on the left with clean styling."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "authentication",
-    "root_cause": "During a previous refactor the `<SignInButton />` component was removed from the header; the authentication route still exists but there is no visible entry point.",
-    "technical_recommendations": [
-      "Re‑insert the Sign‑In button into the header’s right‑hand action area.",
-      "Hook the button to open the login modal or navigate to `/auth/login`.",
-      "Add proper ARIA attributes for accessibility.",
-      "Write a Cypress test that asserts the button exists and opens the login form."
-    ],
-    "implementation_steps": [
-      "Edit `Header.jsx` and import `SignInButton` (or create one).",
-      "Add `<SignInButton />` inside a right‑aligned flex container: `<div className=\"header__actions\"><SignInButton /></div>`.",
-      "If modal‑based auth: connect onClick to `dispatch(openLoginModal())`; if route‑based: wrap with `<Link to=\"/auth/login\" className=\"btn btn--primary\">Sign In</Link>`.",
-      "Add Jest test: `expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();`.",
-      "Run E2E test to confirm full authentication flow."
-    ],
-    "estimated_complexity": "medium"
-  },
-  {
-    "taskId": "calculator-page",
-    "root_cause": "A placeholder error banner (`<div class=\"broken-banner\">`) left in the template overrides the normal `<h1>` heading with loud colors.",
-    "technical_recommendations": [
-      "Remove the broken banner markup and its associated CSS.",
-      "Insert a semantic `<h1 class=\"page-title\">Contract Calculator</h1>` styled with design‑system typography.",
-      "Ensure the heading uses neutral colors from the token set.",
-      "Add a unit test that asserts the correct heading text is rendered."
-    ],
-    "implementation_steps": [
-      "Open `src/pages/CalculatorPage.jsx`.",
-      "Delete `<div className=\"broken-banner\">BROKEN CALCULATOR PAGE - HEADING MISSING</div>`.",
-      "Add `<h1 className=\"page-title\">Contract Calculator</h1>` above the form component.",
-      "Update `calculator.scss`: `.page-title { font-size:2rem; margin-bottom:1.5rem; color:var(--color-text-primary); }`.",
-      "Run tests and visually verify the page looks professional."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "calculator-form",
-    "root_cause": "The Contract Title input was commented out and replaced by a red error div during debugging, so the form schema no longer renders the field.",
-    "technical_recommendations": [
-      "Restore the `<input name=\"contractTitle\" ... />` field inside the form.",
-      "Remove the red error box from the markup and stylesheet.",
-      "Add validation (e.g. Yup) to require a non‑empty contract title.",
-      "Update form tests to include the Contract Title field."
-    ],
-    "implementation_steps": [
-      "Edit `CalculatorForm.jsx`.",
-      "Delete `<div className=\"error-box\">ERROR: Contract Title input field is MISSING!</div>`.",
-      "Insert the controlled input: `<Input label=\"Contract Title\" name=\"contractTitle\" placeholder=\"e.g. Web Development\" />`.",
-      "In the Yup schema add: `contractTitle: Yup.string().required('Contract Title is required')`.",
-      "Run `npm run test` and verify the field renders and validates."
-    ],
-    "estimated_complexity": "medium"
-  },
-  {
-    "taskId": "calculator-defaults",
-    "root_cause": "The default value for `hourlyRate` was temporarily set to 999 for stress‑testing; a red/yellow inline style was applied for visibility during QA.",
-    "technical_recommendations": [
-      "Change the default value in the form state from `999` to `150`.",
-      "Remove inline styles that set red background, white text, and yellow border.",
-      "Ensure the input component inherits normal styling from the design system.",
-      "Add a regression test asserting the default value is 150."
-    ],
-    "implementation_steps": [
-      "Open `CalculatorForm.jsx` (or the hook `useCalculatorForm`).",
-      "Replace `hourlyRate: 999` with `hourlyRate: 150` in the `initialValues` object.",
-      "Delete the `style={...}` prop on the Hourly Rate input.",
-      "Confirm the input uses the standard `.input` class only.",
-      "Run unit tests and visually validate the field."
-    ],
-    "estimated_complexity": "low"
-  },
-  {
-    "taskId": "calculator-functionality",
-    "root_cause": "The `handleCalculate` function intentionally fires an alert and returns early for demo purposes, preventing state update and results rendering.",
-    "technical_recommendations": [
-      "Remove the `alert('DEMO ERROR...')` call and the early `return`.",
-      "Implement proper calculation logic (gross, tax, net) or call an existing calculation service.",
-      "Store results in React state (e.g. `setResults`) and conditionally render a `<ResultsPanel />`.",
-      "Write an integration test that fills the form, clicks Calculate, and asserts that results are displayed."
-    ],
-    "implementation_steps": [
-      "Edit `CalculatorPage.jsx` and locate `handleCalculate`.",
-      "Delete the alert and early return.",
-      "Compute values: `const gross = hours * rate; const tax = gross * TAX_RATE; const net = gross - tax;`.",
-      "Call `setResults({ gross, tax, net })` and set `showResults(true)`.",
-      "Create or update `<ResultsPanel>` to show Gross Pay, Net Pay, and tax breakdown.",
-      "Add Cypress test `calculator.spec.ts` to verify calculation flow end‑to‑end."
-    ],
-    "estimated_complexity": "high"
-  },
-  {
-    "taskId": "button-interactions",
-    "root_cause": "The hover rules for `.btn--primary` were overridden with experimental colors and a `transform:scale(1.3)` animation, resulting in garish effects.",
-    "technical_recommendations": [
-      "Replace hover colors with a subtle shade darkening (e.g. 8% darker).",
-      "Remove `transform: scale()` and any flashing border animations.",
-      "Use design‑system variables for both default and hover states.",
-      "Add a visual regression test for hover state using Percy or Chromatic."
-    ],
-    "implementation_steps": [
-      "Open `buttons.scss`.",
-      "Comment out or delete the current `.btn--primary:hover` block that sets magenta/yellow colors and scaling.",
-      "Add new rule:\n  ```scss\n  .btn--primary {\n    background: var(--color-primary);\n    color: #fff;\n    transition: background 150ms ease, box-shadow 150ms ease;\n  }\n  .btn--primary:hover:not(:disabled) {\n    background: color-mix(in srgb, var(--color-primary) 90%, #000 10%);\n    box-shadow: 0 2px 6px rgba(0,0,0,0.15);\n  }\n  ```",
-      "Ensure no `transform` or border color changes remain.",
-      "Run Storybook or local build to confirm the hover effect is subtle and professional."
+      "Place the final logo file in /public/assets (or the framework‑specific static folder).",
+      "Update the Header component/template to use the correct path or import for the logo.",
+      "Add the .header-logo and header.navbar styles to the main stylesheet or component‑scoped CSS.",
+      "Run the app locally; verify the logo loads, is 40 px tall, and is left‑aligned and vertically centered.",
+      "Build the production bundle (e.g., npm run build) and confirm the logo file is present in the build output.",
+      "Deploy to Heroku; perform a hard refresh (Ctrl+Shift+R) to clear cache and confirm the logo now appears and passes the QA checks."
     ],
     "estimated_complexity": "low"
   }

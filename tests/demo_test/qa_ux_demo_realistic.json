@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "name": "Operator E2E Demo QA Test Suite - REALISTIC BUGS",
-    "version": "3.0.0",
+    "name": "Operator E2E Demo QA Test Suite - SINGLE TASK",
+    "version": "4.0.0",
     "created": "2025-01-25T00:30:00Z",
-    "description": "Real visible bugs in the demo app for authentic E2E testing",
+    "description": "Single task for E2E testing demonstration",
     "format": "operator_qa_mode_strict",
     "demo_app_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com",
     "github_repo": "https://github.com/michael-abdo/op-e2e-demo-0724-1719",
-    "note": "These are ACTUAL problems visible on the demo site - not fake test data"
+    "note": "Simplified to single task for testing"
   },
   "operator_capabilities": {
     "has_access_to": [
@@ -64,203 +64,17 @@
         "run_id": "TBD",
         "completed_at": "TBD"
       }
-    },
-    "authentication": {
-      "feature_name": "authentication",
-      "description": "Sign In button availability",
-      "status": "fail",
-      "priority": "critical",
-      "category": "authentication",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
-          "expectation": "Sign In button should be visible in top-right of header",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Click on the Sign In button (if present)",
-          "expectation": "Login modal or page should appear",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
-    },
-    "calculator-page": {
-      "feature_name": "calculator-page",
-      "description": "Calculator page heading display",
-      "status": "fail",
-      "priority": "high",
-      "category": "content",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-          "expectation": "Page should display 'Contract Calculator' as the main heading",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Observe the heading styling",
-          "expectation": "Heading should use professional typography without error colors",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
-    },
-    "calculator-form": {
-      "feature_name": "calculator-form",
-      "description": "Contract Title field availability",
-      "status": "fail",
-      "priority": "high",
-      "category": "forms",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-          "expectation": "Contract Title input field should be visible in the form",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Click on Contract Title field (if present) and type 'Test Contract'",
-          "expectation": "Field should accept text input",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
-    },
-    "calculator-defaults": {
-      "feature_name": "calculator-defaults",
-      "description": "Hourly Rate field default value and styling",
-      "status": "fail",
-      "priority": "medium",
-      "category": "forms",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-          "expectation": "Hourly Rate field should show default value of 150",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Observe the Hourly Rate field styling",
-          "expectation": "Field should have normal input styling without bright colors",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
-    },
-    "calculator-functionality": {
-      "feature_name": "calculator-functionality",
-      "description": "Calculate button functionality",
-      "status": "fail",
-      "priority": "critical",
-      "category": "functionality",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/calculator.html",
-          "expectation": "Calculator form should be visible with all fields",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Fill in Hours per Week: 40, Weeks per Year: 52 (keep other defaults)",
-          "expectation": "Fields should accept numeric input",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 3,
-          "action": "Click the Calculate button",
-          "expectation": "Results panel should appear showing calculated values",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
-    },
-    "button-interactions": {
-      "feature_name": "button-interactions",
-      "description": "Button hover effects",
-      "status": "fail",
-      "priority": "medium",
-      "category": "ui",
-      "production_url": "https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
-      "test_steps": [
-        {
-          "step": 1,
-          "action": "Navigate to https://op-e2e-demo-0724-1719-23b83c678501.herokuapp.com/",
-          "expectation": "Get Started button should be visible on the page",
-          "result": "✅ Pass | ❌ Fail + reason"
-        },
-        {
-          "step": 2,
-          "action": "Hover over the Get Started button",
-          "expectation": "Button should show subtle professional hover effect",
-          "result": "✅ Pass | ❌ Fail + reason"
-        }
-      ],
-      "qa_report": {
-        "passed_tests": [],
-        "failed_tests": [],
-        "retest_required": [],
-        "qa_status": "Incomplete",
-        "run_id": "TBD",
-        "completed_at": "TBD"
-      }
     }
   },
   "summary": {
-    "totalTasks": 7,
+    "totalTasks": 1,
     "passedTasks": 0,
-    "failedTasks": 7,
+    "failedTasks": 1,
     "format_note": "Strict closed-loop test format for OpenAI Operator QA Mode",
     "demo_environment": {
       "heroku_app": "op-e2e-demo-0724-1719",
       "github_repo": "op-e2e-demo-0724-1719",
-      "note": "Contains real visual bugs for authentic testing experience"
+      "note": "Single task for simplified E2E testing"
     }
   }
 }
