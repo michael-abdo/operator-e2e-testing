@@ -1,0 +1,12 @@
+[2025-07-26 16:40:08] [RUN:2025-07-26_16-40-08] [INFO] 🎯 Initializing Operator E2E System
+[2025-07-26 16:40:08] [RUN:2025-07-26_16-40-08] [INFO] Run ID: 2025-07-26_16-40-08
+[2025-07-26 16:40:08] [RUN:2025-07-26_16-40-08] [INFO] Log file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/logs/e2e_run_2025-07-26_16-40-08.log
+[2025-07-26 16:40:08] [RUN:2025-07-26_16-40-08] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e-chain-loop-controller/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-26 16:40:08] [RUN:2025-07-26_16-40-08] [INFO] ──────────────────────────────────────────────────
+[2025-07-26 16:40:17] [RUN:2025-07-26_16-40-08] [INFO] ✅ E2E system initialized
+[2025-07-26 16:40:17] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 09:40:17
+[2025-07-26 16:41:54] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 OPERATOR RECEIVE: 2025-07-26 09:41:54
+[2025-07-26 16:41:54] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 CLAUDE INPUT: 2025-07-26 09:41:54
+[2025-07-26 16:42:00] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 09:42:00
+[2025-07-26 16:42:06] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 09:42:06
+[2025-07-26 16:42:16] [RUN:2025-07-26_16-40-08] [TIMING] 🕐 OPERATOR SEND: 2025-07-26 09:42:16

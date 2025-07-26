@@ -1,23 +1,24 @@
 jsonCopy[
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element inside the header is either pointing to a missing/incorrect asset path or has no explicit size/alignment styles. As a result the browser falls back to the alt text (\"Demo Logo\") and the element sits flush to the top‑left without vertical centering, giving the appearance of a misplaced, un‑styled logo.",
+    "root_cause": "The brand element in the header is implemented as a Bootstrap button (e.g., <a class=\"btn btn-dark\">) instead of a semantic .navbar‑brand link containing an <img>. The button classes inject extra padding, a bright background color (#0d6efd / #198754), and border‑radius, pushing the element away from the true top‑left corner and giving it an unprofessional, pill‑shaped look.",
     "technical_recommendations": [
-      "Add a real logo file (SVG/PNG) to the project’s public/assets folder and reference it with an absolute or hashed path that your bundler (Vite/Webpack/CRA) will keep intact.",
-      "Wrap the logo in an anchor with a utility class (e.g. .navbar-brand) and apply flexbox centering: `display:flex; align-items:center;`.",
-      "Constrain the logo’s visual size with CSS (height:40px; width:auto) to keep it proportional on all breakpoints.",
-      "Remove any inline bright background/fill colors from the SVG or override them with CSS variables that match the site’s neutral palette (#1E293B, #334155, etc.).",
-      "Add left/right margin so the logo does not touch the viewport edge (e.g. .navbar-brand { margin-left:1rem; }).",
-      "Use `loading=\"lazy\"` and `decoding=\"async\"` on the <img> tag for minor performance gain."
+      "Replace the button‑based markup with a plain <a class=\"navbar-brand\"> that wraps an <img> (SVG/PNG) or inline <svg> logo.",
+      "Remove any .btn, .badge, or background utility classes from the brand element to eliminate the bright background color.",
+      "Add a small, explicit height to the logo image (e.g., 32 px) and set width: auto to keep the aspect ratio.",
+      "Ensure the navbar uses justify-content: start (or keep Bootstrap’s default) so the brand naturally sits at the far left; add .me-auto to push the rest of the nav items to the right if needed.",
+      "Add CSS: .navbar-brand { padding-left: 1rem; }  .navbar-brand img { height: 32px; width: auto; object-fit: contain; }",
+      "Provide alt text on the image for accessibility (e.g., alt=\"Operator E2E Demo logo\").",
+      "If theme variables are overriding colors, set $navbar-brand-padding-y / $navbar-brand-padding-x and $navbar-brand-color in SCSS or override in plain CSS to keep a transparent background and professional text color."
     ],
     "implementation_steps": [
-      "Place the final logo asset in `/public/images/logo.svg` (or `/src/assets/logo.svg` if using an import).",
-      "Update the header component: `<a href=\"/\" class=\"navbar-brand\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" height=\"40\" /></a>`.",
-      "Add (or extend) CSS/SCSS:\n```css\n.navbar {\n  display:flex;\n  align-items:center;\n  padding:0.5rem 1rem;\n}\n.navbar-brand {\n  display:flex;\n  align-items:center;\n  margin-right:1rem;\n}\n.navbar-brand img {\n  height:40px;\n  width:auto;\n}\n```\n",
-      "If using Tailwind, replace with utility classes: `<a href=\"/\" class=\"navbar-brand flex items-center mr-4\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" class=\"h-10 w-auto\" /></a>`.",
-      "Remove any hard‑coded bright colors in the SVG. If the SVG contains fills, set them to `currentColor` and control the color via `.navbar-brand { color:#1E293B; }`.",
-      "Run the app, perform a hard refresh (Ctrl+Shift+R) and verify the logo is now visible, vertically centered, and uses subdued colors.",
-      "Test on common breakpoints (320px, 768px, 1024px) to ensure the logo scales and remains aligned."
+      "Open the header/navbar component (e.g., Header.jsx, header.html, or Navbar.vue depending on the tech stack).",
+      "Locate the current logo/brand markup (likely <a class=\"btn btn-dark ...\">E2E Demo</a>).",
+      "Replace it with:\n   ```html\n   <a class=\"navbar-brand d-flex align-items-center me-auto\" href=\"/\">\n     <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo logo\" />\n   </a>\n   ```",
+      "Delete any button‑related classes (btn, btn-dark, badge, etc.) so no Bootstrap button styles are applied.",
+      "Add/adjust CSS (global stylesheet or component‑scoped):\n   ```css\n   .navbar-brand {\n     padding-left: 1rem; /* keeps slight breathing room */\n     background: transparent;\n     color: #212529; /* default text color */\n     font-weight: 600;\n   }\n   .navbar-brand img {\n     height: 32px;\n     width: auto;\n     object-fit: contain;\n   }\n   ```",
+      "If using SCSS, override Bootstrap variables before importing Bootstrap: \n   ```scss\n   $navbar-brand-padding-y: 0.25rem;\n   $navbar-brand-padding-x: 1rem;\n   $navbar-brand-color: #212529;\n   @import \"bootstrap\";\n   ```",
+      "Run the build (e.g., `npm run build` or `rails assets:precompile`), deploy, then **hard refresh** the page (Ctrl/Cmd + Shift + R) to verify the logo is flush left, has no bright background, and scales correctly on all breakpoints."
     ],
     "estimated_complexity": "low"
   }
@@ -25,23 +26,24 @@ jsonCopy[
 [
   {
     "taskId": "header-logo",
-    "root_cause": "The <img> element inside the header is either pointing to a missing/incorrect asset path or has no explicit size/alignment styles. As a result the browser falls back to the alt text (\"Demo Logo\") and the element sits flush to the top‑left without vertical centering, giving the appearance of a misplaced, un‑styled logo.",
+    "root_cause": "The brand element in the header is implemented as a Bootstrap button (e.g., <a class=\"btn btn-dark\">) instead of a semantic .navbar‑brand link containing an <img>. The button classes inject extra padding, a bright background color (#0d6efd / #198754), and border‑radius, pushing the element away from the true top‑left corner and giving it an unprofessional, pill‑shaped look.",
     "technical_recommendations": [
-      "Add a real logo file (SVG/PNG) to the project’s public/assets folder and reference it with an absolute or hashed path that your bundler (Vite/Webpack/CRA) will keep intact.",
-      "Wrap the logo in an anchor with a utility class (e.g. .navbar-brand) and apply flexbox centering: `display:flex; align-items:center;`.",
-      "Constrain the logo’s visual size with CSS (height:40px; width:auto) to keep it proportional on all breakpoints.",
-      "Remove any inline bright background/fill colors from the SVG or override them with CSS variables that match the site’s neutral palette (#1E293B, #334155, etc.).",
-      "Add left/right margin so the logo does not touch the viewport edge (e.g. .navbar-brand { margin-left:1rem; }).",
-      "Use `loading=\"lazy\"` and `decoding=\"async\"` on the <img> tag for minor performance gain."
+      "Replace the button‑based markup with a plain <a class=\"navbar-brand\"> that wraps an <img> (SVG/PNG) or inline <svg> logo.",
+      "Remove any .btn, .badge, or background utility classes from the brand element to eliminate the bright background color.",
+      "Add a small, explicit height to the logo image (e.g., 32 px) and set width: auto to keep the aspect ratio.",
+      "Ensure the navbar uses justify-content: start (or keep Bootstrap’s default) so the brand naturally sits at the far left; add .me-auto to push the rest of the nav items to the right if needed.",
+      "Add CSS: .navbar-brand { padding-left: 1rem; }  .navbar-brand img { height: 32px; width: auto; object-fit: contain; }",
+      "Provide alt text on the image for accessibility (e.g., alt=\"Operator E2E Demo logo\").",
+      "If theme variables are overriding colors, set $navbar-brand-padding-y / $navbar-brand-padding-x and $navbar-brand-color in SCSS or override in plain CSS to keep a transparent background and professional text color."
     ],
     "implementation_steps": [
-      "Place the final logo asset in `/public/images/logo.svg` (or `/src/assets/logo.svg` if using an import).",
-      "Update the header component: `<a href=\"/\" class=\"navbar-brand\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" height=\"40\" /></a>`.",
-      "Add (or extend) CSS/SCSS:\n```css\n.navbar {\n  display:flex;\n  align-items:center;\n  padding:0.5rem 1rem;\n}\n.navbar-brand {\n  display:flex;\n  align-items:center;\n  margin-right:1rem;\n}\n.navbar-brand img {\n  height:40px;\n  width:auto;\n}\n```\n",
-      "If using Tailwind, replace with utility classes: `<a href=\"/\" class=\"navbar-brand flex items-center mr-4\"><img src=\"/images/logo.svg\" alt=\"Operator E2E Demo\" class=\"h-10 w-auto\" /></a>`.",
-      "Remove any hard‑coded bright colors in the SVG. If the SVG contains fills, set them to `currentColor` and control the color via `.navbar-brand { color:#1E293B; }`.",
-      "Run the app, perform a hard refresh (Ctrl+Shift+R) and verify the logo is now visible, vertically centered, and uses subdued colors.",
-      "Test on common breakpoints (320px, 768px, 1024px) to ensure the logo scales and remains aligned."
+      "Open the header/navbar component (e.g., Header.jsx, header.html, or Navbar.vue depending on the tech stack).",
+      "Locate the current logo/brand markup (likely <a class=\"btn btn-dark ...\">E2E Demo</a>).",
+      "Replace it with:\n   ```html\n   <a class=\"navbar-brand d-flex align-items-center me-auto\" href=\"/\">\n     <img src=\"/assets/logo.svg\" alt=\"Operator E2E Demo logo\" />\n   </a>\n   ```",
+      "Delete any button‑related classes (btn, btn-dark, badge, etc.) so no Bootstrap button styles are applied.",
+      "Add/adjust CSS (global stylesheet or component‑scoped):\n   ```css\n   .navbar-brand {\n     padding-left: 1rem; /* keeps slight breathing room */\n     background: transparent;\n     color: #212529; /* default text color */\n     font-weight: 600;\n   }\n   .navbar-brand img {\n     height: 32px;\n     width: auto;\n     object-fit: contain;\n   }\n   ```",
+      "If using SCSS, override Bootstrap variables before importing Bootstrap: \n   ```scss\n   $navbar-brand-padding-y: 0.25rem;\n   $navbar-brand-padding-x: 1rem;\n   $navbar-brand-color: #212529;\n   @import \"bootstrap\";\n   ```",
+      "Run the build (e.g., `npm run build` or `rails assets:precompile`), deploy, then **hard refresh** the page (Ctrl/Cmd + Shift + R) to verify the logo is flush left, has no bright background, and scales correctly on all breakpoints."
     ],
     "estimated_complexity": "low"
   }

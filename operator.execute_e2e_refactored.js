@@ -617,6 +617,7 @@ Focus on providing actionable, specific technical guidance that a developer can 
         await tmuxUtils.sendKeys(this.claudeInstanceId, 'Enter');
         console.log('✅ Sent Operator response to Claude Code with double Enter');
         
+        
         await fs.writeFile('operator_response_debug.txt', this.currentOperatorResponse);
         console.log('💾 Full Operator response saved to operator_response_debug.txt');
         
