@@ -40,9 +40,7 @@ class OperatorE2EExecutor {
         this.qaUxData = null;
         this.currentOperatorResponse = null;
         
-        // Operator session persistence
-        this.operatorSessionUrl = null;
-        this.isFirstOperatorUse = true;
+        // No session persistence - always use fresh home page
         
         // Enhanced logging setup
         this.runId = this.generateRunId();
@@ -239,28 +237,14 @@ class OperatorE2EExecutor {
     async setupOperatorConnection() {
         console.log('🔌 Setting up Operator connection...');
         
-        if (this.isFirstOperatorUse) {
-            console.log('🆕 FIRST ITERATION: Requiring fresh operator.chatgpt.com/ home page tab');
-            this.operatorSender = new OperatorMessageSenderWithResponse({
-                waitForResponse: true,
-                wait: 600, // 10 minutes timeout
-                preferHome: true,
-                requireHomePage: true
-            });
-            
-            this.isFirstOperatorUse = false;
-        } else {
-            console.log('♻️  SUBSEQUENT ITERATION: Reusing existing conversation tab');
-            if (!this.operatorSessionUrl) {
-                throw new Error('No operator session URL stored from first iteration');
-            }
-            
-            this.operatorSender = new OperatorMessageSenderWithResponse({
-                waitForResponse: true,
-                wait: 600, // 10 minutes timeout
-                targetUrl: this.operatorSessionUrl
-            });
-        }
+        // Always require home page for each iteration
+        console.log('🏠 Requiring fresh operator.chatgpt.com/ home page tab for new conversation');
+        this.operatorSender = new OperatorMessageSenderWithResponse({
+            waitForResponse: true,
+            wait: 600, // 10 minutes timeout
+            preferHome: true,
+            requireHomePage: true
+        });
         
         await this.operatorSender.connect();
         console.log('✅ Connected to Operator');
@@ -273,14 +257,7 @@ class OperatorE2EExecutor {
             });
             const currentUrl = urlResult.result.value;
             console.log(`📍 Current URL: ${currentUrl}`);
-            
-            if (!this.operatorSessionUrl && currentUrl.includes('/c/')) {
-                this.operatorSessionUrl = currentUrl;
-                console.log(`📌 Captured Operator conversation URL: ${this.operatorSessionUrl}`);
-                console.log('✅ This tab will be reused and redirected for subsequent iterations');
-            } else if (this.isFirstOperatorUse) {
-                console.log('✅ Confirmed on Operator home page - ready for fresh conversation');
-            }
+            console.log('✅ Confirmed on Operator home page - ready for fresh conversation');
         } catch (error) {
             console.log('⚠️  Could not get current URL, continuing without URL capture');
         }
@@ -505,22 +482,7 @@ class OperatorE2EExecutor {
         this.workflowTimings.operatorReceiveTime = Date.now();
         await this.log(`🕐 OPERATOR RECEIVE: ${new Date().toISOString().split('T')[0]} ${new Date().toTimeString().split(' ')[0]}`, 'TIMING');
         
-        if (!this.operatorSessionUrl) {
-            try {
-                const urlResult = await this.operatorSender.client.Runtime.evaluate({
-                    expression: 'window.location.href',
-                    returnByValue: true
-                });
-                const currentUrl = urlResult.result.value;
-                if (currentUrl.includes('/c/')) {
-                    this.operatorSessionUrl = currentUrl;
-                    console.log(`📌 Captured Operator conversation URL: ${this.operatorSessionUrl}`);
-                    console.log('✅ This tab will be reused and redirected for subsequent iterations');
-                }
-            } catch (error) {
-                console.log('⚠️  Could not capture session URL');
-            }
-        }
+        // No URL capture needed - each iteration uses fresh home page
         
         console.log('✅ Received response from Operator');
         this.currentOperatorResponse = operatorResponse;
