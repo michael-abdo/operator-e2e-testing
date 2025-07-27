@@ -822,39 +822,14 @@ class OperatorE2EExecutor {
      * Build prompt for Operator
      */
     buildOperatorPrompt(failedTasks) {
-        // Check if we have raw content (Markdown/Text files)
+        // ALWAYS return just the raw content if available
         if (this.qaUxData?._rawContent) {
-            // For Markdown/Text files, send the raw content directly
-            const fileExt = path.extname(this.qaUxFilePath).toLowerCase();
-            if (fileExt === '.md' || fileExt === '.txt') {
-                // Return ONLY the raw content, nothing more
-                return this.qaUxData._rawContent;
-            }
+            return this.qaUxData._rawContent;
         }
         
-        // Fall back to JSON format for JSON files or if no raw content
-        const taskDetails = failedTasks.map(task => ({
-            taskId: task.taskId,
-            description: task.description,
-            status: task.status,
-            priority: task.priority || 'medium',
-            category: task.category || 'general',
-            production_url: task.production_url || 'N/A',
-            test_steps: task.test_steps || [],
-            qa_report: task.qa_report || {}
-        }));
-
-        return `Please analyze these failed QA/UX tasks and provide specific recommendations for fixing them:
-
-${JSON.stringify(taskDetails, null, 2)}
-
-For each failed task, please provide:
-1. Root cause analysis
-2. Specific technical recommendations 
-3. Priority level for fixes
-4. Any additional testing suggestions
-
-IMPORTANT: Your response should match the JSON format`;
+        // This should rarely happen, but if no raw content stored,
+        // return the original data as JSON
+        return JSON.stringify(this.qaUxData, null, 2);
     }
 
     /**
