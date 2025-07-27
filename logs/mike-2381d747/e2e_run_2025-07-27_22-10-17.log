@@ -1,0 +1,104 @@
+[2025-07-27 22:10:17] [NO_PROJECT] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 🔍 Detecting project context for cross-project isolation...
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 🎯 Overriding tmux session with target: jobboard:remote
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 🎯 Overriding Chrome port with: 9222
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] ✅ Project context detected:
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Project: mike
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Path: /Users/Mike
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Chrome Port: 9222
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Tmux Session: jobboard:remote
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Log Directory: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    Updated Log File: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747/e2e_run_2025-07-27_22-10-17.log
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] ✅ Reliability systems initialized with project context
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] Run ID: 2025-07-27_22-10-17
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/2_proposals/upwork/communication/jobboard_021932213797238218657/qa/ux-tests/admin-dashboard.md
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] Max iterations: 5
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] ⚙️ Project configuration:
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    maxIterations: 5
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    chromePortOffset: 0
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    tmuxSessionPrefix: e2e
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    logRetentionDays: 7
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    timeouts: {"operatorPhase":60000,"claudePhase":120000,"chromeConnection":10000}
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    validation: {"enforceUniqueness":true,"validatePorts":true,"checkTmuxAvailability":true,"customValidations":[]}
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    logging: {"level":"info","includeTimestamps":true,"bufferSize":1000,"flushOnCritical":true}
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO]    deployment: {"autoDetectPlatform":true,"verifyAfterDeploy":true,"deploymentTimeout":300000,"supportedPlatforms":["heroku","vercel","aws","custom"],"customCommands":{}}
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 🚀 Setting up Claude Code window with project context...
+[2025-07-27 22:10:17] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:0] [INFO] 📺 Using tmux window/session: jobboard:remote
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ chrome: Chrome and Operator tab available
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabCount":72,"operatorTabId":"F8DF6B5F3B3D90299592FCE5CF787684"}
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ operator: Operator session active
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabId":"F8DF6B5F3B3D90299592FCE5CF787684","title":"Operator - Admin dashboard testing"}
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude tmux session not found
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":15}
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 1/3)
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 22:10:23] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Waiting 10 seconds before retry...
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ chrome: Chrome and Operator tab available
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabCount":73,"operatorTabId":"5695D1F07E323F930F2A5D87F7E10233"}
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ operator: Operator session active
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabId":"5695D1F07E323F930F2A5D87F7E10233","title":"Operator"}
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude tmux session not found
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":15}
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 2/3)
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 22:10:33] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Waiting 10 seconds before retry...
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ chrome: Chrome and Operator tab available
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabCount":72,"operatorTabId":"5695D1F07E323F930F2A5D87F7E10233"}
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ✅ operator: Operator session active
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"tabId":"5695D1F07E323F930F2A5D87F7E10233","title":"Operator"}
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude tmux session not found
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":20}
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 3/3)
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] ❌ System health check failed, attempting recovery...
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Operator Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Starting Operator session recovery for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Found existing Operator tab
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ✅ Operator tab found and accessible
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Operator Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Starting Operator session recovery for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Found existing Operator tab
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ✅ Operator tab found and accessible
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] Stack trace: Error: Failed to recover system health for iteration 1
+    at OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1225:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1524:9)
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Operator Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Starting Operator session recovery for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Found existing Operator tab
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ✅ Operator tab found and accessible
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 22:10:43] [mike (2381d747)] [RUN:2025-07-27_22-10-17] [ITER:1] [ERROR] Stack trace: Error: Failed to recover system health for iteration 1
+    at OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1225:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1524:9)

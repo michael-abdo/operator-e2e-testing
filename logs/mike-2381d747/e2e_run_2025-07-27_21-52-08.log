@@ -1,0 +1,86 @@
+[2025-07-27 21:52:08] [NO_PROJECT] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🔍 Detecting project context for cross-project isolation...
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Overriding tmux session with target: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Project context detected:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Project: mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Path: /Users/Mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Chrome Port: 9237
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Tmux Session: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Log Directory: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Updated Log File: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747/e2e_run_2025-07-27_21-52-08.log
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Reliability systems initialized with project context
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Run ID: 2025-07-27_21-52-08
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/2_proposals/upwork/communication/jobboard_021932213797238218657/qa/ux-tests/admin-dashboard.md
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Max iterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ⚙️ Project configuration:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    maxIterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    chromePortOffset: 0
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    tmuxSessionPrefix: e2e
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logRetentionDays: 7
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    timeouts: {"operatorPhase":60000,"claudePhase":120000,"chromeConnection":10000}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    validation: {"enforceUniqueness":true,"validatePorts":true,"checkTmuxAvailability":true,"customValidations":[]}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logging: {"level":"info","includeTimestamps":true,"bufferSize":1000,"flushOnCritical":true}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    deployment: {"autoDetectPlatform":true,"verifyAfterDeploy":true,"deploymentTimeout":300000,"supportedPlatforms":["heroku","vercel","aws","custom"],"customCommands":{}}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to load QA_UX file: Unexpected token '#', "# Admin Da"... is not valid JSON
+[2025-07-27 21:52:08] [NO_PROJECT] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🔍 Detecting project context for cross-project isolation...
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Overriding tmux session with target: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Project context detected:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Project: mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Path: /Users/Mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Chrome Port: 9237
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Tmux Session: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Log Directory: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Updated Log File: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747/e2e_run_2025-07-27_21-52-08.log
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Reliability systems initialized with project context
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Run ID: 2025-07-27_21-52-08
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/2_proposals/upwork/communication/jobboard_021932213797238218657/qa/ux-tests/admin-dashboard.md
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Max iterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ⚙️ Project configuration:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    maxIterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    chromePortOffset: 0
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    tmuxSessionPrefix: e2e
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logRetentionDays: 7
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    timeouts: {"operatorPhase":60000,"claudePhase":120000,"chromeConnection":10000}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    validation: {"enforceUniqueness":true,"validatePorts":true,"checkTmuxAvailability":true,"customValidations":[]}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logging: {"level":"info","includeTimestamps":true,"bufferSize":1000,"flushOnCritical":true}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    deployment: {"autoDetectPlatform":true,"verifyAfterDeploy":true,"deploymentTimeout":300000,"supportedPlatforms":["heroku","vercel","aws","custom"],"customCommands":{}}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to load QA_UX file: Unexpected token '#', "# Admin Da"... is not valid JSON
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [ERROR] Stack trace: Error: Failed to load QA_UX file: Unexpected token '#', "# Admin Da"... is not valid JSON
+    at OperatorE2EExecutor.loadQaUxFile (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:259:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1137:30)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1450:9)
+[2025-07-27 21:52:08] [NO_PROJECT] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🔍 Detecting project context for cross-project isolation...
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Overriding tmux session with target: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Project context detected:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Project: mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Path: /Users/Mike
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Chrome Port: 9237
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Tmux Session: joboard:remote
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Log Directory: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    Updated Log File: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/mike-2381d747/e2e_run_2025-07-27_21-52-08.log
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ✅ Reliability systems initialized with project context
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Run ID: 2025-07-27_21-52-08
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/2_proposals/upwork/communication/jobboard_021932213797238218657/qa/ux-tests/admin-dashboard.md
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] Max iterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ⚙️ Project configuration:
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    maxIterations: 5
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    chromePortOffset: 0
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    tmuxSessionPrefix: e2e
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logRetentionDays: 7
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    timeouts: {"operatorPhase":60000,"claudePhase":120000,"chromeConnection":10000}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    validation: {"enforceUniqueness":true,"validatePorts":true,"checkTmuxAvailability":true,"customValidations":[]}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    logging: {"level":"info","includeTimestamps":true,"bufferSize":1000,"flushOnCritical":true}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO]    deployment: {"autoDetectPlatform":true,"verifyAfterDeploy":true,"deploymentTimeout":300000,"supportedPlatforms":["heroku","vercel","aws","custom"],"customCommands":{}}
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [ERROR] 
+❌ Execution failed: Failed to load QA_UX file: Unexpected token '#', "# Admin Da"... is not valid JSON
+[2025-07-27 21:52:08] [mike (2381d747)] [RUN:2025-07-27_21-52-08] [ITER:0] [ERROR] Stack trace: Error: Failed to load QA_UX file: Unexpected token '#', "# Admin Da"... is not valid JSON
+    at OperatorE2EExecutor.loadQaUxFile (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:259:19)
+    at async OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1137:30)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1450:9)

@@ -5,11 +5,16 @@
  * Real-time monitoring of multiple concurrent E2E test executions
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-class MultiProjectDashboard {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export class MultiProjectDashboard {
   constructor() {
     this.projects = new Map();
     this.updateInterval = 1000;
@@ -216,3 +221,5 @@ class MultiProjectDashboard {
 // Start the dashboard
 const dashboard = new MultiProjectDashboard();
 dashboard.start();
+
+export default MultiProjectDashboard;

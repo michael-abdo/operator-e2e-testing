@@ -1,0 +1,94 @@
+[2025-07-27 18:57:40] [NO_PROJECT] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] 🔍 Detecting project context for cross-project isolation...
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] 🎯 Overriding tmux session with target: jobboard
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] ✅ Project context detected:
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Project: e2e
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Path: /Users/Mike/Desktop/programming/dev_ops/tools/e2e
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Chrome Port: 9265
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Tmux Session: jobboard
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Log Directory: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e-bc288467
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    Updated Log File: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/logs/e2e-bc288467/e2e_run_2025-07-27_18-57-40.log
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] ✅ Reliability systems initialized with project context
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] 🎯 Starting Operator E2E Execution
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] Run ID: 2025-07-27_18-57-40
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] QA file: /Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test/qa_ux_demo_realistic.json
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] Max iterations: 5
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] ⚙️ Project configuration:
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    maxIterations: 5
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    chromePortOffset: 0
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    tmuxSessionPrefix: e2e
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    logRetentionDays: 7
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    timeouts: {"operatorPhase":60000,"claudePhase":120000,"chromeConnection":10000}
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    validation: {"enforceUniqueness":true,"validatePorts":true,"checkTmuxAvailability":true,"customValidations":[]}
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    logging: {"level":"info","includeTimestamps":true,"bufferSize":1000,"flushOnCritical":true}
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO]    deployment: {"autoDetectPlatform":true,"verifyAfterDeploy":true,"deploymentTimeout":300000,"supportedPlatforms":["heroku","vercel","aws","custom"],"customCommands":{}}
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] ──────────────────────────────────────────────────
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] 🚀 Setting up Claude Code window with project context...
+[2025-07-27 18:57:40] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:0] [INFO] 📺 Using tmux window/session: e2e-e2e-bc288467
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ chrome: Chrome not running with debugging port
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ operator: Operator check failed: fetch failed
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude session appears inactive
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":52}
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 1/3)
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Chrome recovery...
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 18:57:46] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Waiting 10 seconds before retry...
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ chrome: Chrome not running with debugging port
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ operator: Operator check failed: fetch failed
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude session appears inactive
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":19}
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 2/3)
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Chrome recovery...
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 18:57:56] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Waiting 10 seconds before retry...
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Check results (Iteration 1):
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ chrome: Chrome not running with debugging port
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ operator: Operator check failed: fetch failed
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ claude: Claude session appears inactive
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] ❌ system: Low system memory
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH]    Details: {"freeMB":13}
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] System unhealthy (attempt 3/3)
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Chrome recovery...
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [HEALTH] [HEALTH] Attempting Claude session recovery...
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] ❌ System health check failed, attempting recovery...
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Operator session: fetch failed
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Operator Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Operator session: fetch failed
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Operator Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] Stack trace: Error: Failed to recover system health for iteration 1
+    at OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1146:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1409:9)
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Operator session: fetch failed
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Operator Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Executing: Claude Session
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session/window: claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Checking Claude session (legacy): claude-code
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ❌ Failed to recover Claude session: execSync is not defined
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] ⚠️  Claude Session recovery had issues
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [RECOVERY] [RECOVERY] Recovery complete: ⚠️  Partial success
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] 
+❌ Execution failed: Failed to recover system health for iteration 1
+[2025-07-27 18:58:07] [e2e (bc288467)] [RUN:2025-07-27_18-57-40] [ITER:1] [ERROR] Stack trace: Error: Failed to recover system health for iteration 1
+    at OperatorE2EExecutor.execute (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1146:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async main (file:///Users/Mike/Desktop/programming/dev_ops/tools/e2e/operator.execute_e2e.js:1409:9)

@@ -30,6 +30,7 @@ import workflowUtils from '../workflows/shared/workflow_utils.js';
 import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
 import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
 import ProjectManager from './lib/project-manager.js';
+import MultiFormatParser from './lib/file-parsers/MultiFormatParser.js';
 
 // Import new reliability modules
 import RetryUtility from './lib/retry-utility.js';
@@ -47,6 +48,9 @@ class OperatorE2EExecutor {
         this.qaUxFilePath = options.qaUxFilePath;
         this.maxIterations = options.maxIterations || 5;
         this.workingDir = options.workingDir || process.cwd();
+        this.targetSession = options.targetSession || null;
+        this.targetWindow = options.targetWindow || null;
+        this.chromePort = options.chromePort || null;
         this.claudeInstanceId = null;
         this.operatorSender = null;
         this.iteration = 0;
@@ -243,13 +247,55 @@ class OperatorE2EExecutor {
     }
 
     /**
-     * Load and parse QA_UX JSON file
+     * Load and parse QA_UX file (supports JSON, Markdown, Text formats, and GitHub URLs)
      */
     async loadQaUxFile() {
         try {
             console.log(`📄 Loading QA_UX file: ${this.qaUxFilePath}`);
-            const fileContent = await fs.readFile(this.qaUxFilePath, 'utf8');
-            const qaUxData = JSON.parse(fileContent);
+            
+            let rawContent;
+            let filePath = this.qaUxFilePath;
+            
+            // Check if it's a GitHub URL
+            if (this.qaUxFilePath.startsWith('https://github.com/')) {
+                // Convert GitHub URL to raw content URL
+                // From: https://github.com/owner/repo/blob/branch/path/file.md
+                // To: https://raw.githubusercontent.com/owner/repo/branch/path/file.md
+                const githubUrl = this.qaUxFilePath;
+                const rawUrl = githubUrl
+                    .replace('github.com', 'raw.githubusercontent.com')
+                    .replace('/blob/', '/');
+                
+                console.log(`📥 Fetching from GitHub: ${rawUrl}`);
+                
+                try {
+                    const response = await fetch(rawUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    rawContent = await response.text();
+                    
+                    // Create a temporary file path for the parser (extract filename from URL)
+                    const urlParts = githubUrl.split('/');
+                    filePath = urlParts[urlParts.length - 1]; // Just the filename for format detection
+                } catch (error) {
+                    throw new Error(`Failed to fetch GitHub file: ${error.message}`);
+                }
+            } else {
+                // Read local file
+                rawContent = await fs.readFile(this.qaUxFilePath, 'utf8');
+            }
+            
+            // Use MultiFormatParser to handle any file format
+            const parser = new MultiFormatParser();
+            
+            // For GitHub URLs, parse the content directly instead of file path
+            const qaUxData = this.qaUxFilePath.startsWith('https://github.com/') 
+                ? await parser.parseContent(rawContent, filePath)
+                : await parser.parseFile(this.qaUxFilePath);
+            
+            // Store raw content for later use (especially for Markdown)
+            qaUxData._rawContent = rawContent;
             
             console.log(`✅ Loaded QA_UX file with ${Object.keys(qaUxData.tasks || {}).length} tasks`);
             return qaUxData;
@@ -292,12 +338,30 @@ class OperatorE2EExecutor {
     async setupClaudeSession() {
         this.log('🚀 Setting up Claude Code window with project context...');
         
-        // Use project-specific window/session name for isolation
-        const windowName = this.projectContext ? 
-            `e2e-${this.projectContext.projectName}-${this.projectContext.shortHash}` :
-            'feature-op-debug';
+        // Use targetSession if provided, otherwise use project-specific name
+        let sessionTarget;
+        if (this.targetSession) {
+            // Check if session already contains window specifier
+            if (this.targetSession.includes(':')) {
+                sessionTarget = this.targetSession;
+                if (this.targetWindow) {
+                    this.log(`⚠️  Warning: Ignoring --window ${this.targetWindow} because session already contains window specifier`);
+                }
+            } else {
+                // Combine session and window if both provided
+                sessionTarget = this.targetWindow ? 
+                    `${this.targetSession}:${this.targetWindow}` : 
+                    this.targetSession;
+            }
+        } else {
+            // Default to project-specific window/session name for isolation
+            const windowName = this.projectContext ? 
+                `e2e-${this.projectContext.projectName}-${this.projectContext.shortHash}` :
+                'feature-op-debug';
+            sessionTarget = windowName;
+        }
             
-        this.log(`📺 Using tmux window/session: ${windowName}`);
+        this.log(`📺 Using tmux window/session: ${sessionTarget}`);
         
         const { exec } = await import('child_process');
         const { promisify } = await import('util');
@@ -313,36 +377,67 @@ class OperatorE2EExecutor {
             
             console.log('✅ Detected running inside tmux session');
             
-            // Check if window already exists
-            const { stdout: existingWindows } = await execAsync('tmux list-windows -F "#{window_name}"');
-            const windowExists = existingWindows.split('\n').includes(windowName);
+            // Parse session:window format if present
+            let targetSession = null;
+            let targetWindow = null;
+            let windowIndex = null;
             
-            if (windowExists) {
-                console.log(`♻️  Tmux window '${windowName}' already exists, reusing it`);
-                // Kill any existing processes in the window
-                await execAsync(`tmux send-keys -t ${windowName} C-c C-c C-c C-c C-c`);
-                await this.sleep(500);
+            if (sessionTarget.includes(':')) {
+                // Format: session:window
+                [targetSession, targetWindow] = sessionTarget.split(':');
+                
+                // Check if the session exists
+                try {
+                    const { stdout: sessions } = await execAsync('tmux list-sessions -F "#{session_name}"');
+                    if (!sessions.split('\n').includes(targetSession)) {
+                        throw new Error(`Session '${targetSession}' not found`);
+                    }
+                    
+                    // Check if window exists in target session
+                    const { stdout: windows } = await execAsync(`tmux list-windows -t ${targetSession} -F "#{window_index}:#{window_name}"`);
+                    const windowMatch = windows.split('\n').find(line => {
+                        const [idx, name] = line.split(':');
+                        return name === targetWindow || idx === targetWindow;
+                    });
+                    
+                    if (windowMatch) {
+                        windowIndex = `${targetSession}:${windowMatch.split(':')[0]}`;
+                        console.log(`♻️  Using existing window '${targetWindow}' in session '${targetSession}'`);
+                    } else {
+                        throw new Error(`Window '${targetWindow}' not found in session '${targetSession}'`);
+                    }
+                } catch (error) {
+                    console.error(`❌ Failed to target ${sessionTarget}: ${error.message}`);
+                    throw error;
+                }
             } else {
-                // Create new window in current session
-                console.log(`📍 Creating new tmux window: ${windowName}`);
-                await execAsync(`tmux new-window -n ${windowName}`);
-                console.log(`✅ Created tmux window: ${windowName}`);
+                // Simple window name in current session
+                const { stdout: existingWindows } = await execAsync('tmux list-windows -F "#{window_name}"');
+                const windowExists = existingWindows.split('\n').includes(sessionTarget);
+                
+                if (windowExists) {
+                    console.log(`♻️  Tmux window '${sessionTarget}' already exists, reusing it`);
+                    // Kill any existing processes in the window
+                    await execAsync(`tmux send-keys -t ${sessionTarget} C-c C-c C-c C-c C-c`);
+                    await this.sleep(500);
+                    windowIndex = sessionTarget;
+                } else {
+                    // Create new window in current session
+                    console.log(`📍 Creating new tmux window: ${sessionTarget}`);
+                    await execAsync(`tmux new-window -n ${sessionTarget}`);
+                    console.log(`✅ Created tmux window: ${sessionTarget}`);
+                    
+                    // Get the window index for reliable targeting
+                    const { stdout: windowList } = await execAsync('tmux list-windows -F "#{window_index}:#{window_name}"');
+                    const windowMatch = windowList.split('\n').find(line => line.includes(sessionTarget));
+                    windowIndex = windowMatch ? windowMatch.split(':')[0] : sessionTarget;
+                }
             }
-            
-            // Get the window index for reliable targeting
-            const { stdout: windowList } = await execAsync('tmux list-windows -F "#{window_index}:#{window_name}"');
-            const windowMatch = windowList.split('\n').find(line => line.includes(windowName));
-            const windowIndex = windowMatch ? windowMatch.split(':')[0] : windowName;
             
             console.log(`🎯 Using window target: ${windowIndex}`);
             this.claudeInstanceId = windowIndex;
             
-            // Navigate to project root in the new window
-            const projectRoot = process.cwd();
-            console.log(`📁 Navigating to project root: ${projectRoot}`);
-            
-            await execAsync(`tmux send-keys -t ${windowIndex} 'cd "${projectRoot}"' Enter`);
-            await this.sleep(1000);
+            // Skip navigation - let the user control their window's directory
             
             // Check if Claude Code is available
             try {
@@ -724,9 +819,20 @@ class OperatorE2EExecutor {
     }
 
     /**
-     * Build prompt for Operator with failed tasks (JSON format)
+     * Build prompt for Operator
      */
     buildOperatorPrompt(failedTasks) {
+        // Check if we have raw content (Markdown/Text files)
+        if (this.qaUxData?._rawContent) {
+            // For Markdown/Text files, send the raw content directly
+            const fileExt = path.extname(this.qaUxFilePath).toLowerCase();
+            if (fileExt === '.md' || fileExt === '.txt') {
+                // Return ONLY the raw content, nothing more
+                return this.qaUxData._rawContent;
+            }
+        }
+        
+        // Fall back to JSON format for JSON files or if no raw content
         const taskDetails = failedTasks.map(task => ({
             taskId: task.taskId,
             description: task.description,
@@ -1041,6 +1147,32 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             this.log('🔍 Detecting project context for cross-project isolation...', 'INFO');
             this.projectContext = await this.projectManager.getFullProjectContext();
             
+            // Override tmux session if targetSession is specified
+            if (this.targetSession) {
+                let sessionTarget;
+                
+                // Check if targetSession already contains window specification (session:window format)
+                if (this.targetSession.includes(':')) {
+                    // Already in session:window format, use as-is
+                    sessionTarget = this.targetSession;
+                    if (this.targetWindow) {
+                        this.log(`⚠️  Warning: Ignoring --window ${this.targetWindow} because session already includes window: ${this.targetSession}`, 'WARNING');
+                    }
+                } else {
+                    // Build session:window format if window specified
+                    sessionTarget = this.targetWindow ? `${this.targetSession}:${this.targetWindow}` : this.targetSession;
+                }
+                
+                this.log(`🎯 Overriding tmux session with target: ${sessionTarget}`, 'INFO');
+                this.projectContext.tmuxSessionName = sessionTarget;
+            }
+            
+            // Override Chrome port if specified
+            if (this.chromePort) {
+                this.log(`🎯 Overriding Chrome port with: ${this.chromePort}`, 'INFO');
+                this.projectContext.chromePort = this.chromePort;
+            }
+            
             this.log('✅ Project context detected:', 'INFO');
             this.log(`   Project: ${this.projectContext.projectName}`, 'INFO');
             this.log(`   Path: ${this.projectContext.projectPath}`, 'INFO');
@@ -1113,6 +1245,7 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             
             // Step 0: Load QA_UX file
             const qaUxData = await this.loadQaUxFile();
+            this.qaUxData = qaUxData; // Store for access in other methods
             
             // Step 1: Setup Claude session
             await this.setupClaudeSession();
@@ -1331,43 +1464,120 @@ async function main() {
 Operator E2E Execution Script
 
 Usage:
-  node operator.execute_e2e.js <qa_ux_file.json>
+  node operator.execute_e2e.js <qa_file>
+  node operator.execute_e2e.js <qa_file> --session <session_name>
+  node operator.execute_e2e.js <qa_file> --session <session_name> --window <window_index>
   node operator.execute_e2e.js --help
 
 Description:
   Executes end-to-end testing workflow:
-  1. Loads QA_UX JSON file with task statuses  
+  1. Loads QA/UX file (JSON, Markdown, Text, or GitHub URL)
   2. Connects to tmux and spawns Claude Code instance
   3. Sends failed tasks to Claude Code for analysis
   4. Forwards Claude's response to Operator for additional analysis
   5. Updates task statuses based on responses
   6. Repeats until all tasks pass or 5 iterations reached
 
+Options:
+  --session <name>    Target existing tmux session (e.g., jobboard, claude_auto_123)
+  --window <index>    Target specific window in session (e.g., 0, 1, 2)
+  --chrome-port <port> Override Chrome debug port (default: auto-detected per project)
+
 Requirements:
   - Chrome running with --remote-debugging-port=9222
   - tmux installed and available
   - Claude Code CLI installed
-  - QA_UX JSON file with tasks structure
+  - QA/UX file (JSON, Markdown, Text) or GitHub URL
 
-Example:
+Examples:
   node operator.execute_e2e.js ./test/sample_qa_ux.json
+  node operator.execute_e2e.js ./qa/issues.md
+  node operator.execute_e2e.js https://github.com/owner/repo/blob/main/qa/tests.md
+  node operator.execute_e2e.js ./test/sample_qa_ux.json --session jobboard
+  node operator.execute_e2e.js ./test/sample_qa_ux.json --session jobboard --window 0
         `);
         process.exit(0);
     }
     
-    const qaUxFilePath = path.resolve(args[0]);
+    // Parse session, window, and chrome-port parameters
+    let sessionName = null;
+    let windowIndex = null;
+    let chromePort = null;
+    let qaFile = null;
     
-    // Validate file exists
-    try {
-        await fs.access(qaUxFilePath);
-    } catch (error) {
-        console.error(`❌ QA_UX file not found: ${qaUxFilePath}`);
+    const sessionIndex = args.indexOf('--session');
+    if (sessionIndex !== -1 && args[sessionIndex + 1]) {
+        sessionName = args[sessionIndex + 1];
+    }
+    
+    const windowIndexArg = args.indexOf('--window');
+    if (windowIndexArg !== -1 && args[windowIndexArg + 1]) {
+        windowIndex = args[windowIndexArg + 1];
+    }
+    
+    const chromePortIndex = args.indexOf('--chrome-port');
+    if (chromePortIndex !== -1 && args[chromePortIndex + 1]) {
+        chromePort = parseInt(args[chromePortIndex + 1]);
+    }
+    
+    // Find the QA file (first argument that isn't a flag or flag value)
+    for (let i = 0; i < args.length; i++) {
+        const arg = args[i];
+        // Skip if it's a flag (starts with --)
+        if (arg.startsWith('--')) continue;
+        // Skip if it's the value for --session
+        if (sessionIndex !== -1 && i === sessionIndex + 1) continue;
+        // Skip if it's the value for --window
+        if (windowIndexArg !== -1 && i === windowIndexArg + 1) continue;
+        // Skip if it's the value for --chrome-port
+        if (chromePortIndex !== -1 && i === chromePortIndex + 1) continue;
+        
+        // This must be the QA file
+        qaFile = arg;
+        break;
+    }
+    
+    if (!qaFile) {
+        console.error('❌ No QA file specified');
         process.exit(1);
+    }
+    
+    // Check if it's a GitHub URL
+    let qaUxFilePath;
+    const isGitHubUrl = qaFile.startsWith('https://github.com/');
+    
+    if (isGitHubUrl) {
+        // Use the GitHub URL directly - we'll fetch it later
+        qaUxFilePath = qaFile;
+        console.log(`🔗 Using GitHub URL: ${qaFile}`);
+    } else {
+        // Local file path
+        qaUxFilePath = path.resolve(qaFile);
+        
+        // Validate file exists
+        try {
+            await fs.access(qaUxFilePath);
+        } catch (error) {
+            console.error(`❌ QA_UX file not found: ${qaUxFilePath}`);
+            process.exit(1);
+        }
+    }
+    
+    // Log session targeting info
+    if (sessionName) {
+        // If session already includes window (session:window), show as-is
+        // Otherwise, append window if specified
+        const targetDesc = sessionName.includes(':') ? sessionName : 
+                          (windowIndex ? `${sessionName}:${windowIndex}` : sessionName);
+        console.log(`🎯 Targeting existing tmux session: ${targetDesc}`);
     }
     
     const executor = new OperatorE2EExecutor({
         qaUxFilePath,
-        workingDir: process.cwd()
+        workingDir: process.cwd(),
+        targetSession: sessionName,
+        targetWindow: windowIndex,
+        chromePort: chromePort
     });
     
     try {

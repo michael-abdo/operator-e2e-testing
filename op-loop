@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+
+/**
+ * Operator Loop - Global E2E Testing Command
+ * 
+ * Usage:
+ *   op-loop <qa-file>                     # Run E2E test from any directory
+ *   op-loop setup                         # Setup multi-project infrastructure  
+ *   op-loop dashboard                     # Launch monitoring dashboard
+ *   op-loop verify                        # Verify setup
+ *   op-loop --help                        # Show help
+ */
+
+import { fileURLToPath } from 'url';
+import { dirname, resolve, join } from 'path';
+import { spawn } from 'child_process';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Path to the E2E system
+const E2E_DIR = __dirname;
+const OPERATOR_SCRIPT = join(E2E_DIR, 'operator.execute_e2e.js');
+
+function showHelp() {
+    console.log(`
+🔄 Operator Loop - E2E Testing System
+
+USAGE:
+  op-loop <qa-file>               Run E2E test on QA file
+  op-loop <qa-file> --session <name>  Target existing tmux session
+  op-loop <qa-file> --session <name> --window <window>  Target specific window
+  op-loop <qa-file> --session <name:window>  Combined session:window format
+  op-loop <qa-file> --chrome-port <port>  Override Chrome debug port
+  op-loop setup                   Setup multi-project infrastructure
+  op-loop dashboard               Launch real-time monitoring dashboard
+  op-loop verify                  Verify system setup
+  op-loop simulate                Simulate multi-project execution
+  op-loop --help                  Show this help
+
+EXAMPLES:
+  op-loop tests/qa_demo.json      # Run E2E test
+  op-loop qa/issues.md            # Test with markdown file
+  op-loop https://github.com/owner/repo/blob/main/qa/tests.md  # GitHub URL
+  op-loop qa/bugs.json --session jobboard  # Target existing session
+  op-loop qa/bugs.json --session jobboard --window remote  # Target specific window
+  op-loop qa/bugs.json --session jobboard:remote  # Combined format
+  op-loop qa/bugs.json --chrome-port 9222  # Use specific Chrome port
+  op-loop setup                   # Setup tmux orchestrator
+  op-loop dashboard               # Monitor projects
+
+FEATURES:
+  ✅ Multi-Project Support        Concurrent testing across projects
+  ✅ Project Isolation           Chrome ports, tmux sessions, logs  
+  ✅ Real-time Monitoring        Live dashboard with progress bars
+  ✅ Enterprise Reliability      Health checks, session recovery
+  ✅ Multiple File Formats       JSON, Markdown, Text support
+
+SYSTEM REQUIREMENTS:
+  • Chrome with --remote-debugging-port=9222+
+  • tmux installed
+  • Claude Code CLI
+  • Fresh Operator tab at https://operator.chatgpt.com/
+
+For more info, see: ${E2E_DIR}/README.md
+`);
+}
+
+function runCommand(script, args = []) {
+    const child = spawn('node', [script, ...args], {
+        stdio: 'inherit',
+        cwd: process.cwd()
+    });
+    
+    child.on('error', (error) => {
+        console.error(`Error running ${script}:`, error.message);
+        process.exit(1);
+    });
+    
+    child.on('exit', (code) => {
+        process.exit(code || 0);
+    });
+}
+
+// Parse command line arguments
+const args = process.argv.slice(2);
+const command = args[0];
+
+switch (command) {
+    case '--help':
+    case '-h':
+    case 'help':
+        showHelp();
+        break;
+        
+    case 'setup':
+        console.log('🚀 Setting up multi-project E2E infrastructure...');
+        runCommand(join(E2E_DIR, 'setup-multi-project.sh'));
+        break;
+        
+    case 'dashboard':
+        console.log('📊 Launching real-time monitoring dashboard...');
+        runCommand(join(E2E_DIR, 'dashboard.js'));
+        break;
+        
+    case 'verify':
+        console.log('🔍 Verifying system setup...');
+        runCommand(join(E2E_DIR, 'verify-multi-project-setup.sh'));
+        break;
+        
+    case 'simulate':
+        console.log('🎬 Simulating multi-project execution...');
+        runCommand(join(E2E_DIR, 'simulate-multi-project-execution.sh'));
+        break;
+        
+    default:
+        if (!command) {
+            console.error('❌ No command provided');
+            showHelp();
+            process.exit(1);
+        }
+        
+        // Assume it's a QA file path
+        console.log(`🎯 Running E2E test: ${command}`);
+        runCommand(OPERATOR_SCRIPT, args);
+        break;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "e2e-testing-system",
+  "version": "1.0.0",
+  "description": "E2E Testing Automation System with Operator and Claude integration",
+  "type": "module",
+  "scripts": {
+    "dashboard": "node dashboard.js",
+    "test": "node operator.execute_e2e.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
