@@ -1,0 +1,14 @@
+{
+  "projectName": "demo-app",
+  "projectPath": "/Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test",
+  "chromePort": 9234,
+  "qaFile": "qa_ux_demo_realistic.json",
+  "deploymentMethod": "heroku",
+  "productionUrl": "https://demo-app.herokuapp.com",
+  "maxIterations": 5,
+  "timeouts": {
+    "operator": 300000,
+    "claude": 600000,
+    "deployment": 180000
+  }
+}

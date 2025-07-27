@@ -1,0 +1,14 @@
+{
+  "projectName": "blog-platform",
+  "projectPath": "/Users/Mike/projects/blog-platform",
+  "chromePort": 9235,
+  "qaFile": "tests/qa_blog_issues.json",
+  "deploymentMethod": "vercel",
+  "productionUrl": "https://blog-platform.vercel.app",
+  "maxIterations": 5,
+  "timeouts": {
+    "operator": 300000,
+    "claude": 600000,
+    "deployment": 120000
+  }
+}

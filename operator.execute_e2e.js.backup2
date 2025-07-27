@@ -31,14 +31,6 @@ import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
 import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
 import ProjectManager from './lib/project-manager.js';
 
-// Import new reliability modules
-import RetryUtility from './lib/retry-utility.js';
-import HealthCheckSystem from './lib/health-check.js';
-import CodeChangeVerifier from './lib/code-change-verifier.js';
-import SessionRecovery from './lib/session-recovery.js';
-import PhaseDurationEnforcer from './lib/phase-duration-enforcer.js';
-import MonitoringAlertsSystem from './lib/monitoring-alerts.js';
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -78,19 +70,6 @@ class OperatorE2EExecutor {
             claudeInputTime: null,       // When we send to Claude
             claudeFinishedTime: null     // When Claude says TASK_FINISHED
         };
-        
-        // Initialize reliability systems (will be reconfigured with project context in execute())
-        this.healthCheck = null;
-        this.sessionRecovery = null;
-        this.codeChangeVerifier = null;
-        this.phaseDurationEnforcer = null;
-        
-        // Retry strategies
-        this.operatorRetry = RetryUtility.forOperatorCommunication((msg) => this.log(msg, 'RETRY'));
-        this.chromeRetry = RetryUtility.forChromeConnection((msg) => this.log(msg, 'RETRY'));
-        
-        // Initialize monitoring and alerting (will be reconfigured with project context in execute())
-        this.monitoring = null;
     }
     
     /**
@@ -654,13 +633,10 @@ class OperatorE2EExecutor {
 
 
     /**
-     * Send failed tasks to Operator (FIRST step) - Using fast input with retry
+     * Send failed tasks to Operator (FIRST step) - Using fast input
      */
     async sendTasksToOperator(failedTasks) {
         console.log(`📤 Sending ${failedTasks.length} failed tasks to Operator using fast method...`);
-        
-        // Start Operator phase tracking
-        const phaseTracker = this.phaseDurationEnforcer.startPhase('operator', this.iteration);
         
         // Record Operator send timestamp
         this.workflowTimings.operatorSendTime = Date.now();
@@ -668,55 +644,11 @@ class OperatorE2EExecutor {
         
         const operatorPrompt = this.buildOperatorPrompt(failedTasks);
         
-        // Wrap the Operator communication with retry logic
-        const result = await this.operatorRetry.execute(
-            async () => {
-                // Health check before sending
-                const health = await this.healthCheck.ensureHealthyBeforeIteration(this.iteration);
-                if (!health) {
-                    throw new Error('System health check failed before Operator communication');
-                }
-                
-                // Use the fast input method instead of character-by-character typing
-                const sendResult = await this.sendMessageToOperatorFast(operatorPrompt);
-                
-                if (!sendResult.success) {
-                    // Check if this is a recoverable error
-                    if (sendResult.error?.includes('timeout') || sendResult.error?.includes('Target closed')) {
-                        // Attempt session recovery
-                        const recovery = await this.sessionRecovery.recoverOperatorSession({
-                            targetId: this.operatorSender?.targetId,
-                            conversationUrl: this.operatorSessionUrl,
-                            iteration: this.iteration
-                        });
-                        
-                        if (recovery.success) {
-                            // Retry with recovered session
-                            this.operatorSender = recovery.client;
-                            throw new Error('Session recovered, retrying...');
-                        }
-                    }
-                    
-                    throw new Error(`Failed to get response from Operator: ${sendResult.error}`);
-                }
-                
-                // Update health check with activity
-                this.healthCheck.updateOperatorActivity();
-                phaseTracker.logEvent('Response received successfully');
-                
-                return sendResult;
-            },
-            { iteration: this.iteration }
-        );
+        // Use the fast input method instead of character-by-character typing
+        const result = await this.sendMessageToOperatorFast(operatorPrompt);
         
         if (!result.success) {
-            throw new Error(`Failed to get response from Operator after retries: ${result.error}`);
-        }
-        
-        // Complete phase with quality checks
-        const phaseResult = await this.phaseDurationEnforcer.completePhase(phaseTracker.phaseKey);
-        if (!phaseResult.allowed) {
-            this.log(`⚠️  Operator phase quality concerns: ${phaseResult.reason}`, 'WARNING');
+            throw new Error(`Failed to get response from Operator: ${result.error}`);
         }
         
         console.log('✅ Received response from Operator');
@@ -756,12 +688,6 @@ IMPORTANT: Your response should match the JSON format`;
      */
     async sendOperatorResponseToClaudeAndWait(operatorResponse) {
         console.log('📤 Sending Operator response to Claude Code...');
-        
-        // Start Claude phase tracking
-        const phaseTracker = this.phaseDurationEnforcer.startPhase('claude', this.iteration);
-        
-        // Start monitoring code changes
-        const changeMonitor = await this.codeChangeVerifier.monitorPhase('claude_fixes');
         
         // Record Claude input timestamp
         this.workflowTimings.claudeInputTime = Date.now(); 
@@ -931,31 +857,6 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                 
                 // Wait for detection or timeout
                 const result = await detectionPromise;
-                
-                // Verify code changes were made
-                if (result.success) {
-                    const changeVerification = changeMonitor.complete();
-                    phaseTracker.addQualityCheck({
-                        type: 'code_changes',
-                        verified: changeVerification.verified,
-                        reason: changeVerification.reason,
-                        changes: changeVerification.changes
-                    });
-                    
-                    if (!changeVerification.verified) {
-                        this.log(`⚠️  WARNING: ${changeVerification.reason}`, 'WARNING');
-                        this.log(`   Claude phase completed without expected code changes`, 'WARNING');
-                    } else {
-                        this.log(`✅ Code changes verified: ${changeVerification.changes.filesModified} files, ${changeVerification.changes.totalChanges} lines`, 'INFO');
-                    }
-                }
-                
-                // Complete phase tracking with duration enforcement
-                const phaseResult = await this.phaseDurationEnforcer.completePhase(phaseTracker.phaseKey);
-                if (!phaseResult.allowed) {
-                    this.log(`⚠️  Claude phase quality concerns: ${phaseResult.reason}`, 'WARNING');
-                }
-                
                 return result;
                 
             } catch (error) {
@@ -1052,45 +953,6 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             this.logFilePath = path.join(this.projectContext.logDirectory, `e2e_run_${this.runId}.log`);
             this.log(`   Updated Log File: ${this.logFilePath}`, 'INFO');
             
-            // Initialize reliability systems with project context
-            this.healthCheck = new HealthCheckSystem({
-                chromePort: this.projectContext.chromePort,
-                tmuxSession: this.projectContext.tmuxSessionName,
-                logger: (msg) => this.log(msg, 'HEALTH')
-            });
-            
-            this.sessionRecovery = new SessionRecovery({
-                chromePort: this.projectContext.chromePort,
-                logger: (msg) => this.log(msg, 'RECOVERY')
-            });
-            
-            this.codeChangeVerifier = new CodeChangeVerifier({
-                logger: (msg) => this.log(msg, 'VERIFIER'),
-                gitRepo: this.workingDir
-            });
-            
-            this.phaseDurationEnforcer = new PhaseDurationEnforcer({
-                logger: (msg) => this.log(msg, 'DURATION'),
-                minOperatorDuration: 60000,  // 1 minute
-                minClaudeDuration: 120000    // 2 minutes
-            });
-            
-            // Initialize monitoring and alerting with project context
-            this.monitoring = new MonitoringAlertsSystem({
-                logger: (msg) => this.log(msg, 'MONITOR'),
-                metricsFile: path.join(this.projectContext.logDirectory, `e2e_metrics_${this.runId}.json`),
-                alertsFile: path.join(this.projectContext.logDirectory, `e2e_alerts_${this.runId}.log`)
-            });
-            
-            // Listen for alerts
-            this.monitoring.on('alert', (alert) => {
-                if (alert.level === 'critical') {
-                    console.error(`🚨 CRITICAL ALERT: ${alert.type} - ${alert.message}`);
-                }
-            });
-            
-            this.log('✅ Reliability systems initialized with project context', 'INFO');
-            
             // Initialize logging
             this.log('🎯 Starting Operator E2E Execution', 'INFO');
             this.log(`Run ID: ${this.runId}`, 'INFO');
@@ -1117,7 +979,7 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             // Step 1: Setup Claude session
             await this.setupClaudeSession();
             
-            // Main iteration loop with error recovery
+            // Main iteration loop
             for (this.iteration = 1; this.iteration <= this.maxIterations; this.iteration++) {
                 console.log(`\n🔄 Iteration ${this.iteration}/${this.maxIterations}`);
                 
@@ -1125,25 +987,9 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                 this.resetWorkflowTimings();
                 console.log('─'.repeat(30));
                 
-                // Perform health check before iteration
-                const healthOk = await this.healthCheck.ensureHealthyBeforeIteration(this.iteration);
-                if (!healthOk) {
-                    this.log('❌ System health check failed, attempting recovery...', 'ERROR');
-                    const recovery = await this.sessionRecovery.performFullRecovery({
-                        claudeSession: 'claude-code',
-                        conversationUrl: this.operatorSessionUrl,
-                        iteration: this.iteration
-                    });
-                    
-                    if (!recovery.success) {
-                        throw new Error('Failed to recover system health for iteration ' + this.iteration);
-                    }
-                }
-                
-                try {
-                    // Step 2: Setup fresh Operator connection for each iteration
-                    console.log('🔌 Setting up fresh Operator connection for this iteration...');
-                    await this.setupOperatorConnection();
+                // Step 2: Setup fresh Operator connection for each iteration
+                console.log('🔌 Setting up fresh Operator connection for this iteration...');
+                await this.setupOperatorConnection();
                 
                 // Check if all tasks have passed
                 if (this.allTasksPassed(qaUxData)) {
@@ -1183,55 +1029,20 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                     // Don't update task statuses on failure
                 }
                 
-                    // Step 6: Save updated file
-                    await this.saveQaUxFile(qaUxData);
-                    
-                    // Step 7: Cleanup Operator connection for this iteration
-                    if (this.operatorSender) {
-                        console.log('🧹 Disconnecting Operator connection...');
-                        await this.operatorSender.disconnect();
-                        this.operatorSender = null;
-                    }
-                    
-                    console.log(`✅ Iteration ${this.iteration} completed`);
-                    
-                    // Validate workflow timing for this iteration
-                    this.validateWorkflowTiming();
-                    
-                } catch (iterationError) {
-                    this.log(`❌ Error in iteration ${this.iteration}: ${iterationError.message}`, 'ERROR');
-                    this.log(`Stack trace: ${iterationError.stack}`, 'ERROR');
-                    
-                    // Attempt recovery for next iteration
-                    console.log('🔧 Attempting error recovery for next iteration...');
-                    
-                    // Clean up any partial state
-                    if (this.operatorSender) {
-                        try {
-                            await this.operatorSender.disconnect();
-                        } catch (e) {
-                            // Ignore cleanup errors
-                        }
-                        this.operatorSender = null;
-                    }
-                    
-                    // Force complete any pending phases
-                    this.phaseDurationEnforcer.forceCompleteAll();
-                    
-                    // If this is a timeout on iteration 4, it's a known issue
-                    if (this.iteration === 4 && iterationError.message.includes('timeout')) {
-                        this.log('⚠️  Known issue: Operator timeout on iteration 4', 'WARNING');
-                        this.log('   This may indicate rate limiting or session exhaustion', 'WARNING');
-                        this.log('   Consider reducing iteration count or adding delays', 'WARNING');
-                    }
-                    
-                    // Continue to next iteration unless it's a critical error
-                    if (!iterationError.message.includes('health check failed')) {
-                        continue;
-                    } else {
-                        throw iterationError;
-                    }
+                // Step 6: Save updated file
+                await this.saveQaUxFile(qaUxData);
+                
+                // Step 7: Cleanup Operator connection for this iteration
+                if (this.operatorSender) {
+                    console.log('🧹 Disconnecting Operator connection...');
+                    await this.operatorSender.disconnect();
+                    this.operatorSender = null;
                 }
+                
+                console.log(`✅ Iteration ${this.iteration} completed`);
+                
+                // Validate workflow timing for this iteration
+                this.validateWorkflowTiming();
             }
             
             const duration = ((Date.now() - this.startTime) / 1000).toFixed(1);

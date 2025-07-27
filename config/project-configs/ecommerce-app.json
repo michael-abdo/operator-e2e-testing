@@ -1,0 +1,14 @@
+{
+  "projectName": "ecommerce-app",
+  "projectPath": "/Users/Mike/projects/ecommerce-app",
+  "chromePort": 9236,
+  "qaFile": "tests/qa_checkout_flow.json",
+  "deploymentMethod": "aws",
+  "productionUrl": "https://shop.example.com",
+  "maxIterations": 5,
+  "timeouts": {
+    "operator": 300000,
+    "claude": 600000,
+    "deployment": 240000
+  }
+}
