@@ -79,46 +79,18 @@ class OperatorE2EExecutor {
             claudeFinishedTime: null     // When Claude says TASK_FINISHED
         };
         
-        // Initialize reliability systems
-        this.healthCheck = new HealthCheckSystem({
-            chromePort: 9222,
-            tmuxSession: 'claude-code',
-            logger: (msg) => this.log(msg, 'HEALTH')
-        });
-        
-        this.sessionRecovery = new SessionRecovery({
-            chromePort: 9222,
-            logger: (msg) => this.log(msg, 'RECOVERY')
-        });
-        
-        this.codeChangeVerifier = new CodeChangeVerifier({
-            logger: (msg) => this.log(msg, 'VERIFIER'),
-            gitRepo: this.workingDir
-        });
-        
-        this.phaseDurationEnforcer = new PhaseDurationEnforcer({
-            logger: (msg) => this.log(msg, 'DURATION'),
-            minOperatorDuration: 60000,  // 1 minute
-            minClaudeDuration: 120000    // 2 minutes
-        });
+        // Initialize reliability systems (will be reconfigured with project context in execute())
+        this.healthCheck = null;
+        this.sessionRecovery = null;
+        this.codeChangeVerifier = null;
+        this.phaseDurationEnforcer = null;
         
         // Retry strategies
         this.operatorRetry = RetryUtility.forOperatorCommunication((msg) => this.log(msg, 'RETRY'));
         this.chromeRetry = RetryUtility.forChromeConnection((msg) => this.log(msg, 'RETRY'));
         
-        // Initialize monitoring and alerting
-        this.monitoring = new MonitoringAlertsSystem({
-            logger: (msg) => this.log(msg, 'MONITOR'),
-            metricsFile: path.join(this.workingDir, 'logs', `e2e_metrics_${this.runId}.json`),
-            alertsFile: path.join(this.workingDir, 'logs', `e2e_alerts_${this.runId}.log`)
-        });
-        
-        // Listen for alerts
-        this.monitoring.on('alert', (alert) => {
-            if (alert.level === 'critical') {
-                console.error(`🚨 CRITICAL ALERT: ${alert.type} - ${alert.message}`);
-            }
-        });
+        // Initialize monitoring and alerting (will be reconfigured with project context in execute())
+        this.monitoring = null;
     }
     
     /**
@@ -1079,6 +1051,45 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             // Update log file path with project context
             this.logFilePath = path.join(this.projectContext.logDirectory, `e2e_run_${this.runId}.log`);
             this.log(`   Updated Log File: ${this.logFilePath}`, 'INFO');
+            
+            // Initialize reliability systems with project context
+            this.healthCheck = new HealthCheckSystem({
+                chromePort: this.projectContext.chromePort,
+                tmuxSession: this.projectContext.tmuxSessionName,
+                logger: (msg) => this.log(msg, 'HEALTH')
+            });
+            
+            this.sessionRecovery = new SessionRecovery({
+                chromePort: this.projectContext.chromePort,
+                logger: (msg) => this.log(msg, 'RECOVERY')
+            });
+            
+            this.codeChangeVerifier = new CodeChangeVerifier({
+                logger: (msg) => this.log(msg, 'VERIFIER'),
+                gitRepo: this.workingDir
+            });
+            
+            this.phaseDurationEnforcer = new PhaseDurationEnforcer({
+                logger: (msg) => this.log(msg, 'DURATION'),
+                minOperatorDuration: 60000,  // 1 minute
+                minClaudeDuration: 120000    // 2 minutes
+            });
+            
+            // Initialize monitoring and alerting with project context
+            this.monitoring = new MonitoringAlertsSystem({
+                logger: (msg) => this.log(msg, 'MONITOR'),
+                metricsFile: path.join(this.projectContext.logDirectory, `e2e_metrics_${this.runId}.json`),
+                alertsFile: path.join(this.projectContext.logDirectory, `e2e_alerts_${this.runId}.log`)
+            });
+            
+            // Listen for alerts
+            this.monitoring.on('alert', (alert) => {
+                if (alert.level === 'critical') {
+                    console.error(`🚨 CRITICAL ALERT: ${alert.type} - ${alert.message}`);
+                }
+            });
+            
+            this.log('✅ Reliability systems initialized with project context', 'INFO');
             
             // Initialize logging
             this.log('🎯 Starting Operator E2E Execution', 'INFO');

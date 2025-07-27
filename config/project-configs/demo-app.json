@@ -1,33 +1,14 @@
 {
-  "description": "Demo application E2E configuration - example project-specific overrides",
-  "maxIterations": 3,
-  "chromePortOffset": 10,
+  "projectName": "demo-app",
+  "projectPath": "/Users/Mike/Desktop/programming/dev_ops/tools/e2e/tests/demo_test",
+  "chromePort": 9234,
+  "qaFile": "qa_ux_demo_realistic.json",
+  "deploymentMethod": "heroku",
+  "productionUrl": "https://demo-app.herokuapp.com",
+  "maxIterations": 5,
   "timeouts": {
-    "operatorPhase": 90000,
-    "claudePhase": 180000,
-    "chromeConnection": 15000
-  },
-  "logging": {
-    "level": "debug",
-    "includeTimestamps": true,
-    "bufferSize": 2000
-  },
-  "deployment": {
-    "platform": "heroku",
-    "verifyAfterDeploy": true,
-    "deploymentTimeout": 600000,
-    "customCommands": {
-      "deploy": "git push heroku main",
-      "verify": "curl -f https://demo-app.herokuapp.com/health"
-    }
-  },
-  "validation": {
-    "enforceUniqueness": true,
-    "validatePorts": true,
-    "checkTmuxAvailability": true,
-    "customValidations": [
-      "heroku_auth",
-      "git_remote_heroku"
-    ]
+    "operator": 300000,
+    "claude": 600000,
+    "deployment": 180000
   }
 }
