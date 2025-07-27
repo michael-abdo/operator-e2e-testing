@@ -1,0 +1,34 @@
+{
+  "description": "Default project configuration for cross-project E2E testing",
+  "maxIterations": 5,
+  "chromePortOffset": 0,
+  "tmuxSessionPrefix": "e2e",
+  "logRetentionDays": 7,
+  "timeouts": {
+    "operatorPhase": 60000,
+    "claudePhase": 120000,
+    "chromeConnection": 10000
+  },
+  "validation": {
+    "enforceUniqueness": true,
+    "validatePorts": true,
+    "checkTmuxAvailability": true
+  },
+  "logging": {
+    "level": "info",
+    "includeTimestamps": true,
+    "bufferSize": 1000,
+    "flushOnCritical": true
+  },
+  "deployment": {
+    "autoDetectPlatform": true,
+    "supportedPlatforms": [
+      "heroku",
+      "vercel",
+      "aws",
+      "custom"
+    ],
+    "verifyAfterDeploy": true,
+    "deploymentTimeout": 300000
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project E2E Configuration Schema",
+  "description": "Schema for project-specific E2E testing configuration files",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this configuration"
+    },
+    "maxIterations": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20,
+      "default": 5,
+      "description": "Maximum number of E2E test iterations"
+    },
+    "chromePortOffset": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99,
+      "default": 0,
+      "description": "Additional offset for Chrome debug port (added to base 9222)"
+    },
+    "tmuxSessionPrefix": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "maxLength": 20,
+      "default": "e2e",
+      "description": "Prefix for tmux session names"
+    },
+    "logRetentionDays": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 7,
+      "description": "Number of days to retain log files"
+    },
+    "timeouts": {
+      "type": "object",
+      "properties": {
+        "operatorPhase": {
+          "type": "integer",
+          "minimum": 30000,
+          "maximum": 1800000,
+          "default": 60000,
+          "description": "Maximum time for Operator analysis phase (milliseconds)"
+        },
+        "claudePhase": {
+          "type": "integer",
+          "minimum": 60000,
+          "maximum": 3600000,
+          "default": 120000,
+          "description": "Maximum time for Claude implementation phase (milliseconds)"
+        },
+        "chromeConnection": {
+          "type": "integer",
+          "minimum": 5000,
+          "maximum": 60000,
+          "default": 10000,
+          "description": "Chrome connection timeout (milliseconds)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "enforceUniqueness": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enforce unique ports and session names"
+        },
+        "validatePorts": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check Chrome port availability"
+        },
+        "checkTmuxAvailability": {
+          "type": "boolean",
+          "default": true,
+          "description": "Verify tmux is available and accessible"
+        },
+        "customValidations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Array of custom validation check names"
+        }
+      },
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"],
+          "default": "info",
+          "description": "Logging level"
+        },
+        "includeTimestamps": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include timestamps in log entries"
+        },
+        "bufferSize": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 10000,
+          "default": 1000,
+          "description": "Log buffer size before flush"
+        },
+        "flushOnCritical": {
+          "type": "boolean",
+          "default": true,
+          "description": "Immediately flush logs for critical events"
+        }
+      },
+      "additionalProperties": false
+    },
+    "deployment": {
+      "type": "object",
+      "properties": {
+        "autoDetectPlatform": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect deployment platform"
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["heroku", "vercel", "aws", "custom"],
+          "description": "Specific deployment platform override"
+        },
+        "verifyAfterDeploy": {
+          "type": "boolean",
+          "default": true,
+          "description": "Verify deployment success after deploying"
+        },
+        "deploymentTimeout": {
+          "type": "integer",
+          "minimum": 60000,
+          "maximum": 1800000,
+          "default": 300000,
+          "description": "Maximum time to wait for deployment (milliseconds)"
+        },
+        "supportedPlatforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["heroku", "vercel", "aws", "custom"]
+          },
+          "default": ["heroku", "vercel", "aws", "custom"],
+          "description": "List of supported deployment platforms"
+        },
+        "customCommands": {
+          "type": "object",
+          "properties": {
+            "deploy": {
+              "type": "string",
+              "description": "Custom deployment command"
+            },
+            "verify": {
+              "type": "string",
+              "description": "Custom verification command"
+            },
+            "rollback": {
+              "type": "string",
+              "description": "Custom rollback command"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "description": "Basic configuration with increased timeouts",
+      "maxIterations": 8,
+      "timeouts": {
+        "operatorPhase": 90000,
+        "claudePhase": 240000
+      }
+    },
+    {
+      "description": "Heroku deployment configuration",
+      "deployment": {
+        "platform": "heroku",
+        "customCommands": {
+          "deploy": "git push heroku main",
+          "verify": "heroku ps:scale web=1"
+        }
+      }
+    },
+    {
+      "description": "Debug configuration with verbose logging",
+      "maxIterations": 2,
+      "logging": {
+        "level": "debug",
+        "bufferSize": 5000
+      }
+    }
+  ]
+}

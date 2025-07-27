@@ -1,0 +1,33 @@
+{
+  "description": "Demo application E2E configuration - example project-specific overrides",
+  "maxIterations": 3,
+  "chromePortOffset": 10,
+  "timeouts": {
+    "operatorPhase": 90000,
+    "claudePhase": 180000,
+    "chromeConnection": 15000
+  },
+  "logging": {
+    "level": "debug",
+    "includeTimestamps": true,
+    "bufferSize": 2000
+  },
+  "deployment": {
+    "platform": "heroku",
+    "verifyAfterDeploy": true,
+    "deploymentTimeout": 600000,
+    "customCommands": {
+      "deploy": "git push heroku main",
+      "verify": "curl -f https://demo-app.herokuapp.com/health"
+    }
+  },
+  "validation": {
+    "enforceUniqueness": true,
+    "validatePorts": true,
+    "checkTmuxAvailability": true,
+    "customValidations": [
+      "heroku_auth",
+      "git_remote_heroku"
+    ]
+  }
+}

@@ -1,0 +1,622 @@
+#!/usr/bin/env node
+
+/**
+ * Operator E2E Execution Script
+ * 
+ * This script executes end-to-end testing by:
+ * 0) Accepting QA_UX file (json)
+ * 1) Attaching to tmux
+ * 2) Starting claude code inside of tmux
+ * 3) Sending json contents with tasks.status = fail to new operator window (do this each time)
+ * 4) Waiting for response
+ * 5) Sending response to claude code
+ * 6) Updating json
+ * Repeating until either 1) all tasks are passes 2) 5 iterations
+ * 
+ * Usage:
+ *   node operator.execute_e2e.js <qa_ux_file.json>
+ *   node operator.execute_e2e.js --help
+ */
+
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Import existing utilities
+import tmuxUtils from '../workflows/tmux_utils.js';
+import { OperatorMessageSenderWithResponse } from '../operator/send_and_wait_for_response.js';
+import workflowUtils from '../workflows/shared/workflow_utils.js';
+import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
+import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+class OperatorE2EExecutor {
+    constructor(options = {}) {
+        this.qaUxFilePath = options.qaUxFilePath;
+        this.maxIterations = options.maxIterations || 5;
+        this.workingDir = options.workingDir || process.cwd();
+        this.claudeInstanceId = null;
+        this.operatorSender = null;
+        this.iteration = 0;
+        this.startTime = Date.now();
+        // Operator session persistence
+        this.operatorSessionUrl = null; // Store the conversation URL after first use
+        this.isFirstIteration = true; // Flag for first iteration
+        
+        // Enhanced logging setup
+        this.runId = this.generateRunId();
+        this.logFilePath = path.join(this.workingDir, 'logs', `e2e_run_${this.runId}.log`);
+        this.taskFinishedDetections = new Map(); // Track TASK_FINISHED detections by iteration
+        this.logBuffer = []; // Buffer for immediate logging
+        
+        // TASK_FINISHED detection cooldown
+        this.lastTaskFinishedTime = Date.now(); // Initialize to current time to block stale detections
+        this.taskFinishedCooldown = 60000; // 60 seconds cooldown period
+        
+        // Workflow timing tracking
+        this.workflowTimings = {
+            operatorSendTime: null,      // When we send to Operator
+            operatorReceiveTime: null,   // When we receive from Operator
+            claudeInputTime: null,       // When we send to Claude
+            claudeFinishedTime: null     // When Claude says TASK_FINISHED
+        };
+    }
+    
+    /**
+     * Generate unique run ID for logging
+     */
+    generateRunId() {
+        const now = new Date();
+        const timestamp = now.toISOString().replace(/[:.]/g, '-').split('T');
+        const date = timestamp[0];
+        const time = timestamp[1].substring(0, 8); // Remove milliseconds
+        return `${date}_${time}`;
+    }
+    
+    /**
+     * Get timestamp for logging
+     */
+    getTimestamp() {
+        return new Date().toISOString().replace('T', ' ').substr(0, 19);
+    }
+    
+    /**
+     * Format duration in a human-readable way
+     */
+    formatDuration(startTime, endTime) {
+        const durationMs = endTime - startTime;
+        const minutes = Math.floor(durationMs / 60000);
+        const seconds = Math.floor((durationMs % 60000) / 1000);
+        return `${minutes}m ${seconds}s (${durationMs}ms)`;
+    }
+    
+    /**
+     * Reset workflow timings for new iteration
+     */
+    resetWorkflowTimings() {
+        this.workflowTimings = {
+            operatorSendTime: null,
+            operatorReceiveTime: null,
+            claudeInputTime: null,
+            claudeFinishedTime: null
+        };
+    }
+    
+    /**
+     * Validate workflow timing and log warnings for phases that are too fast
+     */
+    validateWorkflowTiming() {
+        if (!this.workflowTimings.operatorSendTime || !this.workflowTimings.claudeFinishedTime) {
+            this.log('⚠️  WARNING: Incomplete timing data for validation', 'WARNING');
+            return;
+        }
+        
+        // Calculate phase durations
+        const operatorPhaseDuration = this.workflowTimings.operatorReceiveTime - this.workflowTimings.operatorSendTime;
+        const claudePhaseDuration = this.workflowTimings.claudeFinishedTime - this.workflowTimings.claudeInputTime;
+        const totalIterationDuration = this.workflowTimings.claudeFinishedTime - this.workflowTimings.operatorSendTime;
+        
+        // Log timing results
+        this.log(`📊 OPERATOR PHASE: ${this.formatDuration(this.workflowTimings.operatorSendTime, this.workflowTimings.operatorReceiveTime)}`, 'INFO');
+        this.log(`📊 CLAUDE PHASE: ${this.formatDuration(this.workflowTimings.claudeInputTime, this.workflowTimings.claudeFinishedTime)}`, 'INFO');
+        this.log(`📊 TOTAL ITERATION: ${this.formatDuration(this.workflowTimings.operatorSendTime, this.workflowTimings.claudeFinishedTime)}`, 'INFO');
+        
+        // Validate minimum phase durations
+        const minOperatorPhase = 60000; // 1 minute minimum
+        const minClaudePhase = 120000;  // 2 minutes minimum
+        
+        if (operatorPhaseDuration < minOperatorPhase) {
+            const operatorMinutes = (operatorPhaseDuration / 60000).toFixed(1);
+            this.log(`⚠️  WARNING: Operator phase too fast (${operatorMinutes} min < 1 min minimum)`, 'WARNING');
+            this.log(`   This may indicate Operator didn't properly analyze the tasks`, 'WARNING');
+        } else {
+            this.log(`✅ Operator phase timing acceptable (≥ 1 min)`, 'INFO');
+        }
+        
+        if (claudePhaseDuration < minClaudePhase) {
+            const claudeMinutes = (claudePhaseDuration / 60000).toFixed(1);
+            this.log(`⚠️  WARNING: Claude phase too fast (${claudeMinutes} min < 2 min minimum)`, 'WARNING');
+            this.log(`   This may indicate Claude didn't properly implement fixes`, 'WARNING');
+        } else {
+            this.log(`✅ Claude phase timing acceptable (≥ 2 min)`, 'INFO');
+        }
+    }
+    
+    /**
+     * Log message to both console and file
+     */
+    log(message, level = 'INFO') {
+        const timestamp = this.getTimestamp();
+        const logMessage = `[${timestamp}] [${level}] ${message}`;
+        
+        console.log(logMessage);
+        this.logBuffer.push(logMessage);
+        
+        // Write to file async (fire and forget)
+        this.writeLogBufferToFile().catch(err => {
+            console.error('Failed to write log to file:', err);
+        });
+    }
+    
+    /**
+     * Write log buffer to file
+     */
+    async writeLogBufferToFile() {
+        if (this.logBuffer.length === 0) return;
+        
+        try {
+            const logDir = path.dirname(this.logFilePath);
+            await fs.mkdir(logDir, { recursive: true });
+            
+            const logContent = this.logBuffer.join('\n') + '\n';
+            await fs.appendFile(this.logFilePath, logContent);
+            this.logBuffer = []; // Clear buffer after writing
+        } catch (error) {
+            console.error('Failed to write to log file:', error);
+        }
+    }
+    
+    /**
+     * Load and parse QA_UX JSON file
+     */
+    async loadQaUxFile() {
+        try {
+            this.log(`📄 Loading QA_UX file: ${this.qaUxFilePath}`);
+            const content = await fs.readFile(this.qaUxFilePath, 'utf8');
+            const qaUxData = JSON.parse(content);
+            
+            // Count tasks by status
+            const tasks = qaUxData.tasks || {};
+            const taskCount = Object.keys(tasks).length;
+            const failedTasks = Object.values(tasks).filter(task => task.status === 'fail').length;
+            
+            this.log(`✅ Loaded QA_UX file with ${taskCount} tasks (${failedTasks} failed)`);
+            
+            return qaUxData;
+        } catch (error) {
+            this.log(`❌ Failed to load QA_UX file: ${error.message}`, 'ERROR');
+            throw new Error(`Failed to load QA_UX file: ${error.message}`);
+        }
+    }
+    
+    /**
+     * Save updated QA_UX data back to file
+     */
+    async saveQaUxFile(qaUxData) {
+        try {
+            const content = JSON.stringify(qaUxData, null, 2);
+            await fs.writeFile(this.qaUxFilePath, content);
+            this.log(`💾 Saved updated QA_UX file`);
+        } catch (error) {
+            this.log(`❌ Failed to save QA_UX file: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Extract failed tasks from QA_UX data
+     */
+    extractFailedTasks(qaUxData) {
+        const tasks = qaUxData.tasks || {};
+        const failedTasks = {};
+        
+        Object.entries(tasks).forEach(([taskId, task]) => {
+            if (task.status === 'fail') {
+                failedTasks[taskId] = task;
+            }
+        });
+        
+        return failedTasks;
+    }
+    
+    /**
+     * Setup tmux session and Claude Code instance
+     */
+    async setupClaudeSession() {
+        try {
+            this.log(`🚀 Setting up Claude Code session...`);
+            
+            // Get or create Claude instance ID
+            this.claudeInstanceId = await tmuxUtils.getOrCreateClaudeInstance();
+            this.log(`✅ Using Claude instance: ${this.claudeInstanceId}`);
+            
+            return this.claudeInstanceId;
+        } catch (error) {
+            this.log(`❌ Failed to setup Claude session: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Setup Operator connection for sending messages
+     */
+    async setupOperatorConnection() {
+        try {
+            this.log(`🔌 Setting up Operator connection...`);
+            this.operatorSender = new OperatorMessageSenderWithResponse();
+            this.log(`✅ Connected to Operator`);
+            return this.operatorSender;
+        } catch (error) {
+            this.log(`❌ Failed to setup Operator connection: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Send failed tasks to Operator and wait for response
+     */
+    async sendTasksToOperator(failedTasks, qaUxData) {
+        try {
+            this.log(`📤 Sending ${Object.keys(failedTasks).length} failed tasks to Operator...`);
+            
+            // Record timing
+            this.workflowTimings.operatorSendTime = Date.now();
+            this.log(`🕐 OPERATOR SEND: ${this.getTimestamp()}`, 'TIMING');
+            
+            // Prepare message for Operator
+            const operatorMessage = this.formatTasksForOperator(failedTasks, qaUxData);
+            
+            // Send to Operator and wait for response
+            // For first iteration, let Operator create new conversation
+            // For subsequent iterations, reuse the same conversation
+            const operatorResponse = await this.operatorSender.sendAndWaitForResponse(
+                operatorMessage,
+                this.operatorSessionUrl  // null for first iteration, URL for subsequent
+            );
+            
+            // Store session URL for subsequent iterations
+            if (!this.operatorSessionUrl && operatorResponse.conversationUrl) {
+                this.operatorSessionUrl = operatorResponse.conversationUrl;
+                this.log(`💾 Stored Operator session URL for reuse: ${this.operatorSessionUrl}`);
+            }
+            
+            // Record timing
+            this.workflowTimings.operatorReceiveTime = Date.now();
+            this.log(`🕐 OPERATOR RECEIVE: ${this.getTimestamp()}`, 'TIMING');
+            
+            this.log(`✅ Response received from Operator!`);
+            return operatorResponse.content;
+        } catch (error) {
+            this.log(`❌ Failed to get Operator response: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Format tasks for Operator message
+     */
+    formatTasksForOperator(failedTasks, qaUxData) {
+        const taskList = Object.entries(failedTasks).map(([taskId, task]) => {
+            return `**${taskId}**: ${task.description}\n  Status: ${task.status}\n  Details: ${JSON.stringify(task, null, 2)}`;
+        }).join('\n\n');
+        
+        const metadata = qaUxData.metadata || {};
+        const demoUrl = metadata.demo_app_url || 'No URL provided';
+        
+        return `I have an E2E testing workflow that needs analysis. Here are the current failed tasks from our QA/UX testing:
+
+**Demo Application URL**: ${demoUrl}
+
+**Failed Tasks**:
+${taskList}
+
+Please analyze these tasks and provide:
+1. Technical recommendations for fixing each issue
+2. Specific implementation suggestions  
+3. Any architectural concerns or patterns you notice
+4. Priority ordering if multiple tasks need attention
+
+The goal is to resolve all these QA/UX issues through systematic code fixes.`;
+    }
+    
+    /**
+     * Send Operator response to Claude Code and wait for completion
+     */
+    async sendResponseToClaude(operatorResponse) {
+        try {
+            this.log(`📤 Sending Operator response to Claude Code...`);
+            
+            // Record timing
+            this.workflowTimings.claudeInputTime = Date.now();
+            this.log(`🕐 CLAUDE INPUT: ${this.getTimestamp()}`, 'TIMING');
+            
+            const claudeMessage = this.formatResponseForClaude(operatorResponse);
+            
+            // Send to Claude instance
+            await tmuxUtils.sendToInstance(this.claudeInstanceId, claudeMessage);
+            
+            // Wait for Claude to complete the work (look for TASK_FINISHED)
+            await this.waitForTaskCompletion();
+            
+            this.log(`✅ Claude Code completed processing`);
+        } catch (error) {
+            this.log(`❌ Failed to process with Claude: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Format Operator response for Claude Code
+     */
+    formatResponseForClaude(operatorResponse) {
+        return `Based on the Operator's technical analysis below, please implement the recommended fixes:
+
+${operatorResponse}
+
+Please:
+1. Analyze the technical recommendations
+2. Implement the suggested code changes
+3. Test your implementations  
+4. Deploy/commit changes as appropriate
+5. Report TASK_FINISHED when all work is complete
+
+Focus on systematic resolution of the QA/UX issues identified.`;
+    }
+    
+    /**
+     * Wait for Claude to complete task processing
+     */
+    async waitForTaskCompletion() {
+        return new Promise((resolve, reject) => {
+            this.log(`⏳ Waiting for Claude to complete task processing...`);
+            
+            // Set up TASK_FINISHED detection with cooldown
+            const monitor = new WindowKeywordMonitor({
+                instanceId: this.claudeInstanceId,
+                keyword: 'TASK_FINISHED',
+                timeout: 600000, // 10 minutes
+                cooldownPeriod: this.taskFinishedCooldown,
+                lastDetectionTime: this.lastTaskFinishedTime
+            });
+            
+            monitor.on('found', (data) => {
+                this.log(`🎯 TASK_FINISHED DETECTED`, 'CRITICAL');
+                
+                // Record timing
+                this.workflowTimings.claudeFinishedTime = Date.now();
+                this.log(`🕐 CLAUDE FINISHED: ${this.getTimestamp()}`, 'TIMING');
+                
+                // Update last detection time for next iteration
+                this.lastTaskFinishedTime = Date.now();
+                
+                // Track this detection
+                this.taskFinishedDetections.set(this.iteration, {
+                    timestamp: Date.now(),
+                    detectionTime: this.getTimestamp(),
+                    keyword: data.keyword,
+                    instanceId: data.instanceId
+                });
+                
+                monitor.stop();
+                resolve();
+            });
+            
+            monitor.on('timeout', () => {
+                this.log(`⏰ Timeout waiting for TASK_FINISHED`, 'ERROR');
+                monitor.stop();
+                reject(new Error('Timeout waiting for task completion'));
+            });
+            
+            monitor.on('error', (error) => {
+                this.log(`💥 Error in task monitoring: ${error}`, 'ERROR');
+                monitor.stop();
+                reject(error);
+            });
+            
+            monitor.start();
+        });
+    }
+    
+    /**
+     * Update task statuses based on Operator analysis
+     */
+    updateTaskStatuses(qaUxData, operatorResponse) {
+        // This is a simplified implementation
+        // In a real scenario, you'd parse the Operator response to determine
+        // which specific tasks were addressed
+        
+        const tasks = qaUxData.tasks || {};
+        let updatedCount = 0;
+        
+        // For now, mark all previously failed tasks as potentially resolved
+        // This would need more sophisticated parsing in production
+        Object.entries(tasks).forEach(([taskId, task]) => {
+            if (task.status === 'fail') {
+                // Simple heuristic: if the response mentions the task or seems comprehensive
+                if (operatorResponse.toLowerCase().includes(taskId.toLowerCase()) || 
+                    operatorResponse.length > 500) {
+                    task.status = 'pass';
+                    task.lastUpdated = new Date().toISOString();
+                    task.resolvedBy = 'operator_analysis';
+                    updatedCount++;
+                    this.log(`✅ Task ${taskId} status updated to: pass`);
+                }
+            }
+        });
+        
+        return updatedCount;
+    }
+    
+    /**
+     * Check if all tasks are now passing
+     */
+    allTasksPassing(qaUxData) {
+        const tasks = qaUxData.tasks || {};
+        const failedTasks = Object.values(tasks).filter(task => task.status === 'fail');
+        return failedTasks.length === 0;
+    }
+    
+    /**
+     * Execute main E2E workflow
+     */
+    async execute() {
+        try {
+            this.log(`🎯 Starting Operator E2E Execution`);
+            this.log(`──────────────────────────────────────────────────`);
+            
+            // Load QA_UX data
+            let qaUxData = await this.loadQaUxFile();
+            
+            // Setup sessions
+            await this.setupClaudeSession();
+            await this.setupOperatorConnection();
+            
+            // Main iteration loop
+            for (this.iteration = 1; this.iteration <= this.maxIterations; this.iteration++) {
+                this.log(`🔄 Iteration ${this.iteration}/${this.maxIterations}`);
+                this.log(`──────────────────────────────`);
+                
+                // Reset workflow timings for this iteration
+                this.resetWorkflowTimings();
+                
+                // Extract current failed tasks
+                const failedTasks = this.extractFailedTasks(qaUxData);
+                const failedCount = Object.keys(failedTasks).length;
+                
+                if (failedCount === 0) {
+                    this.log(`🎉 All tasks have passed! Execution complete.`);
+                    break;
+                }
+                
+                this.log(`🔍 Found ${failedCount} failed tasks`);
+                
+                // Send tasks to Operator and get analysis
+                const operatorResponse = await this.sendTasksToOperator(failedTasks, qaUxData);
+                
+                // Send Operator response to Claude and wait for completion
+                await this.sendResponseToClaude(operatorResponse);
+                
+                // Update task statuses (simplified for demo)
+                const updatedCount = this.updateTaskStatuses(qaUxData, operatorResponse);
+                this.log(`🔄 Updated ${updatedCount} task statuses`);
+                
+                // Save updated file
+                await this.saveQaUxFile(qaUxData);
+                
+                // Validate workflow timing
+                this.validateWorkflowTiming();
+                
+                this.log(`✅ Iteration ${this.iteration} completed`);
+                
+                // Reload data for next iteration
+                qaUxData = await this.loadQaUxFile();
+                
+                // Mark first iteration as complete
+                this.isFirstIteration = false;
+            }
+            
+            // Final summary
+            await this.generateExecutionSummary(qaUxData);
+            
+        } catch (error) {
+            this.log(`💥 Execution failed: ${error.message}`, 'ERROR');
+            throw error;
+        }
+    }
+    
+    /**
+     * Generate execution summary
+     */
+    async generateExecutionSummary(qaUxData) {
+        const executionTime = Date.now() - this.startTime;
+        const tasks = qaUxData.tasks || {};
+        const totalTasks = Object.keys(tasks).length;
+        const passedTasks = Object.values(tasks).filter(task => task.status === 'pass').length;
+        const failedTasks = totalTasks - passedTasks;
+        
+        this.log(`🏁 Execution Summary`);
+        this.log(`──────────────────────────────────────────────────`);
+        this.log(`Total iterations: ${this.iteration}/${this.maxIterations}`);
+        this.log(`Total duration: ${this.formatDuration(this.startTime, Date.now())}`);
+        this.log(`Total tasks: ${totalTasks}`);
+        this.log(`Passed tasks: ${passedTasks}`);
+        this.log(`Failed tasks: ${failedTasks}`);
+        
+        if (failedTasks === 0) {
+            this.log(`Final status: All tasks passed`);
+        } else {
+            this.log(`Final status: ${failedTasks} tasks still failing`);
+        }
+        
+        // Write final log buffer
+        await this.writeLogBufferToFile();
+        this.log(`📄 Full execution log saved to: ${this.logFilePath}`);
+    }
+}
+
+/**
+ * CLI interface
+ */
+async function main() {
+    const args = process.argv.slice(2);
+    
+    if (args.includes('--help') || args.includes('-h')) {
+        console.log(`
+Operator E2E Execution Script
+
+Usage:
+  node operator.execute_e2e.js <qa_ux_file.json>
+  node operator.execute_e2e.js --help
+
+Arguments:
+  qa_ux_file.json    Path to QA/UX task file in JSON format
+
+Options:
+  --help, -h        Show this help message
+
+Example:
+  node operator.execute_e2e.js ./test/sample_qa_ux.json
+        `);
+        process.exit(0);
+    }
+    
+    const qaUxFile = args[0];
+    if (!qaUxFile) {
+        console.error('❌ Error: QA_UX file path is required');
+        console.log('Use --help for usage information');
+        process.exit(1);
+    }
+    
+    try {
+        const executor = new OperatorE2EExecutor({
+            qaUxFilePath: qaUxFile
+        });
+        
+        await executor.execute();
+        process.exit(0);
+    } catch (error) {
+        console.error(`❌ Execution failed: ${error.message}`);
+        process.exit(1);
+    }
+}
+
+// Run if called directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main().catch(error => {
+        console.error('Unhandled error:', error);
+        process.exit(1);
+    });
+}

@@ -1,0 +1,18 @@
+{
+  "maxIterations": 5,
+  "timeouts": {
+    "operator": 600000,
+    "claude": 1200000
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "backoffMultiplier": 2
+  },
+  "monitoring": {
+    "alertThresholds": {
+      "maxConsecutiveFailures": 2,
+      "minSuccessRate": 0.8,
+      "maxMemoryUsageMB": 2048
+    }
+  }
+}
