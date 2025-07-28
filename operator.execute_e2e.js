@@ -66,6 +66,9 @@ class OperatorE2EExecutor {
         
         // Enhanced logging setup
         this.runId = this.generateRunId();
+        
+        // Force iterations flag
+        this.forceAllIterations = false;
         // Note: logFilePath will be updated with project context in execute()
         this.logFilePath = path.join(this.workingDir, 'logs', `e2e_run_${this.runId}.log`);
         this.taskFinishedDetections = new Map(); // Track TASK_FINISHED detections by iteration
@@ -1253,8 +1256,8 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                     console.log('🔌 Setting up fresh Operator connection for this iteration...');
                     await this.setupOperatorConnection();
                 
-                // Check if all tasks have passed
-                if (this.allTasksPassed(qaUxData)) {
+                // Check if all tasks have passed (skip if forcing all iterations)
+                if (!this.forceAllIterations && this.allTasksPassed(qaUxData)) {
                     console.log('🎉 All tasks have passed! Execution complete.');
                     // Cleanup connection before breaking
                     if (this.operatorSender) {
@@ -1266,7 +1269,7 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                 
                 // Step 3: Get failed tasks and send to Operator FIRST
                 const failedTasks = this.getFailedTasks(qaUxData);
-                if (failedTasks.length === 0) {
+                if (!this.forceAllIterations && failedTasks.length === 0) {
                     console.log('✅ No failed tasks found, execution complete');
                     // Cleanup connection before breaking
                     if (this.operatorSender) {
@@ -1276,7 +1279,14 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                     break;
                 }
                 
-                const operatorResponse = await this.sendTasksToOperator(failedTasks);
+                // If forcing iterations but no failed tasks, send all tasks
+                let tasksToSend = failedTasks;
+                if (this.forceAllIterations && failedTasks.length === 0) {
+                    console.log('🔄 Force iterations mode: Sending all tasks for analysis');
+                    tasksToSend = Object.values(qaUxData.tasks || {});
+                }
+                
+                const operatorResponse = await this.sendTasksToOperator(tasksToSend);
                 
                 // Step 4: Send Operator response to Claude via tmux
                 const claudeProcessed = await this.sendOperatorResponseToClaudeAndWait(operatorResponse);
@@ -1457,6 +1467,7 @@ Options:
   --session <name>    Target existing tmux session (e.g., jobboard, claude_auto_123)
   --window <index>    Target specific window in session (e.g., 0, 1, 2)
   --chrome-port <port> Override Chrome debug port (default: auto-detected per project)
+  --force-iterations  Run all 5 iterations even if all tasks pass
 
 Requirements:
   - Chrome running with --remote-debugging-port=9222
@@ -1474,11 +1485,12 @@ Examples:
         process.exit(0);
     }
     
-    // Parse session, window, and chrome-port parameters
+    // Parse session, window, chrome-port, and force-iterations parameters
     let sessionName = null;
     let windowIndex = null;
     let chromePort = null;
     let qaFile = null;
+    let forceIterations = false;
     
     const sessionIndex = args.indexOf('--session');
     if (sessionIndex !== -1 && args[sessionIndex + 1]) {
@@ -1493,6 +1505,11 @@ Examples:
     const chromePortIndex = args.indexOf('--chrome-port');
     if (chromePortIndex !== -1 && args[chromePortIndex + 1]) {
         chromePort = parseInt(args[chromePortIndex + 1]);
+    }
+    
+    // Check for force-iterations flag
+    if (args.includes('--force-iterations')) {
+        forceIterations = true;
     }
     
     // Find the QA file (first argument that isn't a flag or flag value)
@@ -1554,6 +1571,12 @@ Examples:
         targetWindow: windowIndex,
         chromePort: chromePort
     });
+    
+    // Set force iterations flag
+    executor.forceAllIterations = forceIterations;
+    if (forceIterations) {
+        console.log('🔄 Force iterations mode enabled - will run all 5 iterations');
+    }
     
     try {
         await executor.execute();
