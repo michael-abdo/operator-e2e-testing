@@ -25,12 +25,13 @@ import { dirname } from 'path';
 
 // Import existing utilities
 import tmuxUtils from '../workflows/tmux_utils.js';
-import { OperatorMessageSenderWithResponse } from '../operator/send_and_wait_for_response.js';
+import { OperatorMessageSenderWithResponse } from './lib/operator-message-sender.js';
 import workflowUtils from '../workflows/shared/workflow_utils.js';
 import { ChainKeywordMonitor } from '../workflows/chain_keyword_monitor.js';
 import WindowKeywordMonitor from './lib/monitors/WindowKeywordMonitor.js';
 import ProjectManager from './lib/project-manager.js';
 import MultiFormatParser from './lib/file-parsers/MultiFormatParser.js';
+import ConfigLoader from './lib/config-loader.js';
 
 // Import new reliability modules
 import RetryUtility from './lib/retry-utility.js';
@@ -98,8 +99,165 @@ class OperatorE2EExecutor {
         
         // Initialize monitoring and alerting (will be reconfigured with project context in execute())
         this.monitoring = null;
+        
+        // Initialize configuration loader
+        this.configLoader = new ConfigLoader({ 
+            environment: options.environment || process.env.NODE_ENV || 'development',
+            configDir: options.configDir || path.join(__dirname, 'config')
+        });
+        
+        // Load and merge queue management configuration
+        const config = this.configLoader.loadConfig(options);
+        this.queueManagementOptions = this.parseQueueManagementOptions(config, options);
     }
     
+    /**
+     * Parse queue management options from configuration and CLI options
+     */
+    parseQueueManagementOptions(config, cliOptions) {
+        const queueConfig = config.queueManagement || {};
+        
+        // CLI options take precedence over config file
+        return {
+            enableQueueManagement: cliOptions.enableQueueManagement !== undefined 
+                ? cliOptions.enableQueueManagement 
+                : queueConfig.enabled !== false,
+            
+            queueCleanupThreshold: cliOptions.queueCleanupThreshold || 
+                queueConfig.autoCleanup?.threshold || 10,
+            
+            preserveLatestConversations: cliOptions.preserveLatestConversations || 
+                queueConfig.autoCleanup?.preserveLatest || 2,
+            
+            enableQueueAutoCleanup: cliOptions.enableQueueAutoCleanup !== undefined 
+                ? cliOptions.enableQueueAutoCleanup 
+                : queueConfig.autoCleanup?.enabled !== false,
+            
+            cleanupStrategy: cliOptions.cleanupStrategy || 
+                queueConfig.autoCleanup?.strategy || 'smart',
+            
+            cleanupOnIterationComplete: cliOptions.cleanupOnIterationComplete !== undefined 
+                ? cliOptions.cleanupOnIterationComplete 
+                : queueConfig.triggers?.onIterationComplete !== false,
+            
+            cleanupInterval: cliOptions.cleanupInterval || 
+                queueConfig.autoCleanup?.interval || 5,
+            
+            enableMetrics: cliOptions.enableMetrics !== undefined 
+                ? cliOptions.enableMetrics 
+                : queueConfig.metrics?.enabled !== false,
+            
+            metricsDir: cliOptions.metricsDir || 
+                queueConfig.metrics?.metricsDir || './logs/metrics',
+            
+            // Advanced options
+            enableCircuitBreaker: queueConfig.advanced?.enableCircuitBreaker !== false,
+            circuitBreakerThreshold: queueConfig.advanced?.circuitBreakerThreshold || 5,
+            enableValidation: queueConfig.advanced?.enableValidation !== false,
+            backupBeforeCleanup: queueConfig.advanced?.backupBeforeCleanup || false,
+            maxRetries: queueConfig.advanced?.maxRetries || 3,
+            retryDelay: queueConfig.advanced?.retryDelay || 1000,
+            
+            // Strategy configurations
+            strategies: queueConfig.strategies || {},
+            
+            // Memory threshold triggers
+            memoryThresholdEnabled: queueConfig.triggers?.onMemoryThreshold?.enabled || false,
+            memoryThresholdMB: queueConfig.triggers?.onMemoryThreshold?.thresholdMB || 500,
+            
+            // Health check triggers
+            healthCheckTriggersEnabled: queueConfig.triggers?.onHealthCheckFail || false,
+            
+            // Merge any additional queue options
+            ...cliOptions.queueOptions
+        };
+    }
+    
+    /**
+     * Get queue management configuration for OperatorMessageSender
+     */
+    getQueueManagementConfig() {
+        const baseConfig = {
+            // Core queue management options
+            enableQueueManagement: this.queueManagementOptions.enableQueueManagement,
+            queueCleanupThreshold: this.queueManagementOptions.queueCleanupThreshold,
+            preserveLatestConversations: this.queueManagementOptions.preserveLatestConversations,
+            enableQueueAutoCleanup: this.queueManagementOptions.enableQueueAutoCleanup,
+            cleanupStrategy: this.queueManagementOptions.cleanupStrategy,
+            
+            // Metrics and monitoring
+            enableMetrics: this.queueManagementOptions.enableMetrics,
+            metricsDir: this.queueManagementOptions.metricsDir,
+            
+            // Logging integration
+            logger: (message, level = 'info') => this.log(message, level),
+            debug: this.logLevel === 'debug',
+            
+            // Session and connection options
+            port: this.chromePort || 9222,
+            timeout: 30000,
+            maxRetries: 3
+        };
+        
+        // Add project-specific configuration if available
+        if (this.projectContext) {
+            baseConfig.sessionId = this.projectContext.projectId;
+            baseConfig.metricsDir = path.join(this.projectContext.logDir, 'metrics');
+        }
+        
+        this.log(`🔧 Queue management config: ${JSON.stringify(baseConfig, null, 2)}`);
+        
+        return baseConfig;
+    }
+
+    /**
+     * Perform queue cleanup after iteration completion
+     */
+    async performIterationCleanup() {
+        if (!this.queueManagementOptions.cleanupOnIterationComplete || 
+            !this.operatorSender || 
+            !this.queueManagementOptions.enableQueueManagement) {
+            return;
+        }
+
+        // Only cleanup every N iterations based on cleanupInterval
+        if (this.iteration % this.queueManagementOptions.cleanupInterval !== 0) {
+            this.log(`🧹 Skipping queue cleanup - iteration ${this.iteration} not a cleanup interval`);
+            return;
+        }
+
+        try {
+            this.log(`🧹 Performing scheduled queue cleanup after iteration ${this.iteration}`);
+            
+            const queueStatus = await this.operatorSender.getQueueStatus();
+            if (!queueStatus.available) {
+                this.log('⚠️  Queue status not available, skipping cleanup');
+                return;
+            }
+
+            this.log(`📊 Current queue size: ${queueStatus.currentSize}`);
+
+            // Perform cleanup based on strategy
+            const cleanupResult = await this.operatorSender.performManualCleanup(
+                this.queueManagementOptions.cleanupStrategy,
+                {
+                    preserveLatest: this.queueManagementOptions.preserveLatestConversations,
+                    triggerType: 'iteration_complete'
+                }
+            );
+
+            if (cleanupResult.success && cleanupResult.deleted > 0) {
+                this.log(`✅ Queue cleanup completed: deleted ${cleanupResult.deleted} conversations`);
+            } else {
+                this.log(`ℹ️  Queue cleanup completed: no conversations deleted`);
+            }
+
+        } catch (error) {
+            this.log(`❌ Queue cleanup failed: ${error.message}`, 'ERROR');
+            // Don't throw - cleanup failure shouldn't stop the E2E process
+        }
+    }
+
     /**
      * Generate unique run ID for logging
      */
@@ -527,6 +685,10 @@ class OperatorE2EExecutor {
             connectionOptions.chromePort = this.projectContext.chromePort;
             this.log(`🌐 Using project-specific Chrome port: ${this.projectContext.chromePort}`);
         }
+        
+        // Add queue management configuration
+        const queueConfig = this.getQueueManagementConfig();
+        Object.assign(connectionOptions, queueConfig);
         
         this.operatorSender = new OperatorMessageSenderWithResponse(connectionOptions);
         
@@ -1336,6 +1498,9 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                     }
                     
                     console.log(`✅ Iteration ${this.iteration} completed`);
+                    
+                    // Perform queue cleanup if configured
+                    await this.performIterationCleanup();
                     
                     // Validate workflow timing for this iteration
                     this.validateWorkflowTiming();

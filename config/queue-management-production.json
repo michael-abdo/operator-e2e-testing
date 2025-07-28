@@ -1,0 +1,70 @@
+{
+  "environment": "production",
+  "queueManagement": {
+    "enabled": true,
+    "debug": false,
+    "autoCleanup": {
+      "enabled": true,
+      "threshold": 15,
+      "preserveLatest": 5,
+      "interval": 10,
+      "strategy": "smart"
+    },
+    "triggers": {
+      "onIterationComplete": true,
+      "onHealthCheckFail": true,
+      "onMemoryThreshold": {
+        "enabled": true,
+        "thresholdMB": 750
+      }
+    },
+    "strategies": {
+      "smart": {
+        "preserveErrors": true,
+        "preservePatterns": ["error", "investigating", "debugging", "critical"],
+        "deletePatterns": ["completed", "finished", "resolved", "success"],
+        "maxAge": 120,
+        "dryRun": false
+      },
+      "age": {
+        "maxAgeMinutes": 60,
+        "preserveLatest": 5
+      },
+      "emergency": {
+        "targetReduction": 0.7,
+        "preserveLatest": 3,
+        "forceCleanup": false
+      }
+    },
+    "metrics": {
+      "enabled": true,
+      "exportFormats": ["json", "prometheus"],
+      "retentionDays": 90,
+      "realtimeUpdates": false,
+      "detailedLogging": false
+    },
+    "advanced": {
+      "enableCircuitBreaker": true,
+      "circuitBreakerThreshold": 3,
+      "enableValidation": true,
+      "backupBeforeCleanup": false,
+      "maxRetries": 5,
+      "retryDelay": 2000
+    },
+    "monitoring": {
+      "enableAlerts": true,
+      "alertWebhook": null,
+      "healthCheckInterval": 60000,
+      "performanceThresholds": {
+        "maxCleanupTime": 10000,
+        "maxQueueSize": 50,
+        "minSuccessRate": 0.95
+      }
+    }
+  },
+  "security": {
+    "enableAuditLogging": true,
+    "restrictDeletionPatterns": true,
+    "requireConfirmation": false
+  }
+}

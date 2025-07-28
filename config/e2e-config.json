@@ -14,5 +14,59 @@
       "minSuccessRate": 0.8,
       "maxMemoryUsageMB": 2048
     }
+  },
+  "queueManagement": {
+    "enabled": true,
+    "autoCleanup": {
+      "enabled": true,
+      "threshold": 10,
+      "preserveLatest": 2,
+      "interval": 5,
+      "strategy": "smart"
+    },
+    "triggers": {
+      "onIterationComplete": true,
+      "onHealthCheckFail": true,
+      "onMemoryThreshold": {
+        "enabled": true,
+        "thresholdMB": 500
+      }
+    },
+    "strategies": {
+      "smart": {
+        "preserveErrors": true,
+        "preservePatterns": ["error", "investigating", "debugging"],
+        "deletePatterns": ["completed", "finished", "resolved"],
+        "maxAge": 60
+      },
+      "age": {
+        "maxAgeMinutes": 30,
+        "preserveLatest": 2
+      },
+      "pattern": {
+        "patterns": ["completed", "finished"],
+        "caseSensitive": false,
+        "exactMatch": false
+      },
+      "emergency": {
+        "targetReduction": 0.8,
+        "preserveLatest": 1,
+        "forceCleanup": true
+      }
+    },
+    "metrics": {
+      "enabled": true,
+      "exportFormats": ["json", "csv", "prometheus"],
+      "retentionDays": 30,
+      "realtimeUpdates": true
+    },
+    "advanced": {
+      "enableCircuitBreaker": true,
+      "circuitBreakerThreshold": 5,
+      "enableValidation": true,
+      "backupBeforeCleanup": false,
+      "maxRetries": 3,
+      "retryDelay": 1000
+    }
   }
 }

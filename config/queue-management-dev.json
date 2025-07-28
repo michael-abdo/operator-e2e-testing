@@ -1,0 +1,55 @@
+{
+  "environment": "development",
+  "queueManagement": {
+    "enabled": true,
+    "debug": true,
+    "autoCleanup": {
+      "enabled": true,
+      "threshold": 5,
+      "preserveLatest": 3,
+      "interval": 2,
+      "strategy": "smart"
+    },
+    "triggers": {
+      "onIterationComplete": true,
+      "onHealthCheckFail": false,
+      "onMemoryThreshold": {
+        "enabled": false,
+        "thresholdMB": 1000
+      }
+    },
+    "strategies": {
+      "smart": {
+        "preserveErrors": true,
+        "preservePatterns": ["error", "investigating", "debugging", "testing"],
+        "deletePatterns": ["completed", "test", "demo"],
+        "maxAge": 30,
+        "dryRun": false
+      },
+      "age": {
+        "maxAgeMinutes": 15,
+        "preserveLatest": 3
+      }
+    },
+    "metrics": {
+      "enabled": true,
+      "exportFormats": ["json"],
+      "retentionDays": 7,
+      "realtimeUpdates": true,
+      "detailedLogging": true
+    },
+    "advanced": {
+      "enableCircuitBreaker": false,
+      "circuitBreakerThreshold": 10,
+      "enableValidation": true,
+      "backupBeforeCleanup": true,
+      "maxRetries": 2,
+      "retryDelay": 500
+    }
+  },
+  "testing": {
+    "enableMockCleanup": true,
+    "simulateFailures": false,
+    "verboseLogging": true
+  }
+}
