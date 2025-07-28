@@ -46,7 +46,7 @@ const __dirname = dirname(__filename);
 class OperatorE2EExecutor {
     constructor(options = {}) {
         this.qaUxFilePath = options.qaUxFilePath;
-        this.maxIterations = options.maxIterations || 5;
+        this.maxIterations = options.maxIterations || 10;  // Default to 10 iterations
         this.workingDir = options.workingDir || process.cwd();
         this.targetSession = options.targetSession || null;
         this.targetWindow = options.targetWindow || null;
@@ -1287,6 +1287,31 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
                 
                 const operatorResponse = await this.sendTasksToOperator(tasksToSend);
                 
+                // Check if Operator indicates QA is complete
+                if (operatorResponse.includes('QA Status: Complete')) {
+                    console.log('🎉 QA Status: Complete detected! All tests passed.');
+                    console.log('✅ Exiting E2E loop early - QA verification successful');
+                    
+                    // Mark all tasks as passed if QA is complete
+                    Object.keys(qaUxData.tasks || {}).forEach(taskId => {
+                        if (qaUxData.tasks[taskId]) {
+                            qaUxData.tasks[taskId].status = 'pass';
+                            qaUxData.tasks[taskId].qaComplete = true;
+                            qaUxData.tasks[taskId].lastUpdated = new Date().toISOString();
+                        }
+                    });
+                    
+                    // Save the updated file and exit
+                    await this.saveQaUxFile(qaUxData);
+                    
+                    if (this.operatorSender) {
+                        await this.operatorSender.disconnect();
+                        this.operatorSender = null;
+                    }
+                    
+                    break;
+                }
+                
                 // Step 4: Send Operator response to Claude via tmux
                 const claudeProcessed = await this.sendOperatorResponseToClaudeAndWait(operatorResponse);
                 
@@ -1460,13 +1485,14 @@ Description:
   3. Sends failed tasks to Claude Code for analysis
   4. Forwards Claude's response to Operator for additional analysis
   5. Updates task statuses based on responses
-  6. Repeats until all tasks pass or 5 iterations reached
+  6. Repeats until all tasks pass, "QA Status: Complete" detected, or max iterations reached
 
 Options:
   --session <name>    Target existing tmux session (e.g., jobboard, claude_auto_123)
   --window <index>    Target specific window in session (e.g., 0, 1, 2)
   --chrome-port <port> Override Chrome debug port (default: auto-detected per project)
-  --force-iterations  Run all 5 iterations even if all tasks pass
+  --force-iterations  Run all iterations even if all tasks pass
+  --iterations <n>    Set number of iterations (default: 10)
 
 Requirements:
   - Chrome running with --remote-debugging-port=9222
@@ -1484,12 +1510,13 @@ Examples:
         process.exit(0);
     }
     
-    // Parse session, window, chrome-port, and force-iterations parameters
+    // Parse session, window, chrome-port, force-iterations, and iterations parameters
     let sessionName = null;
     let windowIndex = null;
     let chromePort = null;
     let qaFile = null;
     let forceIterations = false;
+    let iterations = null;
     
     const sessionIndex = args.indexOf('--session');
     if (sessionIndex !== -1 && args[sessionIndex + 1]) {
@@ -1509,6 +1536,16 @@ Examples:
     // Check for force-iterations flag
     if (args.includes('--force-iterations')) {
         forceIterations = true;
+    }
+    
+    // Parse iterations parameter
+    const iterationsIndex = args.indexOf('--iterations');
+    if (iterationsIndex !== -1 && args[iterationsIndex + 1]) {
+        iterations = parseInt(args[iterationsIndex + 1]);
+        if (isNaN(iterations) || iterations < 1) {
+            console.error('❌ Invalid iterations value. Must be a positive number.');
+            process.exit(1);
+        }
     }
     
     // Find the QA file (first argument that isn't a flag or flag value)
@@ -1574,7 +1611,13 @@ Examples:
     // Set force iterations flag
     executor.forceAllIterations = forceIterations;
     if (forceIterations) {
-        console.log('🔄 Force iterations mode enabled - will run all 5 iterations');
+        console.log(`🔄 Force iterations mode enabled - will run all ${iterations || 10} iterations`);
+    }
+    
+    // Set custom iterations if provided
+    if (iterations) {
+        executor.maxIterations = iterations;
+        console.log(`🔢 Custom iterations set: ${iterations}`);
     }
     
     try {

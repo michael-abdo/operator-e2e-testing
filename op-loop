@@ -32,6 +32,7 @@ USAGE:
   op-loop <qa-file> --session <name> --window <window>  Target specific window
   op-loop <qa-file> --session <name:window>  Combined session:window format
   op-loop <qa-file> --chrome-port <port>  Override Chrome debug port
+  op-loop <qa-file> --iterations <n>  Set number of iterations (default: 10)
   op-loop setup                   Setup multi-project infrastructure
   op-loop dashboard               Launch real-time monitoring dashboard
   op-loop verify                  Verify system setup
@@ -46,6 +47,8 @@ EXAMPLES:
   op-loop qa/bugs.json --session jobboard --window remote  # Target specific window
   op-loop qa/bugs.json --session jobboard:remote  # Combined format
   op-loop qa/bugs.json --chrome-port 9222  # Use specific Chrome port
+  op-loop qa/bugs.json --iterations 15  # Run 15 iterations instead of default 10
+  op-loop qa/bugs.json --force-iterations  # Run all iterations even if tasks pass
   op-loop setup                   # Setup tmux orchestrator
   op-loop dashboard               # Monitor projects
 
