@@ -312,6 +312,13 @@ class OperatorE2EExecutor {
      */
     async saveQaUxFile(qaUxData) {
         try {
+            // Skip saving if the source is a GitHub URL
+            if (this.qaUxFilePath.startsWith('https://github.com/')) {
+                console.log(`📝 Skipping save for GitHub URL source: ${this.qaUxFilePath}`);
+                console.log(`💡 Changes would need to be committed to the repository`);
+                return;
+            }
+            
             const jsonContent = JSON.stringify(qaUxData, null, 2);
             await fs.writeFile(this.qaUxFilePath, jsonContent, 'utf8');
             console.log(`💾 Saved updated QA_UX file`);
