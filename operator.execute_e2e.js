@@ -922,14 +922,6 @@ Say TASK_FINISHED only when ALL fixes are complete, deployed, and live.`;
             await fs.writeFile('./operator_response_debug.txt', operatorResponse, 'utf8');
             console.log('💾 Full Operator response saved to operator_response_debug.txt');
             
-            // Run /compact to clear stale TASK_FINISHED messages while preserving context
-            console.log('🧹 Running /compact to clear stale outputs while preserving context...');
-            await execAsync(`tmux send-keys -t ${this.claudeInstanceId} '/compact' Enter`);
-            // Wait and send Enter again to ensure /compact executes
-            await this.sleep(2000);
-            await execAsync(`tmux send-keys -t ${this.claudeInstanceId} Enter`);
-            await this.sleep(3000); // Wait for compact to complete
-            console.log('✅ /compact completed with double Enter - ready for fresh TASK_FINISHED detection');
             
             // Use WindowKeywordMonitor to wait for Claude to finish
             console.log('⏳ Waiting for Claude to process Operator response and say TASK_FINISHED...');
